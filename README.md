@@ -123,7 +123,7 @@ openflow instance { instance-name | aggregate } flow-location hardware-only
 
 + 6. Configure software and hardware rate limiting
 ```Bash
-openflow instance { instance-name | aggregate } limit { hardware-rate kbps | software-rate pps }
+openflow instance instance-name limit { hardware-rate kbps | software-rate pps }
 ```
 > kbps: Default: 0; Range: 0 — 10,000,000;
 > pps: Limits the number of packets per second per module that this instance can send to the software path. Default: 100 ppsRange: 1 — 10,000 pps;
