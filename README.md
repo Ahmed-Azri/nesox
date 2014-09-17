@@ -114,21 +114,24 @@ openflow instance { instance-name | aggregate } flow-location hardware-only
 ```
 > An error is returned to the controller if the flow cannot be added in hardware and the flow-location is set as hardware-only.
 
-
 + 6. Configure software and hardware rate limiting
+```Bash
 
+```
 
 + 7. Configure listener ports: listen for incoming connections from an OpenFlow controller
 ```Bash
 openflow instance { instance-name | aggregate } listen-port [tcp-port] [oobm]
 ```
+
 + 8. Configure controller IP and port
 ```Bash
 openflow controller-id <id> [ip <ip-address>] [port <tcp-port>] controller-interface { vlan <vlan-id> | oobm }
 ```
 
-
 + 9. Configure policy engine resources
+
+
 
 
 Testbed Configuration
