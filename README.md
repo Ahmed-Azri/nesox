@@ -22,8 +22,8 @@ It is a good choice based on which to implement Nesox if one is written in C/C++
 However, nowadays, high-level languages are also used in prototype system software (e.g., distributed systems),
 such as Spark in Scala, Jane Street using OCaml, Goldman Sach using Erlang, etc.
 
-Ryu controller framework is relatively a slow runtime, however, its support of growing Open Flow protocols is nearly the best in open source community.
-Open Flow v1.3.1 is supported by Ryu in the following file "/ryu/ryu/ofproto/ofproto_v1_3_parser.py", 5908 lines of code reflecting its amount of work,
+Ryu controller framework is relatively a slow runtime, however, its support of growing OpenFlow protocols is nearly the best in open source community.
+OpenFlow v1.3.1 is supported by Ryu in the following file "/ryu/ryu/ofproto/ofproto_v1_3_parser.py", 5908 lines of code reflecting its amount of work,
 (actually a translation from ONF .c file to .py file fitted into its own framework).
 
 > Currently, Nesox only runs on Ryu.
@@ -64,6 +64,25 @@ Copyright (C) 1991-2014 Hewlett-Packard Development Company, L.P.
                    20555 State Highway 249, Houston, TX 77070
 
 Press any key to continue
+
+
+**OpenFlow v1.3 Support**
+
+Since **K/KA/WB 15.14**, HP Added OpenFlow v1.3 support.
+The Switch Software Version is now updated to **WB.15.14.0007** from factory setup.
+This update step is ignored here, interested readers could retrieve help from HP website.
+
+
+
+**Important OpenFlow features supported by HP2920**
+* Multiple Flow tables: **Pipeline processing**
+* Auxiliary connections
+* Multiple controllers
+* Rate-limiting the amount of OpenFlow traffic sent to the controller
+
+**Unsupported OpenFlow features**
+* Set-Queue action
+
 
 
 Testbed Configuration
