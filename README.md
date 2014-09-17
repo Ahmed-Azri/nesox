@@ -87,7 +87,7 @@ This update step is ignored here, interested readers could retrieve help from HP
 **OpenFlow Configuration**
 + 1. Enable OpenFlow:
 
-```shell
+```Bash
 openflow
 openflow instance instance-name
 openflow instance instance-name enable
@@ -118,12 +118,13 @@ This command line will run up the nesox scheduler and print output on screen.
 
 
 
-[Markdown]
-[Ryu SDN Framework]
-[3]
 
 Reference
 ---------
+[1]
+[2]
+[3]
+
 [1]: http://daringfireball.net/projects/markdown/syntax "Markdown"
 [2]: http://osrg.github.io/ryu/ "Ryu SDN Framework"
 [3]: http://h17007.www1.hp.com/us/en/networking/products/switches/HP_2920_Switch_Series/index.aspx "HP2920 Switch Series"
