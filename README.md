@@ -91,8 +91,8 @@ This update step is ignored here, interested readers could retrieve help from HP
 4. Set OpenFlow instance mode
 5. Set Flow location
 6. Configure software and hardware rate limiting
-7. Configure listener ports
-8. Configure controller IP and port
+7. 	Configure listener ports
+8. 	Configure controller IP and port
 9. Configure policy engine resources
 
 
