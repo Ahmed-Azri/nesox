@@ -156,6 +156,10 @@ This command line will run up the nesox scheduler and print output on screen.
 
 Reference
 ---------
+[Markdown Syntax][1]
+[Ryu SDN Framework][2]
+[HP2920 Switch Series][3]
+
 [1]: http://daringfireball.net/projects/markdown/syntax "Markdown"
 [2]: http://osrg.github.io/ryu/ "Ryu SDN Framework"
 [3]: http://h17007.www1.hp.com/us/en/networking/products/switches/HP_2920_Switch_Series/index.aspx "HP2920 Switch Series"
