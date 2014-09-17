@@ -38,14 +38,17 @@ We'd like to keep you up to date about:
   * Software feature updates
   * New product announcements
   * Special events
+
 Please register your products now at:  www.hp.com/networking/register
 
 
 manager@switch's password:
+
 HP J9726A 2920-24G Switch
 Software revision WB.15.14.0007
 
 Copyright (C) 1991-2014 Hewlett-Packard Development Company, L.P.
+
 
                    RESTRICTED RIGHTS LEGEND
  Confidential computer software.  Valid license from HP required for possession,
@@ -53,6 +56,7 @@ Copyright (C) 1991-2014 Hewlett-Packard Development Company, L.P.
  Software, Computer Software Documentation, and Technical Data for Commercial
  Items are licensed to the U.S. Government under vendor's standard commercial
  license.
+
                    HEWLETT-PACKARD DEVELOPMENT COMPANY, L.P.
                    20555 State Highway 249, Houston, TX 77070
 
