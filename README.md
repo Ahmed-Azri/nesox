@@ -240,10 +240,10 @@ controller | 202.45.128.169 | 0 | Green
 
 ### VLAN Configuration
 
-| VLAN Name | Ports |
-|----------:|-------|
-titan | 1 2 3 4 |
-nesox | 5 6 7 8 |
+| VLAN Name | Ports | Port Bank ID|
+|----------:|-------|--------------|
+lan1 | 1 2 3 4 | 1
+lan2 | 5 6 7 8 | 1
 
 
 
