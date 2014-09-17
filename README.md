@@ -248,7 +248,7 @@ Nesox Data Plane
 
 ### Flow Tables
 | Table ID. | Function |
-|-----------|----------|
+|----------:|---------:|
 100 | Policy Engine Table
 200 | Service Dispatching Table
 201 | Dynamic Flow Scheduling Table
