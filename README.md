@@ -131,9 +131,29 @@ controller-interface { vlan <vlan-id> | oobm }
 openflow instance { instance-name | aggregate } controller-id controller-ID
 ```
 > A VLAN that is a member of an OpenFlow instance cannot be added as an OpenFlow controller interface.
-
+> When an OpenFlow controller is associated with an OpenFlow instance it cannot be deleted.
 
 + 9. Configure policy engine resources
+
+
++ 10. **Configuring number of software flow tables per instance**
+```Bash
+openflow-instance-name # software-flow-table value
+```
+> Default: 1, Range: 1–4
+> Only applicable for an OpenFlow version 1.3 instance.
+
++ 11. Setting maximum backoff interval for an instance
+```Bash
+openflow instance { instance-name | aggregate } max-backoff-interval secs
+```
+> Default: 60 secondsRange: 1 — 3600 seconds
+
++ 12. Configuring IP Control Table Mode
+```Bash
+openflow# ip-control-table-mode
+```
+> Include IP control table in the OpenFlow packet processing pipeline. Default disabled.
 
 
 
