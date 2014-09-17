@@ -22,10 +22,18 @@ HP2920 Switch
 -------------
 
 
+Run Nesox Scheduler
+-------------------
+To run the (ryu-based, maybe nox-based in near future and/or others) nesox scheduler::
+
+	% ryu-manager ryu-nesox.py
+
+This command line will run up the nesox scheduler and print output on screen.
+
+
 
 Reference
 ---------
 [Ryu SDN Framework](http://osrg.github.io/ryu/)
 [HP2920 Switch Series](http://h17007.www1.hp.com/us/en/networking/products/switches/HP_2920_Switch_Series/index.aspx)
-
 
