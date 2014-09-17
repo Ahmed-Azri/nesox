@@ -240,10 +240,27 @@ controller | 202.45.128.169 | 0 | Green
 
 ### VLAN Configuration
 
-| VLAN Name | Ports | Port Bank ID|
-|----------:|-------|--------------|
-lan1 | 1 2 3 4 | 1
-lan2 | 5 6 7 8 | 1
+**targeting vlan table**
+| VLAN Name | Ports | Bank ID |
+|----------:|-------|:-------:|
+vlan1 | 1 2 3 4 | 1
+vlan2 | 5 6 7 8 | 1
+
+
+Initial VLAN Configuration
+
+	HP-2920-24G(config)# show vlan
+
+	 Status and Counters - VLAN Information
+
+	  Maximum VLANs to support : 256
+	  Primary VLAN : DEFAULT_VLAN
+	  Management VLAN :
+
+	  VLAN ID Name                             | Status     Voice Jumbo
+	  ------- -------------------------------- + ---------- ----- -----
+	  1       DEFAULT_VLAN                     | Port-based No    No
+
 
 
 
