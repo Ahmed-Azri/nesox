@@ -221,7 +221,8 @@ Testbed Configuration
 ### Cluster Nodes Configuration (hostname-to-IP-to-port)
 | Machine Node | IP address | Port No. | Line Color |
 |-------------:|------------|:--------:|:----------:|
-debian0 | 202.45.128.160 | 0 |
+switch  | 202.45.128.168 | 0 | Red
+debian0 | 202.45.128.160 | 0 | White
 debian1 | 202.45.128.161 | 1 | White
 debian2 | 202.45.128.162 | 2 | Green
 debian3 | 202.45.128.163 | 3 | Red
@@ -230,9 +231,8 @@ d0      | 202.45.128.170 | 0 |
 d1      | 202.45.128.171 | 5 | Red
 d2      | 202.45.128.172 | 6 | Green
 d3      | 202.45.128.173 | 6 | Blue
-d4      | 202.45.128.174 | 8 | Yello
-switch  | 202.45.128.168 | 0 |
-controller | 202.45.128.169 | 0 |
+d4      | 202.45.128.174 | 8 | Yellow
+controller | 202.45.128.169 | 0 | Green
 
 > Note: **Port No.** indicates physical port corresponding to a hardware interface of the switch in this context.
 > Port No. = 0 means it is not significant!
