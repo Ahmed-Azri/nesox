@@ -88,6 +88,10 @@ This update step is ignored here, interested readers could retrieve help from HP
 
 ### OpenFlow Configuration
 
+A number of configurations of the switch affect the OpenFlow behaviour.
+What listed bellow are some important ones, others which are not directly related to the **OpenFlow** are not included.
+Please refer to the [HP Switch Website][3] for the readers' own interests.
+
 + 1. Enable OpenFlow
 ```Bash
 openflow
