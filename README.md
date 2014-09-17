@@ -265,6 +265,7 @@ controller | 202.45.128.169 | 0 | Green
 > This is the factory default state, in which all ports on the switch belong to the (port-based) default VLAN (DEFAULT_VLAN; VID = 1) and are in the same **broadcast/multicast domain**.
 > (The default VLAN is also the Primary VLAN.)
 
+
 **Detail information of DEFAULT_VLAN**
 
 	HP-2920-24G(config)# show vlans 1
@@ -290,6 +291,7 @@ controller | 202.45.128.169 | 0 | Green
 	  ...
 > Note this list is incomplete!
 
+
 **Create VLAN 100**
 
 	HP-2920-24G(config)# vlan 100
@@ -306,6 +308,7 @@ controller | 202.45.128.169 | 0 | Green
 	  1       DEFAULT_VLAN                     | Port-based No    No
 	  100     VLAN100                          | Port-based No    No
 
+> Note: use `no vlan VLAN-ID` to delete a specific VLAN.
 
 
 ### OpenFlow Instance
