@@ -226,15 +226,16 @@ debian1 | 202.45.128.161 | 1 | White
 debian2 | 202.45.128.162 | 2 | Green
 debian3 | 202.45.128.163 | 3 | Red
 debian4 | 202.45.128.164 | 4 | Yellow
-d0      | 202.45.128.170 | 5 |
-d1      | 202.45.128.171 | 6 | Red
-d2      | 202.45.128.172 | 7 | Green
-d3      | 202.45.128.173 | 8 | Blue
-d4      | 202.45.128.174 | 9 | Yello
+d0      | 202.45.128.170 | 0 |
+d1      | 202.45.128.171 | 5 | Red
+d2      | 202.45.128.172 | 6 | Green
+d3      | 202.45.128.173 | 6 | Blue
+d4      | 202.45.128.174 | 8 | Yello
 switch  | 202.45.128.168 | 0 |
 controller | 202.45.128.169 | 0 |
 
 > Note: **Port No.** indicates physical port corresponding to a hardware interface of the switch in this context.
+> Port No. = 0 means it is not significant!
 
 
 
