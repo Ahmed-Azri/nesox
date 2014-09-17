@@ -218,7 +218,6 @@ Testbed Configuration
 	                                                       Missed  : 0
 
 
-![2920 image][5]
 
 ### Static VLAN
 
@@ -244,6 +243,7 @@ Reference
 [HP2920 Switch Series][3] |
 [Ryu at Gibhub][4]
 
+![2920 image][5]
 
 
 
