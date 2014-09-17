@@ -126,7 +126,7 @@ openflow instance { instance-name | aggregate } flow-location hardware-only
 openflow instance instance-name limit { hardware-rate kbps | software-rate pps }
 ```
 > kbps: Default: 0; Range: 0 — 10,000,000;
-> pps: Limits the number of packets per second per module that this instance can send to the software path. Default: 100 ppsRange: 1 — 10,000 pps;
+> pps: Limits the number of packets per second per module that this instance can send to the software path. Default: 100 pps Range: 1 — 10,000 pps;
 > Note: Increasing the software rate limit increases CPU consumption and may impact system performance.
 
 
@@ -246,7 +246,7 @@ controller | 202.45.128.169 |
 Nesox Data Plane
 ----------------
 
-### Flow Tables
+### Flow Tables (standard mode)
 | Table ID. | Function |
 |----------:|---------:|
 100 | Policy Engine Table
@@ -255,6 +255,9 @@ Nesox Data Plane
 202 | Flow Rate Limiting Table
 203 | MAC Learning Table
 999 | Terminate Processing
+
+> Note: Functional arrangemnts of pipelined flow tables under "IP control table mode" are different and more complicated.
+> Nesox currently does not utilize that feature!
 
 
 Run Nesox Scheduler
