@@ -86,9 +86,11 @@ This update step is ignored here, interested readers could retrieve help from HP
 
 **OpenFlow Configuration**
 + 1. Enable OpenFlow
+
 	openflow
 	openflow instance <instance-name>
 	openflow instance <instance-name> enable
+
 + 2. Configure OpenFlow instances
 + 3. Configure OpenFlow instance members
 + 4. Set OpenFlow instance mode
