@@ -32,8 +32,10 @@ OpenFlow v1.3.1 is supported by Ryu in the following file "/ryu/ryu/ofproto/ofpr
 HP2920 Switch
 -------------
 
-**How to login the switch**
+### First Things First
 
+
+**How to login the switch**
 
 [root@debian0][140917111817][/root]ssh manager@switch
 
@@ -84,7 +86,7 @@ This update step is ignored here, interested readers could retrieve help from HP
 * Set-Queue action
 
 
-**OpenFlow Configuration**
+### OpenFlow Configuration
 
 + 1. Enable OpenFlow
 ```Bash
