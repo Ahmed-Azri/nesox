@@ -262,8 +262,33 @@ vlan2 | 5 6 7 8 | 1
 	  ------- -------------------------------- + ---------- ----- -----
 	  1       DEFAULT_VLAN                     | Port-based No    No
 
-> This is the factory default state, in which all ports on the switch belong to the (port-based) default VLAN (DEFAULT_VLAN; VID = 1) and are in the same broadcast/ multicast domain.
+> This is the factory default state, in which all ports on the switch belong to the (port-based) default VLAN (DEFAULT_VLAN; VID = 1) and are in the same **broadcast/multicast domain**.
 > (The default VLAN is also the Primary VLAN.)
+
+**Detail information of DEFAULT_VLAN**
+
+	HP-2920-24G(config)# show vlans 1
+
+	 Status and Counters - VLAN Information - VLAN 1
+
+	  VLAN ID : 1
+	  Name : DEFAULT_VLAN
+	  Status : Port-based
+	  Voice : No
+	  Jumbo : No
+
+	  Port Information Mode     Unknown VLAN Status
+	  ---------------- -------- ------------ ----------
+	  1                Untagged Learn        Up
+	  2                Untagged Learn        Up
+	  3                Untagged Learn        Up
+	  4                Untagged Learn        Up
+	  5                Untagged Learn        Up
+	  6                Untagged Learn        Up
+	  7                Untagged Learn        Up
+	  8                Untagged Learn        Up
+	  ...
+> Note this list is incomplete!
 
 
 ### OpenFlow Instance
