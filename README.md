@@ -26,13 +26,14 @@ Ryu controller framework is relatively a slow runtime, however, its support of g
 Open Flow v1.3.1 is supported by Ryu in the following file "/ryu/ryu/ofproto/ofproto_v1_3_parser.py", 5908 lines of code reflecting its amount of work,
 (actually a translation from ONF .c file to .py file fitted into its own framework).
 
-Currently, Nesox only runs on Ryu.
+> Currently, Nesox only runs on Ryu.
 
 
 HP2920 Switch
 -------------
 
-How to login the switch
+*** How to login the switch ***
+
 
 [root@debian0][140917111817][/root]ssh manager@switch
 
@@ -84,6 +85,7 @@ This command line will run up the nesox scheduler and print output on screen.
 
 Reference
 ---------
-[Ryu SDN Framework](http://osrg.github.io/ryu/)
+
+[Ryu SDN Framework](http://osrg.github.io/ryu/) \\
 [HP2920 Switch Series](http://h17007.www1.hp.com/us/en/networking/products/switches/HP_2920_Switch_Series/index.aspx)
 
