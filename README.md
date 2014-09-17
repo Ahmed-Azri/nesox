@@ -134,11 +134,12 @@ openflow instance { instance-name | aggregate } controller-id controller-ID
 > When an OpenFlow controller is associated with an OpenFlow instance it cannot be deleted.
 
 + 9. Configure policy engine resources
-
+```Bash
+```
 
 + 10. **Configuring number of software flow tables per instance**
 ```Bash
-openflow-instance-name # software-flow-table value
+openflow-instance-name# software-flow-table value
 ```
 > Default: 1, Range: 1–4
 > Only applicable for an OpenFlow version 1.3 instance.
