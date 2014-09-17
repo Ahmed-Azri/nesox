@@ -252,6 +252,6 @@ Reference
 [2]: http://osrg.github.io/ryu/ "Ryu SDN Framework"
 [3]: http://h17007.www1.hp.com/us/en/networking/products/switches/HP_2920_Switch_Series/index.aspx "HP2920 Switch Series"
 [4]: https://github.com/osrg/ryu "Ryu at Github"
-[5]: /Nesox/images/2920_FT.jpg "2920 image"
+[5]: ./images/2920_FT.jpg "2920 image"
 
 
