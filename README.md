@@ -85,12 +85,12 @@ This update step is ignored here, interested readers could retrieve help from HP
 
 
 **OpenFlow Configuration**
-+ 1. Enable OpenFlow
++ 1. Enable OpenFlow:
 
-```
-	openflow
-	openflow instance instance-name
-	openflow instance instance-name enable
+```shell
+openflow
+openflow instance instance-name
+openflow instance instance-name enable
 ```
 
 + 2. Configure OpenFlow instances
@@ -118,7 +118,9 @@ This command line will run up the nesox scheduler and print output on screen.
 
 
 
-
+[Markdown]
+[Ryu SDN Framework]
+[3]
 
 Reference
 ---------
