@@ -34,6 +34,7 @@ HP2920 Switch
 How to login the switch
 
 [root@debian0][140917111817][/root]ssh manager@switch
+
 We'd like to keep you up to date about:
   * Software feature updates
   * New product announcements
@@ -51,11 +52,11 @@ Copyright (C) 1991-2014 Hewlett-Packard Development Company, L.P.
 
 
                    RESTRICTED RIGHTS LEGEND
- Confidential computer software.  Valid license from HP required for possession,
- use or copying. Consistent with FAR 12.211 and 12.212, Commercial Computer
- Software, Computer Software Documentation, and Technical Data for Commercial
- Items are licensed to the U.S. Government under vendor's standard commercial
- license.
+	Confidential computer software.  Valid license from HP required for possession,
+	use or copying. Consistent with FAR 12.211 and 12.212, Commercial Computer
+	Software, Computer Software Documentation, and Technical Data for Commercial
+	Items are licensed to the U.S. Government under vendor's standard commercial
+	license.
 
                    HEWLETT-PACKARD DEVELOPMENT COMPANY, L.P.
                    20555 State Highway 249, Houston, TX 77070
