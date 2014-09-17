@@ -241,6 +241,7 @@ controller | 202.45.128.169 | 0 | Green
 ### VLAN Configuration
 
 **targeting vlan table**
+
 | VLAN Name | Ports | Bank ID |
 |----------:|-------|:-------:|
 vlan1 | 1 2 3 4 | 1
