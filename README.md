@@ -126,8 +126,12 @@ openflow instance { instance-name | aggregate } listen-port [tcp-port] [oobm]
 
 + 8. Configure controller IP and port
 ```Bash
-openflow controller-id <id> [ip <ip-address>] [port <tcp-port>] controller-interface { vlan <vlan-id> | oobm }
+openflow controller-id <id> [ip <ip-address>] [port <tcp-port>]
+controller-interface { vlan <vlan-id> | oobm }
+openflow instance { instance-name | aggregate } controller-id controller-ID
 ```
+> A VLAN that is a member of an OpenFlow instance cannot be added as an OpenFlow controller interface.
+
 
 + 9. Configure policy engine resources
 
