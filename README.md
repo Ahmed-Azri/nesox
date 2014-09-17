@@ -218,8 +218,12 @@ Testbed Configuration
 	                                                       Missed  : 0
 
 
+![2920 image][5]
+
+### Static VLAN
 
 
+### OpenFlow Instance
 
 
 Run Nesox Scheduler
@@ -231,9 +235,6 @@ To run the (ryu-based, maybe nox-based in near future and/or others) nesox sched
 This command line will run up the nesox scheduler and print output on screen.
 
 
-### Static VLAN
-
-### OpenFlow Instance
 
 
 Reference
@@ -246,7 +247,11 @@ Reference
 
 
 
+
 [1]: http://daringfireball.net/projects/markdown/syntax "Markdown"
 [2]: http://osrg.github.io/ryu/ "Ryu SDN Framework"
 [3]: http://h17007.www1.hp.com/us/en/networking/products/switches/HP_2920_Switch_Series/index.aspx "HP2920 Switch Series"
 [4]: https://github.com/osrg/ryu "Ryu at Github"
+[5]: /Nesox/images/2920_FT.jpg "2920 image"
+
+
