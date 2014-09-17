@@ -116,8 +116,12 @@ openflow instance { instance-name | aggregate } flow-location hardware-only
 
 + 6. Configure software and hardware rate limiting
 ```Bash
+openflow instance { instance-name | aggregate } limit { hardware-rate kbps | software-rate pps }
 
 ```
+> kbps: Limit the bandwidth that can be utilized by an OpenFlow instance. Default: 0 kbpsRange 0 — 10,000,000 kbps
+> pps Configure the OpenFlow instance packet rate limit. Limits the number of packets per second per module that this instance can send to the software path. Default: 100 ppsRange: 1 — 10,000 pps
+> Increasing the software rate limit increases CPU consumption and may impact system performance.
 
 + 7. Configure listener ports: listen for incoming connections from an OpenFlow controller
 ```Bash
