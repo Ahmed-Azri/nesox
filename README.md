@@ -238,11 +238,19 @@ controller | 202.45.128.169 | 0 | Green
 > Port No. = 0 means it is not significant!
 
 
+### VLAN Configuration
 
-### Static VLAN
+| VLAN Name | Ports |
+|----------:|-------|
+titan | 1 2 3 4 |
+nesox | 5 6 7 8 |
+
 
 
 ### OpenFlow Instance
+
+
+
 
 Nesox Data Plane
 ----------------
