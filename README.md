@@ -234,6 +234,8 @@ d4      | 202.45.128.174  |
 switch  | 202.45.128.168  |
 controller | 202.45.128.169 |
 
+> Note: **Port No.** indicates physical port corresponding to a hardware interface of the switch in this context.
+
 
 
 ### Static VLAN
@@ -258,7 +260,8 @@ Reference
 [Markdown Syntax][1] |
 [Ryu SDN Framework][2] |
 [HP2920 Switch Series][3] |
-[Ryu at Gibhub][4]
+[Ryu at Gibhub][4] |
+[By liying01][6]
 
 ![2920 image][5]
 
@@ -270,5 +273,5 @@ Reference
 [3]: http://h17007.www1.hp.com/us/en/networking/products/switches/HP_2920_Switch_Series/index.aspx "HP2920 Switch Series"
 [4]: https://github.com/osrg/ryu "Ryu at Github"
 [5]: ./images/2920_FT.jpg "2920 image"
-
+[6]: liyingcs@hku.hk "liyinghku"
 
