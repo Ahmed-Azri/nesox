@@ -242,10 +242,10 @@ controller | 202.45.128.169 | 0 | Green
 
 **Targeting VLAN Table**
 
-| VLAN Name | Ports | Bank ID | IP addr |
-|----------:|-------|:-------:|:-------:|
-vlan1 | 1 2 3 4 | 1 | 202.45.128.166
-vlan2 | 5 6 7 8 | 1 | 202.45.128.167
+| VLAN ID | VLAN Name | Ports | Bank ID | IP addr |
+|---------|----------:|-------|:-------:|:-------:|
+100 | vlan1 | 1 2 3 4 | 1 | 202.45.128.166
+200 | vlan2 | 5 6 7 8 | 1 | 202.45.128.167
 
 
 **Initial VLAN Configuration**
@@ -289,6 +289,23 @@ vlan2 | 5 6 7 8 | 1 | 202.45.128.167
 	  8                Untagged Learn        Up
 	  ...
 > Note this list is incomplete!
+
+**Create VLAN 100**
+
+	HP-2920-24G(config)# vlan 100
+	HP-2920-24G(vlan-100)# show vlans
+
+	 Status and Counters - VLAN Information
+
+	  Maximum VLANs to support : 256
+	  Primary VLAN : DEFAULT_VLAN
+	  Management VLAN :
+
+	  VLAN ID Name                             | Status     Voice Jumbo
+	  ------- -------------------------------- + ---------- ----- -----
+	  1       DEFAULT_VLAN                     | Port-based No    No
+	  100     VLAN100                          | Port-based No    No
+
 
 
 ### OpenFlow Instance
