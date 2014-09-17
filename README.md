@@ -240,7 +240,7 @@ controller | 202.45.128.169 | 0 | Green
 
 ### VLAN Configuration
 
-**targeting vlan table**
+**Targeting VLAN Table**
 
 | VLAN Name | Ports | Bank ID |
 |----------:|-------|:-------:|
@@ -248,7 +248,7 @@ vlan1 | 1 2 3 4 | 1
 vlan2 | 5 6 7 8 | 1
 
 
-Initial VLAN Configuration
+**Initial VLAN Configuration**
 
 	HP-2920-24G(config)# show vlan
 
@@ -262,7 +262,8 @@ Initial VLAN Configuration
 	  ------- -------------------------------- + ---------- ----- -----
 	  1       DEFAULT_VLAN                     | Port-based No    No
 
-
+> This is the factory default state, in which all ports on the switch belong to the (port-based) default VLAN (DEFAULT_VLAN; VID = 1) and are in the same broadcast/ multicast domain.
+> (The default VLAN is also the Primary VLAN.)
 
 
 ### OpenFlow Instance
