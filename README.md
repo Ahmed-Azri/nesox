@@ -114,14 +114,15 @@ openflow instance { instance-name | aggregate } flow-location hardware-only
 ```
 > An error is returned to the controller if the flow cannot be added in hardware and the flow-location is set as hardware-only.
 
+
 + 6. Configure software and hardware rate limiting
 ```Bash
 openflow instance { instance-name | aggregate } limit { hardware-rate kbps | software-rate pps }
-
 ```
-> kbps: Limit the bandwidth that can be utilized by an OpenFlow instance. Default: 0 kbpsRange 0 — 10,000,000 kbps
-> pps Configure the OpenFlow instance packet rate limit. Limits the number of packets per second per module that this instance can send to the software path. Default: 100 ppsRange: 1 — 10,000 pps
-> Increasing the software rate limit increases CPU consumption and may impact system performance.
+> kbps: Default: 0; Range: 0 — 10,000,000;
+> pps: Limits the number of packets per second per module that this instance can send to the software path. Default: 100 ppsRange: 1 — 10,000 pps;
+> Note: Increasing the software rate limit increases CPU consumption and may impact system performance.
+
 
 + 7. Configure listener ports: listen for incoming connections from an OpenFlow controller
 ```Bash
@@ -137,8 +138,15 @@ openflow instance { instance-name | aggregate } controller-id controller-ID
 > A VLAN that is a member of an OpenFlow instance cannot be added as an OpenFlow controller interface.
 > When an OpenFlow controller is associated with an OpenFlow instance it cannot be deleted.
 
-+ 9. Configure policy engine resources
++ 9. OpenFlow Monitoring
 ```Bash
+show openflow resources
+show openflow controllers
+show openflow instance instance-name
+show openflow instance instance-name port-statistics
+show openflow instance instance-name flows
+show openflow flow
+show openflow flow flow-filters
 ```
 
 + 10. **Configuring number of software flow tables per instance**
@@ -159,6 +167,12 @@ openflow instance { instance-name | aggregate } max-backoff-interval secs
 openflow# ip-control-table-mode
 ```
 > Include IP control table in the OpenFlow packet processing pipeline. Default disabled.
+
++ 13. Hardware statistics refresh rate
+```Bash
+openflow-instance-name# hardware statistics | refresh rate policy-engine-table <value>
+```
+> Refresh rate for policy engine table statistics. Default: 0–3600.
 
 
 
