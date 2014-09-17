@@ -142,11 +142,14 @@ openflow instance { instance-name | aggregate } controller-id controller-ID
 ```Bash
 show openflow resources
 show openflow controllers
+show openflow flow-table
 show openflow instance instance-name
-show openflow instance instance-name port-statistics
 show openflow instance instance-name flows
-show openflow flow
-show openflow flow flow-filters
+show openflow instance instance-name meters
+show openflow instance instance-name limiters
+show openflow instance instance-name port-statistics
+show openflow instance instance-name message-statistics
+show openflow instance instance-name capacities
 ```
 
 + 10. **Configuring number of software flow tables per instance**
@@ -174,11 +177,42 @@ openflow-instance-name# hardware statistics | refresh rate policy-engine-table <
 ```
 > Refresh rate for policy engine table statistics. Default: 0–3600.
 
-
++ 14. Troubleshooting OpenFlow
+```Bash
+debug openflow <errors|events|instance|packets>
+```
 
 
 Testbed Configuration
 ---------------------
+### The HP2920 Switch
+
+	HP-2920-24G(config)# show system
+
+ 	Status and Counters - General System Information
+
+	  System Name        : HP-2920-24G
+	  System Contact     :
+	  System Location    :
+
+	  MAC Age Time (sec) : 300
+
+	  Time Zone          : 8
+	  Daylight Time Rule : None
+
+	  Software revision  : WB.15.14.0007        Base MAC Addr      : c4346b-90c4c0
+	  ROM Version        : WB.15.05             Serial Number      : SG45FLWXVL
+
+	  Up Time            : 47 days              Memory   - Total   : 170,250,752
+	  CPU Util (%)       : 2                               Free    : 85,696,996
+
+	  IP Mgmt  - Pkts Rx : 317,248              Packet   - Total   : 6750
+	             Pkts Tx : 193,942              Buffers    Free    : 5009
+	                                                       Lowest  : 4951
+	                                                       Missed  : 0
+
+
+
 
 
 
