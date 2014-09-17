@@ -85,22 +85,49 @@ This update step is ignored here, interested readers could retrieve help from HP
 
 
 **OpenFlow Configuration**
-+ 1. Enable OpenFlow:
+
++ 1. Enable OpenFlow
 ```Bash
 openflow
 openflow instance instance-name
 openflow instance instance-name enable
 ```
+
 + 2. Configure OpenFlow instances
 ```Bash
-openflow instance {instance-name | aggregate} [enable | disable]
+openflow instance { instance-name | aggregate } [ enable | disable ]
 ```
+
 + 3. Configure OpenFlow instance members
+```Bash
+openflow instance instance-name member vlan vlan-id
+```
+
 + 4. Set OpenFlow instance mode
+```Bash
+openflow instance { instance-name | aggregate } mode { active | passive }
+```
+
 + 5. Set Flow location
+```Bash
+openflow instance { instance-name | aggregate } flow-location hardware-only
+```
+> An error is returned to the controller if the flow cannot be added in hardware and the flow-location is set as hardware-only.
+
+
 + 6. Configure software and hardware rate limiting
-+ 7. Configure listener ports
+
+
++ 7. Configure listener ports: listen for incoming connections from an OpenFlow controller
+```Bash
+openflow instance { instance-name | aggregate } listen-port [tcp-port] [oobm]
+```
 + 8. Configure controller IP and port
+```Bash
+openflow controller-id <id> [ip <ip-address>] [port <tcp-port>] controller-interface { vlan <vlan-id> | oobm }
+```
+
+
 + 9. Configure policy engine resources
 
 
