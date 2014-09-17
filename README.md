@@ -47,8 +47,8 @@ Please register your products now at:  www.hp.com/networking/register
 
 manager@switch's password:
 
-HP J9726A 2920-24G Switch
-Software revision WB.15.14.0007
+> HP J9726A 2920-24G Switch
+> Software revision **WB.15.14.0007**
 
 Copyright (C) 1991-2014 Hewlett-Packard Development Company, L.P.
 
@@ -85,7 +85,6 @@ This command line will run up the nesox scheduler and print output on screen.
 
 Reference
 ---------
-
-[Ryu SDN Framework](http://osrg.github.io/ryu/) \\
+[Ryu SDN Framework](http://osrg.github.io/ryu/)
 [HP2920 Switch Series](http://h17007.www1.hp.com/us/en/networking/products/switches/HP_2920_Switch_Series/index.aspx)
 
