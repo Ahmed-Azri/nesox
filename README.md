@@ -12,7 +12,7 @@ This multi-purpose "README" file tends to providing a manual-like explaination o
 Introduction
 ------------
 
-Nesox is first developed on OpenFlow 1.3 instance of HP2920 switch and Ryu controller framework.
+Nesox is first developed on OpenFlow 1.3 instance of [HP2920 switch][3] and [Ryu controller framework][2].
 
 
 Choose a Controller Framework
