@@ -218,6 +218,21 @@ Testbed Configuration
 	                                                       Missed  : 0
 
 
+### Cluster Nodes Configuration (hostname-to-IP-to-port)
+| Machine Node | IP address | Port No. |
+|--------------|------------|----------|
+debian0 | 202.45.128.160  |
+debian1 | 202.45.128.161  |
+debian2 | 202.45.128.162  |
+debian3 | 202.45.128.163  |
+debian4 | 202.45.128.164  |
+d0      | 202.45.128.170  |
+d1      | 202.45.128.171  |
+d2      | 202.45.128.172  |
+d3      | 202.45.128.173  |
+d4      | 202.45.128.174  |
+
+
 
 ### Static VLAN
 
