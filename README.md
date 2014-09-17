@@ -1,12 +1,12 @@
-Nesox: network resource scheduler leveraging SDN technique
+Nesox: a network resource scheduler leveraging SDN technique
 =====
 
 
 About
 -----
 This multi-purpose "README" file tends to providing a manual-like explaination on Nesox project:
-(1) providing overview and background;
-(2) illustrating operations in detail;
++ (1) providing overview and background;
++ (2) illustrating operations in detail;
 
 
 Introduction
@@ -242,6 +242,19 @@ controller | 202.45.128.169 |
 
 
 ### OpenFlow Instance
+
+Nesox Data Plane
+----------------
+
+### Flow Tables
+| Table ID. | Function |
+|-----------|----------|
+100 | Policy Engine Table
+200 | Service Dispatching Table
+201 | Dynamic Flow Scheduling Table
+202 | Flow Rate Limiting Table
+203 | MAC Learning Table
+999 | Terminate Processing
 
 
 Run Nesox Scheduler
