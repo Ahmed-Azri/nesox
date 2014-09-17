@@ -220,7 +220,7 @@ Testbed Configuration
 
 ### Cluster Nodes Configuration (hostname-to-IP-to-port)
 | Machine Node | IP address | Port No. |
-|--------------|------------|----------|
+|-------------:|------------|----------|
 debian0 | 202.45.128.160  |
 debian1 | 202.45.128.161  |
 debian2 | 202.45.128.162  |
