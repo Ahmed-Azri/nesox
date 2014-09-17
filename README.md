@@ -32,7 +32,7 @@ Open Flow v1.3.1 is supported by Ryu in the following file "/ryu/ryu/ofproto/ofp
 HP2920 Switch
 -------------
 
-** How to login the switch **
+**How to login the switch**
 
 
 [root@debian0][140917111817][/root]ssh manager@switch
