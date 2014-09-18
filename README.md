@@ -194,6 +194,43 @@ show openflow instance instance-name message-statistics
 show openflow instance instance-name capacities
 ```
 
+	HP-2920-24G(config)# show openflow resources
+
+	 Resource usage in Policy Enforcement Engine
+
+	               |   Rules   |  Rules Used
+	         Ports | Available | ACL | QoS | IDM |  OF  | Other |
+	 --------------+-----------+-----+-----+-----+------+-------|
+	 1-24          |      2032 |   0 |   0 |   0 |    0 |     0 |
+
+	               |   Meters  |  Meters Used
+	         Ports | Available | ACL | QoS | IDM |  OF  | Other |
+	 --------------+-----------+-----+-----+-----+------+-------|
+	 1-24          |       255 |     |   0 |   0 |    0 |     0 |
+
+	               |Application|
+	               |Port Ranges|  Application Port Ranges Used
+	         Ports | Available | ACL | QoS | IDM |  OF  | Other |
+	 --------------+-----------+-----+-----+-----+------+-------|
+	 1-24          |        60 |   0 |   0 |   0 |      |     0 |
+
+	 0 of 32 Policy Engine management resources used.
+
+	 Key:
+	 ACL = Access Control Lists
+	 QoS = Device & Application Port Priority, QoS Policies, ICMP rate limits
+	 IDM = Identity Driven Management
+	 OF = OpenFlow
+	 Other = Management VLAN, DHCP Snooping, ARP Protection, Jumbo IP-MTU,
+	         RA Guard, Control Plane Protection.
+
+	 Resource usage includes resources actually in use, or reserved for future
+	 use by the listed feature.  Internal dedicated-purpose resources, such as
+	 port bandwidth limits or VLAN QoS priority, are not included.
+
+
+
+
 + 10. **Configuring number of software flow tables per instance**
 ```Bash
 openflow-instance-name# software-flow-table value
