@@ -109,7 +109,9 @@ A number of configurations of the switch affect the OpenFlow behaviour.
 What listed bellow are some important ones, others which are not directly related to the **OpenFlow** are not included.
 Please refer to the [HP Switch Website][3] for the readers' own interests.
 
+
 + 1. Enable OpenFlow
+
 ```Bash
 openflow
 openflow instance instance-name
@@ -128,12 +130,34 @@ openflow instance instance-name enable
 	  --------------------------------- ------------ ---------- ---------- --------
 	  nesox                             Down         0          0          1.0
 
+> Note: to delete an openflow instance `no openflow instance instance-name`
 
 
 + 2. Configure OpenFlow instances
 ```Bash
 openflow instance { instance-name | aggregate } [ enable | disable ]
 ```
+
+	HP-2920-24G(config)# openflow instance aggregate
+	HP-2920-24G(of-inst-aggregate)# show openflow
+
+	 OpenFlow                     : Enabled
+	 IP Control Table Mode        : Disabled
+
+	 Instance Information
+
+	                                                 No. of     No. of     OpenFlow
+	  Instance Name                     Oper. Status H/W Flows  S/W Flows  Version
+	  --------------------------------- ------------ ---------- ---------- --------
+	  aggregate                         Down         0          0          1.0
+
+	HP-2920-24G(of-inst-aggregate)# openflow instance aggregate enable
+	A controller must be added to the aggregate instance before enabling it.
+
+> Note: An aggregate instance cannot be created when named instances exist.
+
+
+
 
 + 3. Configure OpenFlow instance members
 ```Bash
@@ -289,7 +313,7 @@ show openflow instance instance-name capacities
 	No controllers associated with this instance.
 
 
-
+**instance flows**
 
 
 
