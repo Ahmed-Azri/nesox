@@ -259,6 +259,35 @@ show openflow instance instance-name capacities
 	 1         0.000000           0.00
 	 Note: Current usage is percentage of OpenFlow maximum usage
 
+**openflow instance**
+
+	HP-2920-24G(config)# show openflow instance nesox
+
+	 Configured OF Version    : 1.3
+	 Negotiated OF Version    : NA
+	 Instance Name            : nesox
+	 Admin. Status            : Disabled
+	 Member List              : VLAN 100
+	 Listen Port              : None
+	 Oper. Status             : Down
+	 Oper. Status Reason      : NA
+	 Datapath ID              : 0000000000000000
+	 Mode                     : Active
+	 Flow Location            : Hardware and Software
+	 No. of Hw Flows          : 0
+	 No. of Sw Flows          : 0
+	 Hw. Rate Limit           : 0 kbps
+	 Sw. Rate Limit           : 100 pps
+	 Conn. Interrupt Mode     : Fail-Secure
+	 Maximum Backoff Interval : 60 seconds
+	 Probe Interval           : 10 seconds
+	 Hw. Table Miss Count     : NA
+	 No. of Sw Flow Tables    : 1
+	 Egress Only Ports        : None
+	 Table Model              : NA
+
+	No controllers associated with this instance.
+
 
 
 
