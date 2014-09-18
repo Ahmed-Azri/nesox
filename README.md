@@ -34,6 +34,16 @@ HP2920 Switch
 
 ### First Things First
 
+**Screen Attaching to Switch**
+
+```Bash
+screen /dev/ttyS0 115200
+screen -ls
+screen -r sockname
+screen -X - S sockname quit
+```
+> Note: sockename is usually the pid (actually, pid.tty.host).
+
 
 **How to login the switch**
 
