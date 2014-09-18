@@ -49,7 +49,8 @@ screen -S hp2920 /dev/ttyS0 115200
 screen -r hp2920
 ```
 > Note: to exit the screen: `Ctr-a: quit`;
-> [Screen Quick Reference][7]
+
+> [Screen Quick Reference!][7]
 
 
 **How to login the switch**
