@@ -243,9 +243,6 @@ openflow instance { instance-name | aggregate } controller-id controller-ID
 	 1             202.45.128.170           6633   VLAN 1
 
 
-
-
-
 + 9. OpenFlow Monitoring
 ```Bash
 show openflow resources
@@ -262,7 +259,18 @@ show openflow instance instance-name capacities
 
 **openflow resources**
 
-	HP-2920-24G(config)# show openflow resources
+	HP-2920-24G(of-inst-aggregate)# show openflow controllers
+
+	 Controller Information
+
+	 Controller Id IP Address               Port   Interface
+	 ------------- ------------------------ ------ --------------
+	 1             202.45.128.170           6633   VLAN 1
+
+	HP-2920-24G(of-inst-aggregate)#
+	HP-2920-24G(of-inst-aggregate)#
+	HP-2920-24G(of-inst-aggregate)#
+	HP-2920-24G(of-inst-aggregate)# show openflow resources
 
 	 Resource usage in Policy Enforcement Engine
 
@@ -296,9 +304,11 @@ show openflow instance instance-name capacities
 	 use by the listed feature.  Internal dedicated-purpose resources, such as
 	 port bandwidth limits or VLAN QoS priority, are not included.
 
+
+
 **openflow controllers**
 
-	HP-2920-24G(config)# show openflow controllers
+	HP-2920-24G(of-inst-aggregate)# show openflow controllers
 
 	 Controller Information
 
@@ -308,7 +318,7 @@ show openflow instance instance-name capacities
 
 **openflow flow-tables**
 
-	HP-2920-24G(config)# show openflow flow-table
+	HP-2920-24G(of-inst-aggregate)# show openflow flow-table
 
 	 Flow Table Information
 
@@ -325,16 +335,18 @@ show openflow instance instance-name capacities
 	 1         0.000000           0.00
 	 Note: Current usage is percentage of OpenFlow maximum usage
 
+
 **openflow instance**
 
-	HP-2920-24G(config)# show openflow instance nesox
+	HP-2920-24G(of-inst-aggregate)# version 1.3 only
+	HP-2920-24G(of-inst-aggregate)# show openflow instance aggregate
 
-	 Configured OF Version    : 1.3
+	 Configured OF Version    : 1.3 only
 	 Negotiated OF Version    : NA
-	 Instance Name            : nesox
+	 Instance Name            : aggregate
 	 Admin. Status            : Disabled
-	 Member List              : VLAN 100
-	 Listen Port              : None
+	 Member List              : None
+	 Listen Port              : 6633
 	 Oper. Status             : Down
 	 Oper. Status Reason      : NA
 	 Datapath ID              : 0000000000000000
@@ -353,7 +365,6 @@ show openflow instance instance-name capacities
 	 Table Model              : NA
 
 	No controllers associated with this instance.
-
 
 **instance flows**
 
