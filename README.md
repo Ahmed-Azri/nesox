@@ -240,13 +240,18 @@ controller | 202.45.128.169 | 0 | Green
 
 ### VLAN Configuration
 
+A VLAN is comprised of multiple ports operating as members of the same subnet (broadcast domain).
+Ports on multiple devices can belong to the same VLAN, and traffic moving between ports in the same VLAN is bridged (or "switched"). (Traffic moving between different VLANs must be routed.)
+A static VLAN is an 802.1Q-compliant VLAN configured with one or more ports that remain members regardless of traffic usage.
+(A dynamic VLAN is an 802.1Q-compliant VLAN membership that the switch temporarily creates on a port to provide a link to another port in the same VLAN on another device.)
+
 A group of networked ports assigned to a VLAN form a broadcast domain that is separate from other VLANs that may be configured on the switch.
 On a given switch, packets are bridged between source and destination ports that belong to the same VLAN.
 Thus, all ports passing traffic for a particular subnet address should be configured to the same VLAN.
 Cross-domain broadcast traffic in the switch is eliminated and bandwidth is saved by not allowing packets to flood out all ports.
 
-> The above paragraph is from HP document titled "HP Switch Software: Advanced Traffic Management Guide (2920 Switches)".
-> The sentence is so precise and even beautiful!
+> The above paragraphs are stealed from HP document titled "HP Switch Software: Advanced Traffic Management Guide (2920 Switches)".
+> The sentences are so precise and even beautiful!
 
 
 
