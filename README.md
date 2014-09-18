@@ -328,6 +328,30 @@ Cross-domain broadcast traffic in the switch is eliminated and bandwidth is save
 > DEFAULT_VLAN is always present in the switch.
 
 
+**Asigning Ports to VLANs**
+
+A port can be assigned to several VLANs, but only one of those assignments can be "Untagged".
+
+	HP-2920-24G(config)# show vlans 100
+
+	 Status and Counters - VLAN Information - VLAN 100
+
+	  VLAN ID : 100
+	  Name : VLAN100
+	  Status : Port-based
+	  Voice : No
+	  Jumbo : No
+
+	  Port Information Mode     Unknown VLAN Status
+	  ---------------- -------- ------------ ----------
+	  1                Tagged   Learn        Up
+	  2                Tagged   Learn        Up
+	  3                Tagged   Learn        Up
+	  4                Tagged   Learn        Up
+
+
+
+
 ### OpenFlow Instance
 
 
