@@ -187,9 +187,6 @@ openflow instance { instance-name | aggregate } [ enable | disable ]
 	No controllers associated with this instance.
 
 
-
-
-
 + 3. Configure OpenFlow instance members
 ```Bash
 openflow instance instance-name member vlan vlan-id
@@ -227,6 +224,7 @@ openflow instance { instance-name | aggregate } listen-port [tcp-port] [oobm]
 ```
 
 + 8. Configure controller IP and port
+
 ```Bash
 openflow controller-id <id> [ip <ip-address>] [port <tcp-port>]
 controller-interface { vlan <vlan-id> | oobm }
@@ -234,6 +232,19 @@ openflow instance { instance-name | aggregate } controller-id controller-ID
 ```
 > A VLAN that is a member of an OpenFlow instance cannot be added as an OpenFlow controller interface.
 > When an OpenFlow controller is associated with an OpenFlow instance it cannot be deleted.
+
+	HP-2920-24G(of-inst-aggregate)# open controller-id 1 ip 202.45.128.170 port 6633 controller-interface vlan 1
+	HP-2920-24G(of-inst-aggregate)# show openflow controllers
+
+	 Controller Information
+
+	 Controller Id IP Address               Port   Interface
+	 ------------- ------------------------ ------ --------------
+	 1             202.45.128.170           6633   VLAN 1
+
+
+
+
 
 + 9. OpenFlow Monitoring
 ```Bash
