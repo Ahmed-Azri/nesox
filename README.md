@@ -157,6 +157,37 @@ openflow instance { instance-name | aggregate } [ enable | disable ]
 > Note: An aggregate instance cannot be created when named instances exist.
 
 
+	HP-2920-24G(of-inst-aggregate)# show openflow instance
+	Incomplete input: instance
+	HP-2920-24G(of-inst-aggregate)# show openflow instance aggregate
+
+	 Configured OF Version    : 1.0
+	 Negotiated OF Version    : NA
+	 Instance Name            : aggregate
+	 Admin. Status            : Disabled
+	 Member List              : VLAN 100
+	 Listen Port              : None
+	 Oper. Status             : Down
+	 Oper. Status Reason      : NA
+	 Datapath ID              : 0000000000000000
+	 Mode                     : Active
+	 Flow Location            : Hardware and Software
+	 No. of Hw Flows          : 0
+	 No. of Sw Flows          : 0
+	 Hw. Rate Limit           : 0 kbps
+	 Sw. Rate Limit           : 100 pps
+	 Conn. Interrupt Mode     : Fail-Secure
+	 Maximum Backoff Interval : 60 seconds
+	 Probe Interval           : 10 seconds
+	 Hw. Table Miss Count     : 0
+	 No. of Sw Flow Tables    : NA
+	 Egress Only Ports        : None
+	 Table Model              : NA
+
+	No controllers associated with this instance.
+
+
+
 
 
 + 3. Configure OpenFlow instance members
