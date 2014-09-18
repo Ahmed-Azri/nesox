@@ -194,6 +194,8 @@ show openflow instance instance-name message-statistics
 show openflow instance instance-name capacities
 ```
 
+**openflow resources**
+
 	HP-2920-24G(config)# show openflow resources
 
 	 Resource usage in Policy Enforcement Engine
@@ -227,6 +229,38 @@ show openflow instance instance-name capacities
 	 Resource usage includes resources actually in use, or reserved for future
 	 use by the listed feature.  Internal dedicated-purpose resources, such as
 	 port bandwidth limits or VLAN QoS priority, are not included.
+
+**openflow controllers**
+
+	HP-2920-24G(config)# show openflow controllers
+
+	 Controller Information
+
+	 Controller Id IP Address               Port   Interface
+	 ------------- ------------------------ ------ --------------
+	 1             202.45.128.170           6633   VLAN 1
+
+**openflow flow-tables**
+
+	HP-2920-24G(config)# show openflow flow-table
+
+	 Flow Table Information
+
+	                                         Refresh
+	                                  Max.   Rate      Flow
+	 Table Name                       Usage  (seconds) Count
+	 -------------------------------- ------ --------- -----
+	 IP Control Table                 50%    12        0
+	 Policy Engine Table              50%    20        0
+
+	          IP Control Table   Policy Engine Table
+	 Slot ID  Current Usage (%)  Current Usage (%)
+	 -------- -----------------  -------------------
+	 1         0.000000           0.00
+	 Note: Current usage is percentage of OpenFlow maximum usage
+
+
+
 
 
 
