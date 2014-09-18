@@ -394,9 +394,9 @@ Cross-domain broadcast traffic in the switch is eliminated and bandwidth is save
 **Targeting VLAN Table**
 
 | VLAN ID | VLAN Name | Ports | Bank ID | IP addr |
-|---------|----------:|-------|:-------:|:-------:|
-100 | vlan1 | 1 2 3 4 | 1 | 202.45.128.166
-200 | vlan2 | 5 6 7 8 | 1 | 202.45.128.167
+|---------|:---------:|-------|:-------:|:-------:|
+100 | VLAN100 | 1 2 3 4 | 1 | 202.45.128.166
+200 | VLAN200 | 5 6 7 8 | 1 | 202.45.128.167
 
 
 **Initial VLAN Configuration**
