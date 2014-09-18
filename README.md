@@ -360,6 +360,22 @@ A port can be assigned to several VLANs, but only one of those assignments can b
 	  4                Tagged   Learn        Up
 
 
+**Show Costom VLAN Information**
+
+```Bash
+show vlans custom 1-8 id name:20 ipaddr ipmask ipconfig state status
+```
+
+	HP-2920-24G(config)# show vlans custom 1-8 id name:20 ipaddr ipmask ipconfig state status
+
+	Status and Counters - VLAN Information - Custom view
+
+	 VLANID VLAN name            IP Addr         IP Mask         IPConfig   State Status
+	 ------ -------------------- --------------- --------------- ---------- ----- ----------
+	 1      DEFAULT_VLAN         202.45.128.168  255.255.255.0   Manual     Up    Port-based
+	 100    VLAN100                                              Disabled   Up    Port-based
+
+
 
 
 ### OpenFlow Instance
