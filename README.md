@@ -44,6 +44,13 @@ screen -X - S sockname quit
 ```
 > Note: sockename is usually the pid (actually, pid.tty.host).
 
+```Bash
+screen -S hp2920 /dev/ttyS0 115200
+screen -r hp2920
+```
+> Note: to exit the screen: `Ctr-a: quit`;
+> [Screen Quick Reference][7]
+
 
 **How to login the switch**
 
@@ -109,6 +116,20 @@ openflow instance instance-name
 openflow instance instance-name enable
 ```
 
+	HP-2920-24G(of-inst-nesox)# show openflow
+
+	 OpenFlow                     : Enabled
+	 IP Control Table Mode        : Disabled
+
+	 Instance Information
+
+	                                                 No. of     No. of     OpenFlow
+	  Instance Name                     Oper. Status H/W Flows  S/W Flows  Version
+	  --------------------------------- ------------ ---------- ---------- --------
+	  nesox                             Down         0          0          1.0
+
+
+
 + 2. Configure OpenFlow instances
 ```Bash
 openflow instance { instance-name | aggregate } [ enable | disable ]
@@ -119,10 +140,15 @@ openflow instance { instance-name | aggregate } [ enable | disable ]
 openflow instance instance-name member vlan vlan-id
 ```
 
+
+
+
 + 4. Set OpenFlow instance mode
 ```Bash
 openflow instance { instance-name | aggregate } mode { active | passive }
 ```
+
+
 
 + 5. Set Flow location
 ```Bash
@@ -377,6 +403,9 @@ show vlans custom 1-8 id name:20 ipaddr ipmask ipconfig state status
 
 
 
+### Controller Configuration
+
+
 
 ### OpenFlow Instance
 
@@ -430,4 +459,5 @@ Reference
 [4]: https://github.com/osrg/ryu "Ryu at Github"
 [5]: ./images/2920_FT.jpg "2920 image"
 [6]: liyingcs@hku.hk "liyinghku"
+[7]: http://aperiodic.net/screen/quick_reference "screen quick reference"
 
