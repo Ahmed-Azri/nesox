@@ -240,6 +240,16 @@ controller | 202.45.128.169 | 0 | Green
 
 ### VLAN Configuration
 
+A group of networked ports assigned to a VLAN form a broadcast domain that is separate from other VLANs that may be configured on the switch.
+On a given switch, packets are bridged between source and destination ports that belong to the same VLAN.
+Thus, all ports passing traffic for a particular subnet address should be configured to the same VLAN.
+Cross-domain broadcast traffic in the switch is eliminated and bandwidth is saved by not allowing packets to flood out all ports.
+
+> The above paragraph is from HP document titled "HP Switch Software: Advanced Traffic Management Guide (2920 Switches)".
+> The sentence is so precise and even beautiful!
+
+
+
 **Targeting VLAN Table**
 
 | VLAN ID | VLAN Name | Ports | Bank ID | IP addr |
@@ -309,6 +319,8 @@ controller | 202.45.128.169 | 0 | Green
 	  100     VLAN100                          | Port-based No    No
 
 > Note: use `no vlan VLAN-ID` to delete a specific VLAN.
+> A port-based VLAN is layer-2 broadcast domain, while a protocol-based one is layer-3 broadcast domain.
+> DEFAULT_VLAN is always present in the switch.
 
 
 ### OpenFlow Instance
