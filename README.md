@@ -366,7 +366,69 @@ show openflow instance instance-name capacities
 
 	No controllers associated with this instance.
 
-**instance flows**
+
+**associate instance with controller**
+
+	HP-2920-24G(of-inst-aggregate)# openflow instance aggregate controller-id 1
+	HP-2920-24G(of-inst-aggregate)# show openflow instance aggregate
+
+	 Configured OF Version    : 1.3 only
+	 Negotiated OF Version    : NA
+	 Instance Name            : aggregate
+	 Admin. Status            : Disabled
+	 Member List              : None
+	 Listen Port              : 6633
+	 Oper. Status             : Down
+	 Oper. Status Reason      : NA
+	 Datapath ID              : 0000000000000000
+	 Mode                     : Active
+	 Flow Location            : Hardware and Software
+	 No. of Hw Flows          : 0
+	 No. of Sw Flows          : 0
+	 Hw. Rate Limit           : 0 kbps
+	 Sw. Rate Limit           : 100 pps
+	 Conn. Interrupt Mode     : Fail-Standalone
+	 Maximum Backoff Interval : 60 seconds
+	 Probe Interval           : 10 seconds
+	 Hw. Table Miss Count     : NA
+	 No. of Sw Flow Tables    : 4
+	 Egress Only Ports        : None
+	 Table Model              : NA
+
+	 Controller Id Connection Status Connection State Secure Role
+	 ------------- ----------------- ---------------- ------ ------
+	 1             Disconnected      Void             No     Equal
+
+**Switch connected to controller**
+
+	HP-2920-24G(config)# show openflow instance aggregate
+
+	 Configured OF Version    : 1.3 only
+	 Negotiated OF Version    : 1.3
+	 Instance Name            : aggregate
+	 Admin. Status            : Enabled
+	 Member List              : None
+	 Listen Port              : None
+	 Oper. Status             : Down
+	 Oper. Status Reason      : NA
+	 Datapath ID              : 1000c4346b90c4c0
+	 Mode                     : Active
+	 Flow Location            : Hardware and Software
+	 No. of Hw Flows          : 2
+	 No. of Sw Flows          : 4
+	 Hw. Rate Limit           : 0 kbps
+	 Sw. Rate Limit           : 100 pps
+	 Conn. Interrupt Mode     : Fail-Secure
+	 Maximum Backoff Interval : 1 seconds
+	 Probe Interval           : 10 seconds
+	 Hw. Table Miss Count     : NA
+	 No. of Sw Flow Tables    : 4
+	 Egress Only Ports        : None
+	 Table Model              : Policy Engine and Software
+
+	 Controller Id Connection Status Connection State Secure Role
+	 ------------- ----------------- ---------------- ------ ------
+	 1             Connected         Active           No     Equal
 
 
 
@@ -400,6 +462,17 @@ openflow-instance-name# hardware statistics | refresh rate policy-engine-table <
 ```Bash
 debug openflow <errors|events|instance|packets>
 ```
+
++ 15. OpenFlow instance connection interruption mode
+
+```Bash
+[no] openflow instance [instance-name] connection-interruption-mode { fail-secure | fail-standalone }
+```
+
+> fail-standalone:
+> If the switch loses connection with all controllers, packets of new flows are handled by the **legacy** switching and routing functions.
+> Existing flows of this OpenFlow instance are removed.
+
 
 
 Testbed Configuration
