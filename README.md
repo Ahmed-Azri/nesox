@@ -653,6 +653,8 @@ show vlans custom 1-8 id name:20 ipaddr ipmask ipconfig state status
 
 
 
+
+
 ### Controller Configuration
 
 
@@ -688,6 +690,18 @@ To run the (ryu-based, maybe nox-based in near future and/or others) nesox sched
 This command line will run up the nesox scheduler and print output on screen.
 
 
+Contribution to Open Source Community
+-------------------------------------
+> Mainly on [Ryu controller framework][2]
+
+
+**HP ONF Experimenter ID**
+
+In file: /ryu/ryu/ofproto/ofproto_common.py
+```Python
+HP_EXPERIMENTER_ID = 0x00002481			# HP
+HP_LABS_EXPERIMENTER_ID = 0x000004EA	# HP - Labs
+```
 
 
 Reference
