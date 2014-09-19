@@ -5,8 +5,8 @@ Nesox: a network resource scheduler leveraging SDN technique
 About
 -----
 This multi-purpose "README" file tends to providing a manual-like explaination on Nesox project:
-+ 1. providing overview and background;
-+ 2. illustrating operations in detail;
+- 1. providing overview and background;
+- 2. illustrating operations in detail;
 
 
 Introduction
