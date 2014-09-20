@@ -250,6 +250,7 @@ show openflow controllers
 show openflow flow-table
 show openflow instance instance-name
 show openflow instance instance-name flows
+show openflow instance instance-name flow-table
 show openflow instance instance-name meters
 show openflow instance instance-name limiters
 show openflow instance instance-name port-statistics
@@ -679,6 +680,23 @@ Nesox Data Plane
 
 > Note: Functional arrangemnts of pipelined flow tables under "IP control table mode" are different and more complicated.
 > Nesox currently does not utilize that feature!
+
+
+	HP-2920-24G(config)# show openflow instance aggregate flow-table
+
+	 OpenFlow Instance Flow Table Information
+
+	 Table
+	 ID     Table Name             Flow Count Miss Count           Goto Table
+	 ------ ---------------------- ---------- -------------------- ---------------
+	 0      Start                  1          0                    100
+	 100    Policy Table           1          0                    200
+	 200    SW Table 1             1          0                    201, 202, 203
+	 201    SW Table 2             1          0                    202, 203
+	 202    SW Table 3             1          0                    203
+	 203    SW Table 4             1          0                    *
+
+	 * Denotes that the pipeline could end here.
 
 
 Run Nesox Scheduler
