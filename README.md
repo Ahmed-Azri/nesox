@@ -756,7 +756,7 @@ The operational status will be down when either the member VLAN of the OpenFlow 
 In the case when multiple controllers connect over multiple controller VLANs, the operational status will be down when none of the controller VLANs exist on the switch.
 When the member VLAN is down, all ports on the member VLAN are down.
 
-- 3. View message statistics
+**message statistics**
 
 	HP-2920-24G(config)# show openflow instance aggregate message-statistics
 
@@ -772,7 +772,7 @@ When the member VLAN is down, all ports on the member VLAN are down.
 debug openflow <errors|events|instance|packets>
 ```
 
-- 4. Aggregation Mode
+- 3. Aggregation Mode
 
 In Aggregation mode, all VLANs in the switch are part of an OpenFlow instance.
 **The exception is the management VLAN and a VLAN that communicates to the controller.**
