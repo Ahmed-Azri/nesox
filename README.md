@@ -548,6 +548,9 @@ Cross-domain broadcast traffic in the switch is eliminated and bandwidth is save
 |---------|:---------:|-------|:-------:|:-------:|
 100 | VLAN100 | 1 2 3 4 | 1 | 202.45.128.166
 200 | VLAN200 | 5 6 7 8 | 1 | 202.45.128.167
+400 | control | 20 | 2 | 202.45.128.168
+
+> It is proved that this configuration is wrong, probably because different VLANs should have different IP address!
 
 
 **Initial VLAN Configuration**
@@ -766,7 +769,6 @@ When the member VLAN is down - all ports on the member VLAN are down.
 	 OFPT_PORT_MOD     0              0
 	 OFPT_GROUP_MOD    0              0
 	 OFPT_METER_MOD    0              0
-	HP-2920-24G(config)#
 
 
 ```Bash
@@ -791,8 +793,6 @@ Reference
 [By liying01][6]
 
 ![2920 image][5]
-
-
 
 
 [1]: http://daringfireball.net/projects/markdown/syntax "Markdown"
