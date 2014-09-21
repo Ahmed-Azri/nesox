@@ -724,14 +724,23 @@ HP_LABS_EXPERIMENTER_ID = 0x000004EA	# HP - Labs
 Ryu Controller Framework
 ------------------------
 
-### Control Flows
+### Ryu controller starts from `ryu-manager ryuapp.py`
 
-ryu-manager:
+**ryu-manager.py**
 
 ```Python
 from ryu.cmd.manager import main
 main()
 ```
+
+### Ryu Application Programming Model
+
+**Base Class of Ryu Application**
+```Python
+class ryu.base.app_manager.RyuApp(*_args, **_kwargs)
+```
+
+
 
 
 Reference
