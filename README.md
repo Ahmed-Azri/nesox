@@ -255,7 +255,7 @@ show openflow instance instance-name meters
 show openflow instance instance-name limiters
 show openflow instance instance-name port-statistics
 show openflow instance instance-name message-statistics
-show openflow instance instance-name capacities
+show openflow instance instance-name capabilities
 ```
 
 **openflow resources**
@@ -743,9 +743,7 @@ main()
 class ryu.base.app_manager.RyuApp(*_args, **_kwargs)
 ```
 
-
-
-### Problems and Internal Issues
+### Problems and Trouble Shooting
 - 1. When `start()` is defined, event handler may not called properly!
 - 2. Events that change the Operational Status of the OpenFlow instance
 
@@ -754,6 +752,31 @@ The Oper. Status field indicates the operational status of the instance and can 
 The operational status will be down when either the member VLAN of the OpenFlow instance does not exist on the switch or the controller VLAN of the OpenFlow instance does not exist on the switch.
 In the case when multiple controllers connect over multiple controller VLANs, the operational status will be down when none of the controller VLANs exist on the switch.
 When the member VLAN is down - all ports on the member VLAN are down.
+
+- 3. View message statistics
+
+	HP-2920-24G(config)# show openflow instance aggregate message-statistics
+
+	 OpenFlow
+	 Message Type     Received        Rejected
+	 ---------------- --------------- --------
+	 OFPT_FLOW_MOD     8              8
+	 OFPT_PORT_MOD     0              0
+	 OFPT_GROUP_MOD    0              0
+	 OFPT_METER_MOD    0              0
+	HP-2920-24G(config)#
+
+```Bash
+debug openflow <errors|events|instance|packets>
+```
+
+- 4. Aggregation Mode
+
+In Aggregation mode, all VLANs in the switch are part of an OpenFlow instance.
+**The exception is the management VLAN and a VLAN that communicates to the controller.**
+Similar to a lab environment the OpenFlow controller manages all the switching and routing for the switch.
+
+> How to setup the management VLAN and how to separate the controller VLAN.
 
 
 Reference
