@@ -732,6 +732,9 @@ Ryu Controller Framework
 from ryu.cmd.manager import main
 main()
 ```
+**Runtime Behavior of the Ryu NOS**
+
+
 
 ### Ryu Application Programming Model
 
@@ -740,9 +743,17 @@ main()
 class ryu.base.app_manager.RyuApp(*_args, **_kwargs)
 ```
 
+
+
 ### Problems and Internal Issues
 - 1. When `start()` is defined, event handler may not called properly!
+- 2. Events that change the Operational Status of the OpenFlow instance
 
+**Operational Status**
+The Oper. Status field indicates the operational status of the instance and can be either up or down.
+The operational status will be down when either the member VLAN of the OpenFlow instance does not exist on the switch or the controller VLAN of the OpenFlow instance does not exist on the switch.
+In the case when multiple controllers connect over multiple controller VLANs, the operational status will be down when none of the controller VLANs exist on the switch.
+When the member VLAN is down - all ports on the member VLAN are down.
 
 
 Reference
