@@ -740,6 +740,8 @@ main()
 class ryu.base.app_manager.RyuApp(*_args, **_kwargs)
 ```
 
+### Problems and Internal Issues
+- 1. When `start()` is defined, event handler may not called properly!
 
 
 
