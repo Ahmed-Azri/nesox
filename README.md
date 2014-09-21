@@ -751,14 +751,12 @@ class ryu.base.app_manager.RyuApp(*_args, **_kwargs)
 - 2. Events that change the Operational Status of the OpenFlow instance
 
 **Operational Status**
-The Oper. Status field indicates the operational status of the instance and can be either up or down.
+The Oper.Status field indicates the operational status of the instance and can be either up or down.
 The operational status will be down when either the member VLAN of the OpenFlow instance does not exist on the switch or the controller VLAN of the OpenFlow instance does not exist on the switch.
 In the case when multiple controllers connect over multiple controller VLANs, the operational status will be down when none of the controller VLANs exist on the switch.
-When the member VLAN is down - all ports on the member VLAN are down.
-
+When the member VLAN is down, all ports on the member VLAN are down.
 
 - 3. View message statistics
-
 
 	HP-2920-24G(config)# show openflow instance aggregate message-statistics
 
@@ -769,7 +767,6 @@ When the member VLAN is down - all ports on the member VLAN are down.
 	 OFPT_PORT_MOD     0              0
 	 OFPT_GROUP_MOD    0              0
 	 OFPT_METER_MOD    0              0
-
 
 ```Bash
 debug openflow <errors|events|instance|packets>
