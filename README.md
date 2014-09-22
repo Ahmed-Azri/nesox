@@ -555,8 +555,8 @@ Cross-domain broadcast traffic in the switch is eliminated and bandwidth is save
 
 **Refined VLAN Table**
 
-| Subnet Mask     | Network Address | Address Range                   | Broadcast Address |
-|-----------------|-----------------|---------------------------------|-------------------|
+| Subnet Mask     | Network Addr.   | Address Range                   | Broadcast Addr.   |
+|-----------------|-----------------|:-------------------------------:|-------------------|
 | 255.255.255.248 | 202.45.128.160  | 202.45.128.161 - 202.45.128.166 | 202.45.128.167    |
 
 
