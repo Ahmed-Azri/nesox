@@ -508,21 +508,21 @@ Testbed Configuration
 ### Cluster Nodes Configuration (hostname-to-IP-to-port)
 | Machine Node | IP address | Port No. | Line Color |
 |-------------:|------------|:--------:|:----------:|
-switch  | 202.45.128.168 | 0 | Red
-debian0 | 202.45.128.160 | 0 | White
+switch  | 202.45.128.180 | 9 | Red
+debian0 | 202.45.128.182 | 9 | White
 debian1 | 202.45.128.161 | 1 | White
 debian2 | 202.45.128.162 | 2 | Green
 debian3 | 202.45.128.163 | 3 | Red
 debian4 | 202.45.128.164 | 4 | Yellow
-d0      | 202.45.128.170 | 0 |
+d0      | 202.45.128.181 | 9 | Red
 d1      | 202.45.128.171 | 5 | Red
 d2      | 202.45.128.172 | 6 | Green
 d3      | 202.45.128.173 | 6 | Blue
 d4      | 202.45.128.174 | 8 | Yellow
-controller | 202.45.128.169 | 0 | Green
+controller | 202.45.128.179 | 9 | Green
 
 > Note: **Port No.** indicates physical port corresponding to a hardware interface of the switch in this context.
-> Port No. = 0 means it is not significant!
+> Port No. = 9 means it is connected to an external alternative switch!
 
 
 ### VLAN Configuration
@@ -558,11 +558,25 @@ Cross-domain broadcast traffic in the switch is eliminated and bandwidth is save
 | Subnet Mask     | Network Addr.   | Address Range                   | Broadcast Addr.   |
 |-----------------|-----------------|:-------------------------------:|-------------------|
 | 255.255.255.248 | 202.45.128.160  | 202.45.128.161 - 202.45.128.166 | 202.45.128.167    |
+| 255.255.255.248 | 202.45.128.168  | 202.45.128.169 - 202.45.128.174 | 202.45.128.175    |
+| 255.255.255.248 | 202.45.128.176  | 202.45.128.177 - 202.45.128.182 | 202.45.128.183    |
 
 
-| VLAN Address   | VLAN ID | VLAN Name |
-|----------------|---------|-----------|
-| 202.45.128.166 | 400     | Control   |
+| VLAN Address   | VLAN ID | VLAN Name | Machine Nodes |
+|----------------|---------|-----------|---------------|
+| 202.45.128.165 | 100     | OF100     | debian1 - debian4 |
+| 202.45.128.170 | 400     | OF400     | d1 - d4 |
+| 202.45.128.180 | 800     | Control   | d0 debian0 controller |
+
+
+| Machine Node | IP address | Port No. | Line Color |
+|-------------:|------------|:--------:|:----------:|
+switch  | 202.45.128.180 | 9 | Red
+debian0 | 202.45.128.182 | 9 | White
+d0      | 202.45.128.181 | 9 | Red
+controller | 202.45.128.179 | 9 | Green
+
+
 
 
 **Initial VLAN Configuration**
