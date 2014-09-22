@@ -233,14 +233,15 @@ openflow instance { instance-name | aggregate } controller-id controller-ID
 > A VLAN that is a member of an OpenFlow instance cannot be added as an OpenFlow controller interface.
 > When an OpenFlow controller is associated with an OpenFlow instance it cannot be deleted.
 
-	HP-2920-24G(of-inst-aggregate)# open controller-id 1 ip 202.45.128.170 port 6633 controller-interface vlan 1
-	HP-2920-24G(of-inst-aggregate)# show openflow controllers
+	HP-2920-24G(of-inst-titan)# open controller-id 1 ip 202.45.128.170 port 6633 controller-interface vlan 800
+	HP-2920-24G(of-inst-titan)# show openflow controllers
 
 	 Controller Information
 
 	 Controller Id IP Address               Port   Interface
 	 ------------- ------------------------ ------ --------------
-	 1             202.45.128.170           6633   VLAN 1
+	 1             202.45.128.170           6633   VLAN 800
+
 
 
 + 9. OpenFlow Monitoring
@@ -601,7 +602,28 @@ controller | 202.45.128.179 | 9 | Green
 	Cancel changes and return to previous screen.
 	Use arrow keys to change action selection and <Enter> to execute action.
 
+
+**Add Routing Table Entries**
+
+```Bash
+route add -net 202.45.128.160 gw 202.45.128.180 netmask 255.255.255.248
+route add -net 202.45.128.168 gw 202.45.128.180 netmask 255.255.255.248
+```
+
+
+	[root@debian0][140922203920][/root]route
+	Kernel IP routing table
+	Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+	default         cisco3560x-202. 0.0.0.0         UG    0      0        0 eth0
+	202.45.128.0    *               255.255.255.0   U     0      0        0 eth0
+	202.45.128.160  switch          255.255.255.248 UG    0      0        0 eth0
+	202.45.128.168  switch          255.255.255.248 UG    0      0        0 eth0
+	[root@debian0][140922204051][/root]
+
+
 > For IP Routing, refer to http://www.firewall.cx/networking-topics/routing/181-routing-process.html to understand.
+
+
 
 **Initial VLAN Configuration**
 
@@ -706,6 +728,48 @@ show vlans custom 1-8 id name:20 ipaddr ipmask ipconfig state status
 	 100    VLAN100                                              Disabled   Up    Port-based
 
 
+**Routing Table**
+
+	[root@debian0][140922202400][/root]route -n
+	Kernel IP routing table
+	Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+	0.0.0.0         202.45.128.1    0.0.0.0         UG    0      0        0 eth0
+	202.45.128.0    0.0.0.0         255.255.255.0   U     0      0        0 eth0
+	[root@debian0][140922202402][/root]netstat -rn
+	Kernel IP routing table
+	Destination     Gateway         Genmask         Flags   MSS Window  irtt Iface
+	0.0.0.0         202.45.128.1    0.0.0.0         UG        0 0          0 eth0
+	202.45.128.0    0.0.0.0         255.255.255.0   U         0 0          0 eth0
+	[root@debian0][140922202439][/root]ip
+	Usage: ip [ OPTIONS ] OBJECT { COMMAND | help }
+	       ip [ -force ] -batch filename
+	where  OBJECT := { link | addr | addrlabel | route | rule | neigh | ntable |
+	                   tunnel | tuntap | maddr | mroute | mrule | monitor | xfrm |
+	                   netns | l2tp }
+	       OPTIONS := { -V[ersion] | -s[tatistics] | -d[etails] | -r[esolve] |
+	                    -f[amily] { inet | inet6 | ipx | dnet | link } |
+	                    -l[oops] { maximum-addr-flush-attempts } |
+	                    -o[neline] | -t[imestamp] | -b[atch] [filename] |
+	                    -rc[vbuf] [size]}
+	[root@debian0][140922202453][/root]ip route list
+	default via 202.45.128.1 dev eth0  proto static
+	202.45.128.0/24 dev eth0  proto kernel  scope link  src 202.45.128.182
+	[root@debian0][140922202455][/root]
+
+
+	[root@debian0][140922203410][/root]route
+	Kernel IP routing table
+	Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+	default         cisco3560x-202. 0.0.0.0         UG    0      0        0 eth0
+	202.45.128.0    *               255.255.255.0   U     0      0        0 eth0
+	[root@debian0][140922203412][/root]route add
+	Usage: inet_route [-vF] del {-host|-net} Target[/prefix] [gw Gw] [metric M] [[dev] If]
+	       inet_route [-vF] add {-host|-net} Target[/prefix] [gw Gw] [metric M]
+	                              [netmask N] [mss Mss] [window W] [irtt I]
+	                              [mod] [dyn] [reinstate] [[dev] If]
+	       inet_route [-vF] add {-host|-net} Target[/prefix] [metric M] reject
+	       inet_route [-FC] flush      NOT supported
+	[root@debian0][140922203416][/root]
 
 
 
