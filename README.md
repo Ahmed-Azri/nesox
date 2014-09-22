@@ -553,6 +553,13 @@ Cross-domain broadcast traffic in the switch is eliminated and bandwidth is save
 > It is proved that this configuration is wrong, probably because different VLANs should have different IP address!
 
 
+**Refined VLAN Table**
+
+| Subnet Mask     | Network Address | Address Range                   | Broadcast Address | VLAN Address   | VLAN ID | VLAN Name |
+|-----------------|-----------------|---------------------------------|-------------------|----------------|---------|-----------|
+| 255.255.255.248 | 202.45.128.160  | 202.45.128.161 - 202.45.128.166 | 202.45.128.167    | 202.45.128.166 | 400     | Control   |
+
+
 **Initial VLAN Configuration**
 
 	HP-2920-24G(config)# show vlan
@@ -779,6 +786,12 @@ In Aggregation mode, all VLANs in the switch are part of an OpenFlow instance.
 Similar to a lab environment the OpenFlow controller manages all the switching and routing for the switch.
 
 > How to setup the management VLAN and how to separate the controller VLAN.
+
+
+- 4. Inconsistant (netmask) values
+
+In **VLAN IP configuration** menu, to set the following network
+
 
 
 Reference
