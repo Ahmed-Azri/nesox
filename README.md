@@ -601,7 +601,7 @@ controller | 202.45.128.179 | 9 | Green
 	Cancel changes and return to previous screen.
 	Use arrow keys to change action selection and <Enter> to execute action.
 
-> For IP Routing, refer to http://www.firewall.cx/networking-topics/routing/181-routing-process.html to understanding.
+> For IP Routing, refer to http://www.firewall.cx/networking-topics/routing/181-routing-process.html to understand.
 
 **Initial VLAN Configuration**
 
