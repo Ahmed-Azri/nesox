@@ -577,7 +577,31 @@ d0      | 202.45.128.181 | 9 | Red
 controller | 202.45.128.179 | 9 | Green
 
 
+	HP-2920-24G                                                22-Sep-2014  17:56:48
+	==========================- CONSOLE - MANAGER MODE -============================
+	                  Switch Configuration - Internet (IP) Service
 
+	  IP Routing : Enabled
+
+
+	  Default TTL     : 64
+	  Arp Age         : 20
+
+
+
+	          VLAN           IP Config     IP Address       Subnet Mask
+	  -------------------- + ----------  ---------------  ---------------
+	  DEFAULT_VLAN         | Disabled
+	  OF100                | Manual      202.45.128.165   255.255.255.248
+	  OF400                | Manual      202.45.128.170   255.255.255.248
+	  CONTROL              | Manual      202.45.128.180   255.255.255.248
+
+	 Actions->   Cancel     Edit     Save     Help
+
+	Cancel changes and return to previous screen.
+	Use arrow keys to change action selection and <Enter> to execute action.
+
+> For IP Routing, refer to http://www.firewall.cx/networking-topics/routing/181-routing-process.html to understanding.
 
 **Initial VLAN Configuration**
 
