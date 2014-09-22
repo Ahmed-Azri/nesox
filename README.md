@@ -233,7 +233,7 @@ openflow instance { instance-name | aggregate } controller-id controller-ID
 > A VLAN that is a member of an OpenFlow instance cannot be added as an OpenFlow controller interface.
 > When an OpenFlow controller is associated with an OpenFlow instance it cannot be deleted.
 
-	HP-2920-24G(of-inst-titan)# open controller-id 1 ip 202.45.128.170 port 6633 controller-interface vlan 800
+	HP-2920-24G(of-inst-titan)# open controller-id 1 ip 202.45.128.181 port 6633 controller-interface vlan 800
 	HP-2920-24G(of-inst-titan)# show openflow controllers
 
 	 Controller Information
