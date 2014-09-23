@@ -815,6 +815,9 @@ Nesox Data Plane
 
 	 * Denotes that the pipeline could end here.
 
+> Note: Initially, each table has one flow entry matching everything and drop it.
+> **Table Miss** only happens at table 100 (Policy Table), that is the default starting table of HP OpenFlow.
+
 
 Run Nesox Scheduler
 -------------------
