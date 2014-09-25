@@ -962,7 +962,7 @@ Nesox OpenFlow Instance (HP2920 OF1.3)
 	 Maximum Backoff Interval : 10 seconds
 	 Probe Interval           : 10 seconds
 	 Hw. Table Miss Count     : NA
-	 No. of Sw Flow Tables    : 1
+	 No. of Sw Flow Tables    : 4
 	 Egress Only Ports        : None
 	 Table Model              : Policy Engine and Software
 
