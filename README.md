@@ -518,7 +518,7 @@ debian4 | 202.45.128.164 | 4 | Yellow
 d0      | 202.45.128.181 | 9 | Red
 d1      | 202.45.128.171 | 5 | Red
 d2      | 202.45.128.172 | 6 | Green
-d3      | 202.45.128.173 | 6 | Blue
+d3      | 202.45.128.173 | 7 | Blue
 d4      | 202.45.128.174 | 8 | Yellow
 controller | 202.45.128.179 | 9 | Green
 
@@ -937,6 +937,40 @@ show vlans custom 1-8 id name:20 ipaddr ipmask ipconfig state status
 	    Drop
 
 
+Nesox OpenFlow Instance (HP2920 OF1.3)
+--------------------------------------
+
+
+	HP-2920-24G(of-inst-nesox)# show openflow instance nesox
+
+	 Configured OF Version    : 1.3
+	 Negotiated OF Version    : 1.3
+	 Instance Name            : nesox
+	 Admin. Status            : Enabled
+	 Member List              : VLAN 400
+	 Listen Port              : None
+	 Oper. Status             : Up
+	 Oper. Status Reason      : NA
+	 Datapath ID              : 0190c4346b90c4c0
+	 Mode                     : Active
+	 Flow Location            : Hardware and Software
+	 No. of Hw Flows          : 2
+	 No. of Sw Flows          : 1
+	 Hw. Rate Limit           : 0 kbps
+	 Sw. Rate Limit           : 100 pps
+	 Conn. Interrupt Mode     : Fail-Secure
+	 Maximum Backoff Interval : 10 seconds
+	 Probe Interval           : 10 seconds
+	 Hw. Table Miss Count     : NA
+	 No. of Sw Flow Tables    : 1
+	 Egress Only Ports        : None
+	 Table Model              : Policy Engine and Software
+
+	 Controller Id Connection Status Connection State Secure Role
+	 ------------- ----------------- ---------------- ------ ------
+	 1             Connected         Active           No     Equal
+
+
 Nesox Data Plane
 ----------------
 
@@ -954,7 +988,7 @@ Nesox Data Plane
 > Nesox currently does not utilize that feature!
 
 
-	HP-2920-24G(config)# show openflow instance aggregate flow-table
+	HP-2920-24G(of-inst-nesox)# show openflow instance nesox flow-table
 
 	 OpenFlow Instance Flow Table Information
 
@@ -969,6 +1003,7 @@ Nesox Data Plane
 	 203    SW Table 4             1          0                    *
 
 	 * Denotes that the pipeline could end here.
+
 
 > Note: Initially, each table has one flow entry matching everything and drop it.
 > **Table Miss** only happens at table 100 (Policy Table), that is the default starting table of HP OpenFlow.
@@ -1017,6 +1052,9 @@ main()
 ```Python
 class ryu.base.app_manager.RyuApp(*_args, **_kwargs)
 ```
+
+
+
 
 ### Problems and Trouble Shooting
 - 1. When `start()` is defined, event handler may not called properly!
