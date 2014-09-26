@@ -603,6 +603,24 @@ controller | 202.45.128.179 | 9 | Green
 	Use arrow keys to change action selection and <Enter> to execute action.
 
 
+**Port Assignment**
+
+		Switch Configuration - VLAN - VLAN Port Assignment
+
+	  Port   DEFAULT_VLAN     OF100         OF400        CONTROL
+	  ---- + ------------  ------------  ------------  ------------
+	  1    | No            Untagged      No            No
+	  2    | No            Untagged      No            No
+	  3    | No            Untagged      No            No
+	  4    | No            Untagged      No            No
+	  5    | No            No            Untagged      No
+	  6    | No            No            Untagged      No
+	  7    | No            No            Untagged      No
+	  8    | No            No            Untagged      No
+	  9    | No            No            No            Untagged
+	  10   | Untagged      No            No            No
+
+
 **Add Routing Table Entries**
 
 ```Bash
