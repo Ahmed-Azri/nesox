@@ -107,7 +107,7 @@ bool TCPSocket::ShutDown(int ways) {
 
 void TCPSocket::Close() {
   if (socketid >= 0) {
-	close(socketid);
+    close(socketid);
     socketid = -1;
   }
 }
