@@ -14,7 +14,7 @@ void InitializeLogger(const std::string& info_log_file, const std::string& warn_
 	Logging::erro_log_stream.open(erro_log_file.c_str());
 }
 
-stream::ostream& Logging::GetStream(LoggingSeverity severity){
+std::ostream& Logging::GetStream(LoggingSeverity severity){
 	switch(severity){
 		case INFO: return ((info_log_stream.is_open()) ? info_log_stream : std::cout); break;
 		case WARNING: return ((warn_log_stream.is_open()) ? warn_log_stream : std::cerr); break;
@@ -22,12 +22,12 @@ stream::ostream& Logging::GetStream(LoggingSeverity severity){
 	}
 }
 
-std::ostream& Start(LoggingSeverity severity, const std::string& file, int line, const std::string& function){
+std::ostream& Logging::Start(LoggingSeverity severity, const std::string& file, int line, const std::string& function){
 	time_t tm;
 	time(&tm);
 	char time_string[0xff];
 	ctime_r(&tm, time_string);
-	return GetStream(severity) << time_string << " " << file << ":" << line << " [" << function << "] " << std:flush;
+	return GetStream(severity) << time_string << file << ":" << line << " (" << function << "): " << std::flush;
 }
 
 
@@ -38,7 +38,7 @@ Logging::~Logging(){
 		Logging::info_log_stream.close();
 		Logging::warn_log_stream.close();
 		Logging::erro_log_stream.close();
-		about();
+		abort();
 	}
 }
 

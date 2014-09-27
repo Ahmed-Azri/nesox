@@ -15,7 +15,7 @@ private:
 	static std::ofstream info_log_stream;
 	static std::ofstream warn_log_stream;
 	static std::ofstream erro_log_stream;
-	friend InitializeLogger(const std::string& info_log_file, const std::string& warn_log_file, const std::string& erro_log_file);
+	friend void InitializeLogger(const std::string& info_log_file, const std::string& warn_log_file, const std::string& erro_log_file);
 public:
 	static std::ostream& GetStream(LoggingSeverity severity);
 	static std::ostream& Start(LoggingSeverity severity, const std::string& file, int line, const std::string& function);
