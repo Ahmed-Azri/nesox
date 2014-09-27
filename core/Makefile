@@ -6,7 +6,7 @@ objects = logging.o tcp_socket.o
 all: $(objects) $(MAIN)
 
 CC = g++
-CFLAGS = -Weverything
+CFLAGS = -Wall
 
 logging.o: logging.cc logging.h
 	$(CC) $(CFLAGS) -c $< -o $@
