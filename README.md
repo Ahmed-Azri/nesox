@@ -1071,9 +1071,6 @@ main()
 class ryu.base.app_manager.RyuApp(*_args, **_kwargs)
 ```
 
-
-
-
 ### Problems and Trouble Shooting
 - 1. When `start()` is defined, event handler may not called properly!
 - 2. Events that change the Operational Status of the OpenFlow instance
@@ -1112,6 +1109,17 @@ Similar to a lab environment the OpenFlow controller manages all the switching a
 - 4. Inconsistant (netmask) values
 
 In **VLAN IP configuration** menu, to set the following network
+
+
+Nesox Architecture
+------------------
+
+**Roles of Networking Participants**
+
+| C/S role | P/S role | S/R role | MR role |
+|:--------:|:--------:|:--------:|:-------:|
+Server | Publisher  | Sender   | Mapper
+Client | Subscriber | Receiver | Reducer
 
 
 
