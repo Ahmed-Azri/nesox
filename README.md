@@ -1137,6 +1137,14 @@ usage:
 	nesoxclient.exe host port amount [M|G]
 ```
 
+**Data Set Used to Transfer**
+
+| File | Size | Description | Source |
+|------|------|-------------|--------|
+dickens.txt | 30M | Nearly complete works of Charles Dickens | [Princeton Dataset][8]
+war+peace.txt |3M | War and Peace | [Princeton Dataset][8]
+bible.txt | 4M | The Bible | [Princeton Dataset][8]
+
 
 Reference
 ---------
@@ -1144,6 +1152,7 @@ Reference
 [Ryu SDN Framework][2] |
 [HP2920 Switch Series][3] |
 [Ryu at Gibhub][4] |
+[Princeton Dataset][8] |
 [By liying01][6]
 
 ![2920 image][5]
@@ -1156,4 +1165,4 @@ Reference
 [5]: ./images/2920_FT.jpg "2920 image"
 [6]: liyingcs@hku.hk "liyinghku"
 [7]: http://aperiodic.net/screen/quick_reference "screen quick reference"
-
+[8]: http://introcs.cs.princeton.edu/java/data/ "princeton dataset"
