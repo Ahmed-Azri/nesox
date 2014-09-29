@@ -1121,6 +1121,21 @@ Nesox Architecture
 Server | Publisher  | Sender   | Mapper
 Client | Subscriber | Receiver | Reducer
 
+When Nesox server start up it wait for connection request and ready to send `amount` of data to connected client.
+
+**Nesox Server Usage**
+
+```Bash
+usage:
+	nesoxserver.exe port
+```
+
+**Nesox Client Usage**
+
+```Bash
+usage:
+	nesoxclient.exe host port amount [M|G]
+```
 
 
 Reference
