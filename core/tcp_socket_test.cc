@@ -1,7 +1,4 @@
-
-
-#include "tcp_socket.h"
-#include "logging.h"
+#include "tcpsocket.h"
 
 #include <string>
 #include <string.h>
@@ -16,26 +13,32 @@ int main() {
     int pid = fork();
     if (pid > 0) { //parent: server
         InitializeLogger("../logs/server_info.log", "../logs/server_warn.log", "../logs/server_erro.log");
+
         TCPSocket server;
         TCPSocket client;
+
         string cl_ip;
         short cl_port;
         char serbuff[10];
         memset(serbuff, '\0', 10);
 
         LOG(INFO) << "bing-listen-accept" << "!";
+
         server.Bind("127.0.0.1", 11223);
         server.Listen(3);
         server.Accept(&client, &cl_ip, &cl_port);
+
         LOG(INFO) << "connection established" << "!";
 
         int tmp;
 
         int recieved_bytes = 0;
+
         while (recieved_bytes < 10) {
           tmp = client.Receive(&serbuff[recieved_bytes], 10);
           recieved_bytes += tmp;
         }
+
         LOG(INFO) << "received [" << recieved_bytes << "] bytes: " << string(serbuff,10) << "!";
 
         int sent_bytes = 0;
