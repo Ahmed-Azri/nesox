@@ -47,9 +47,9 @@ int main(int argc, char *argv[])
 	//echo server logic
 	char buffer[maxsize];
 	int bytes = 0;
-	while(bytes = recv(connectedfd, buffer, sizeof(buffer), MSG_WAITALL))
+	while((bytes = recv(connectedfd, buffer, sizeof(buffer), 0) > 0)
 	{
-		send(connectedfd, buffer, bytes, MSG_WAITALL);
+		send(connectedfd, buffer, bytes, 0);
 	}
 
 	return 0;
