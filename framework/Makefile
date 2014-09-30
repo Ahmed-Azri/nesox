@@ -3,6 +3,8 @@ SERVER = nesoxserver
 CLIENT = nesoxclient
 
 MAIN = nesoxserver nesoxclient
+MAIN = dataloader
+
 main: $(MAIN)
 
 s: $(SERVER)
@@ -25,5 +27,3 @@ clean:
 	rm -rf *.o *.exe $(MAIN)
 test:
 	$(MAIN)
-
-
