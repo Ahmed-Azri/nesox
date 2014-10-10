@@ -7,8 +7,8 @@
 
 #define maxbuffersize 0xffffffff
 
-int main(int argc, char *argv[]){
-
+int main(int argc, char *argv[])
+{
 	printf("%s\n", "dataloader: enter");
 
 	if (argc != 2) {
@@ -21,9 +21,11 @@ int main(int argc, char *argv[]){
 	printf("[%d] file size: %d\n", result, filestatus.st_size);
 	int filesize = filestatus.st_size;
 
-	char *buffer = (char *)malloc(maxbuffersize * sizeof(char));
+	int buffersize = maxbuffersize;
+	char *buffer = (char *)malloc(buffersize * sizeof(char));
 	if (buffer == NULL) { printf("%s\n", "malloc failed!"); return -1; }
 	printf("%s\n", "malloc successed!");
+	printf("buffer size: %d\n", buffersize);
 
 	int fd;
 	fd = open(argv[1], O_RDONLY, S_IRUSR);
@@ -36,9 +38,11 @@ int main(int argc, char *argv[]){
 	printf("file des: %d\n", fd);
 	printf("num read: %d\n", numread);
 
-	for (int i = 0; i < numread; i++) putchar(buffer[i]);
+//	for (int i = 0; i < numread; i++) putchar(buffer[i]);
 
 	free(buffer);
 	close(fd);
+
+	printf("%s\n", "dataloader: exit");
 	return 0;
 }
