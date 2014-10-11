@@ -65,7 +65,9 @@ int main(int argc, char *argv[])
 	ssize_t numread = 0;
 
 	while (allread < amount) {
-		while (((numread = recv(socketfd, datastore + allread, amount - allread, 0)) == -1) && (errno == EINTR));
+		while (((numread = recv(socketfd, datastore + allread, amount - allread, 0)) == -1)
+			&& (errno == EINTR))
+			;
 		allread += numread;
 	}
 	printf("num read: %zd\n", allread);
@@ -73,6 +75,7 @@ int main(int argc, char *argv[])
 	for (int i = 0; i < amount; i++) putchar(datastore[i]);
 	printf("num read: %zd\n", allread);
 
+	free(datastore);
 	close(socketfd);
 	printf("\n");
 	fflush(NULL);

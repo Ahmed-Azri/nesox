@@ -105,7 +105,9 @@ int main(int argc, char *argv[])
 		ssize_t numwrite = 0;
 
 		while (allwrite < datasize) {
-			while (((numwrite = send(connectedfd, datastore + allwrite, datasize - allwrite, 0)) == -1) && (errno == EINTR));
+			while (((numwrite = send(connectedfd, datastore + allwrite, datasize - allwrite, 0)) == -1)
+				&& (errno == EINTR))
+				;
 			allwrite += numwrite;
 		}
 		printf("num write: %zd", numwrite);
