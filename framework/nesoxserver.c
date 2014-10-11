@@ -1,5 +1,9 @@
+#include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+#include <errno.h>
 #include <sys/socket.h>
 #include <sys/types.h>
 #include <arpa/inet.h>
@@ -7,32 +11,60 @@
 #include <string.h>
 #include <strings.h>
 
-#define maxbuffersize 1024
+#define maxbuffersize 0x100
+#define datastoresize 0xffffffff
+#define numbytesofint 10
 
 int main(int argc, char *argv[])
 {
-	printf("%s\n", "nesoxserver: start ... ");
+	printf("%s\n", "nesoxserver: enter");
 
-	char ipaddress[0x10] = "127.0.0.1";
+	int result = 0;
+
+	char *ipaddress = "127.0.0.1";
 	short portnum = 8848;
+	char *filename = "../data/bible.txt";
 
-	if (argc != 3) {
-		printf("%s\n", "usage: nesoxserver host port");
-		printf("%s\n", "	 default: 127.0.0.1:8848");
+	if (argc != 4) {
+		printf("%s\n", "usage: nesoxserver host port filename");
+		printf("%s\n", "default: nesoxserver 127.0.0.1:8848 ../data/bible.txt");
 	}
 	else {
-		snprintf(ipaddress, 0x10, "%s", argv[1]);
+		ipaddress = argv[1];
 		portnum = (short)atoi(argv[2]);
+		filename = argv[3];
 	}
 
-	int backlog = 1024;
-	int result = 0;
+	struct stat filestatus;
+	result = stat(filename, &filestatus);
+	if (result < 0) { printf("%s\n", "stat failed!"); return -1; }
+	long filesize = filestatus.st_size;
+	printf("file size: %ld\n", filesize);
+
+	if (datastoresize < filesize) { printf("%s\n", "datastoresize is not capable!"); return -1; }
+
+	char *datastore = (char *)malloc(datastoresize * sizeof(char));
+	if (datastore == NULL) { printf("%s\n", "malloc failed!"); return -1; }
+	printf("datastore size: %u\n", datastoresize);
+
+	int fd = open(filename, O_RDONLY, S_IRUSR);
+	if (fd < 0) { printf("%s\n", "open file failed!"); return -1; }
+	printf("%s\n", "open file successed!");
+	printf("file des: %d\n", fd);
+
+	int numread = read(fd, datastore, filesize);
+	if (numread < 0) { printf("%s\n", "read file failed!"); return -1; }
+	printf("file des: %d\n", fd);
+	printf("num read: %d\n", numread);
+	close(fd);
+
 	int listeningfd, connectedfd;
-	struct sockaddr_in serveraddress, clientaddress;
-	socklen_t length = sizeof(clientaddress);
-
 	listeningfd = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
+	if (listeningfd < 0) { printf("%s\n", "socket failed!"); return -1; }
+	printf("socket successed!\n");
 
+	struct sockaddr_in serveraddress, clientaddress;
+	socklen_t length = sizeof(struct sockaddr_in);
 	bzero(&serveraddress, sizeof(serveraddress));
 	bzero(&clientaddress, sizeof(clientaddress));
 
@@ -41,24 +73,40 @@ int main(int argc, char *argv[])
 	serveraddress.sin_port = htons(portnum);
 
 	result = bind(listeningfd, (struct sockaddr *)(&serveraddress), (socklen_t)(sizeof(serveraddress)));
-	if (result < 0) { printf("%s: bind error!\n", *argv); return -1; }
+	if (result < 0) { perror("perror: bind error!"); return -1; }
 	printf("bind successed!\n");
 
+	int backlog = 1024;
 	result = listen(listeningfd, backlog);
-	if (result < 0) { printf("%s: listen error!\n", *argv); return -1; }
+	if (result < 0) { perror("perror: listen error!"); return -1; }
 	printf("start listening!\n");
 
-	connectedfd = accept(listeningfd, (struct sockaddr *)(&clientaddress), &length);
-	if (connectedfd < 0) { printf("%s: accept error!\n", *argv); return -1; }
-	printf("accept new connection!\n");
+	int counter, status = 1;
+	for (counter = 1; status; counter++) {
 
-	//echo server logic
-	char buffer[maxbuffersize];
-	ssize_t bytes = 0;
-	bzero(buffer, maxbuffersize);
-	bytes = recv(connectedfd, buffer, sizeof(buffer), 0);
-	printf("received: %s", buffer);
-	send(connectedfd, buffer, (size_t)bytes, 0);
+		connectedfd = accept(listeningfd, (struct sockaddr *)(&clientaddress), &length);
+		if (connectedfd < 0) { perror("perror: accept error!"); return -1; }
+		printf("accept new connection!");
+		printf("counter: %d\n", counter);
 
+		char buffer[maxbuffersize];
+		ssize_t numread = 0;
+		bzero(buffer, maxbuffersize);
+
+		numread = read(connectedfd, buffer, numbytesofint);
+		unsigned datasize = atoi(buffer);
+		printf("num read: %zd\n", numread);
+		printf("buffer: %s\n", buffer);
+		printf("datasize: %u\n", datasize);
+
+
+
+		fflush(NULL);
+		close(connectedfd);
+	}
+
+	free(datastore);
+	close(listeningfd);
+	printf("%s\n", "nesoxserver: exit");
 	return 0;
 }
