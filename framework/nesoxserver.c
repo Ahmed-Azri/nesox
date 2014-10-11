@@ -27,7 +27,7 @@ int main(int argc, char *argv[])
 
 	if (argc != 4) {
 		printf("%s\n", "usage: nesoxserver host port filename");
-		printf("%s\n", "default: nesoxserver 127.0.0.1:8848 ../data/bible.txt");
+		printf("%s\n", "default: 127.0.0.1:8848 ../data/bible.txt");
 	}
 	else {
 		ipaddress = argv[1];
@@ -86,8 +86,9 @@ int main(int argc, char *argv[])
 
 		connectedfd = accept(listeningfd, (struct sockaddr *)(&clientaddress), &length);
 		if (connectedfd < 0) { perror("perror: accept error!"); return -1; }
+		printf("\n");
 		printf("accept new connection!");
-		printf("counter: %d\n", counter);
+		printf(" counter:%d\n", counter);
 
 		char buffer[maxbuffersize];
 		ssize_t numread = 0;
@@ -98,8 +99,16 @@ int main(int argc, char *argv[])
 		printf("num read: %zd\n", numread);
 		printf("buffer: %s\n", buffer);
 		printf("datasize: %u\n", datasize);
+		if (datasize > filesize) { printf("%s\n", "NOT enough data to feed!"); close(connectedfd); continue; }
 
+		ssize_t allwrite = 0;
+		ssize_t numwrite = 0;
 
+		while (allwrite < datasize) {
+			while (((numwrite = send(connectedfd, datastore + allwrite, datasize - allwrite, 0)) == -1) && (errno == EINTR));
+			allwrite += numwrite;
+		}
+		printf("num write: %zd", numwrite);
 
 		fflush(NULL);
 		close(connectedfd);
@@ -107,6 +116,7 @@ int main(int argc, char *argv[])
 
 	free(datastore);
 	close(listeningfd);
+
 	printf("%s\n", "nesoxserver: exit");
 	return 0;
 }

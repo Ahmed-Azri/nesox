@@ -12,22 +12,25 @@
 #include <strings.h>
 
 #define maxbuffersize 0x100
+#define datastoresize 0xffffffff
+#define numbytesofint 10
 
 int main(int argc, char *argv[])
 {
 	printf("%s\n", "nesoxclient: enter");
 
-	char ipaddress[0x10] = "127.0.0.1";
+	char *ipaddress = "127.0.0.1";
 	short portnum = 8848;
+	unsigned amount = 1024;
 
-	if (argc != 3) {
-		printf("%s\n", "usage: nesoxclient host port amount [M|G]");
-		printf("%s\n", "             default: 127.0.0.1:8848 1024");
-		printf("%s\n", "It is better to provide meaningful host address and port!");
+	if (argc != 4) {
+		printf("%s\n", "usage: nesoxclient host port amount [B|K|M|G]");
+		printf("%s\n", "               default: 127.0.0.1:8848 1024 B");
 	}
 	else {
-		snprintf(ipaddress, 0x10, "%s", argv[1]);
+		ipaddress = argv[1];
 		portnum = (short)atoi(argv[2]);
+		amount = (unsigned)atoi(argv[3]);
 	}
 
 	int result = 0;
@@ -51,11 +54,29 @@ int main(int argc, char *argv[])
 	ssize_t numwrite = 0;
 
 	char datasize[] = "4294967295";
+	snprintf(datasize, sizeof(datasize), "%u", amount);
 	numwrite = write(socketfd, datasize, (size_t)strlen(datasize));
 
+	char *datastore = (char *)malloc(amount * sizeof(char));
+	if (datastore == NULL) { printf("%s\n", "malloc failed!"); return -1; }
+	printf("datastore size: %u\n", amount);
 
+	ssize_t allread = 0;
+	ssize_t numread = 0;
+
+	while (allread < amount) {
+		while (((numread = recv(socketfd, datastore + allread, amount - allread, 0)) == -1) && (errno == EINTR));
+		allread += numread;
+	}
+	printf("num read: %zd\n", allread);
+
+	for (int i = 0; i < amount; i++) putchar(datastore[i]);
+	printf("num read: %zd\n", allread);
 
 	close(socketfd);
+	printf("\n");
+	fflush(NULL);
+
 	printf("%s\n", "nesoxclient: exit");
 	return 0;
 }
