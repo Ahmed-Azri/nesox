@@ -2,9 +2,11 @@
 SERVER = nesoxserver
 CLIENT = nesoxclient
 DATALD = dataloader
+TIMING = nesoxtime
 
 MAIN = nesoxserver nesoxclient
 MAIN = dataloader
+MAIN = nesoxtime
 
 main: $(MAIN)
 
@@ -19,16 +21,19 @@ CC = gcc
 CFLAGS = -Weverything
 CFLAGS = -Wall
 
-nesoxserver: nesoxserver.c
-	$(CC) $(CFLAGS) $? -o $@
+nesoxserver: nesoxserver.c nesox.h
+	$(CC) $(CFLAGS) $< -o $@
 
-nesoxclient: nesoxclient.c
-	$(CC) $(CFLAGS) $? -o $@
+nesoxclient: nesoxclient.c nesox.h
+	$(CC) $(CFLAGS) $< -o $@
+
+nesoxtime: nesoxtime.c
+	$(CC) $(CFLAGS) $< -o $@
 
 .PHONY:	clean test
 
 clean:
-	rm -rf *.o *.exe $(SERVER) $(CLIENT) $(DATALD)
+	rm -rf *.o *.exe $(SERVER) $(CLIENT) $(DATALD) $(TIMING)
 test:
 	$(MAIN)
 

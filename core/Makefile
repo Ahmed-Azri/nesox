@@ -1,5 +1,5 @@
 
-MAIN = tcp_socket_test
+MAIN = logging_test
 
 objects = logging.o tcp_socket.o
 

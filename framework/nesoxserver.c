@@ -1,19 +1,4 @@
-#include <unistd.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <sys/stat.h>
-#include <fcntl.h>
-#include <errno.h>
-#include <sys/socket.h>
-#include <sys/types.h>
-#include <arpa/inet.h>
-#include <netinet/in.h>
-#include <string.h>
-#include <strings.h>
-
-#define maxbuffersize 0x100
-#define datastoresize 0xffffffff
-#define numbytesofint 10
+#include "nesox.h"
 
 int main(int argc, char *argv[])
 {
