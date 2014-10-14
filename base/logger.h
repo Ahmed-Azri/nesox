@@ -10,16 +10,19 @@
 #include <unistd.h>
 #include <sys/stat.h>
 
-#define LOG(...) logprintf( __VA_ARGS__ ), logflush()
+#define logtrace(...) logprintf( __FILE__, __FUNCTION__, __LINE__, TRACE, __VA_ARGS__ )
+#define logerror(...) logprintf( __FILE__, __FUNCTION__, __LINE__, ERROR, __VA_ARGS__ )
+#define logstats(...) logprintf( __FILE__, __FUNCTION__, __LINE__, STATS, __VA_ARGS__ )
+
+#define LOG(...) logprintf( NULL, NULL, -1, TRACE, __VA_ARGS__ )
 
 #define TRACE 0
 #define ERROR 1
-#define SINFO 2
+#define STATS 2
 
 int logopen(char *filename);
 int logclose(void);
 
-int logprintf(char *format, ...);
-int logflush(void);
+int logprintf(char *file, char *function, int line, int severity, char *format, ...);
 
 #endif

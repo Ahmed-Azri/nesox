@@ -4,28 +4,13 @@ int main(){
 
 logopen("loggertest.log");
 
-LOG("Hello, LOG!");
-logprintf("Hello, Nesox Logger!\n");
-logprintf("Hello, Nesox Logger!\n");
-logprintf("Hello, Nesox Logger!\n");
-logprintf("Hello, Nesox Logger!\n");
-logprintf("Hello, Nesox Logger!\n");
-logprintf("Hello, Nesox Logger!\n");
-
 sleep(2);
 
-logprintf("Hello, Nesox Logger!\n");
-logprintf("Hello, Nesox Logger!\n");
-logprintf("Hello, Nesox Logger!\n");
-logprintf("Hello, Nesox Logger!\n");
-logprintf("Hello, Nesox Logger!\n");
-logprintf("%s\n", "OK???");
-logprintf("%d\n", 1000);
-printf("%s:%s:%d\n", __FILE__, __FUNCTION__, __LINE__);
-logsend();
+logtrace("%s", "Hello, LOG!!!!Hello, LOG!!!!Hello, LOG!!!!Hello, LOG!!!!Hello, LOG!!!!Hello, LOG!!!!Hello, LOG!!!!Hello, LOG!!!!Hello, LOG!!!!Hello, LOG!!!!Hello, LOG!!!!Hello, LOG!!!!Hello, LOG!!!!Hello, LOG!!!!Hello, LOG!!!!");
+logerror("%s", "Hello, LOG!!!!");
+logstats("%s", "Hello, LOG!!!!");
 
-LOG("Hello, LOG!\n");
-
+LOG("%s", "How about this macro?");
 
 logclose();
 
