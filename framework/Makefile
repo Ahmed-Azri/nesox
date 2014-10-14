@@ -2,15 +2,14 @@
 SERVER = nesoxserver
 CLIENT = nesoxclient
 
-MAIN = nesoxserver 
+MAIN = nesoxserver
 MAIN = nesoxclient
+MAIN = nesox
 
 main: $(MAIN)
 
 s: $(SERVER)
 c: $(CLIENT)
-
-all: $(objects) $(MAIN)
 
 CC = clang
 CC = gcc
@@ -23,12 +22,13 @@ nesoxserver: nesoxserver.c nesox.h
 nesoxclient: nesoxclient.c nesox.h
 	$(CC) $(CFLAGS) $< -o $@
 
+nesox: nesox.c nesox.h
+	$(CC) $(CFLAGS) $< -o $@
 
 .PHONY:	clean test
 
 clean:
-	rm -rf *.o *.exe $(SERVER) $(CLIENT) 
+	rm -rf *.o *.exe $(SERVER) $(CLIENT)
 
 test:
 	$(MAIN)
-

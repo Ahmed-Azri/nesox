@@ -11,6 +11,9 @@
 #include <signal.h>
 #include <syslog.h>
 
-int daemonize(int nochdir, int noclose);
+#define NOCHDIR 1
+#define CLOSEFD 0
+
+int daemoninit(int nochdir, int noclose);
 
 #endif

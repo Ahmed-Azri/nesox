@@ -1,23 +1,24 @@
-
 MAIN = timing_test
 MAIN = logger_test
 MAIN = daemon_test
+MAIN = socker_test
+MAIN = base_test
+
+LIBS = libbase.a
 
 main: $(MAIN)
+libs: $(LIBS)
 
+AR = ar cru
 CC = gcc
 CFLAGS = -Weverything
+INCLUDE = ./
+LIBRARY = ./
 
 logger.o: logger.c logger.h
 	$(CC) -c $(CFLAGS) $< -o $@
 
 logger_test: logger_test.c logger.o
-	$(CC) $(CFLAGS) $^ -o $@
-
-daemon.o: daemon.c daemon.h
-	$(CC) -c $(CFLAGS) $< -o $@
-
-daemon_test: daemon_test.c daemon.o logger.o timing.o
 	$(CC) $(CFLAGS) $^ -o $@
 
 timing.o: timing.c timing.h
@@ -26,9 +27,28 @@ timing.o: timing.c timing.h
 timing_test: timing_test.c timing.o
 	$(CC) $(CFLAGS) $^ -o $@
 
+daemon.o: daemon.c daemon.h
+	$(CC) -c $(CFLAGS) $< -o $@
+
+daemon_test: daemon_test.c daemon.o logger.o timing.o
+	$(CC) $(CFLAGS) $^ -o $@
+
+socker.o: socker.c socker.h
+	$(CC) -c $(CFLAGS) $< -o $@
+
+socker_test: socker_test.c socker.o
+	$(CC) $(CFLAGS) $^ -o $@
+
+libbase.a: logger.o daemon.o socker.o timing.o
+	$(AR) $@ $^
+
+base_test: base_test.c
+	$(CC) -I $(INCLUDE) -o $@ $< -L $(LIBRARY) -lbase
+
 clean:
-	rm -rf *.o *_test *.log
+	rm -rf *.o *.a *_test *.log
 
 test:
 	$(MAIN)
+
 

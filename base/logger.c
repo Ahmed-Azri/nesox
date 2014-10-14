@@ -56,8 +56,8 @@ int logprintf(char *file, char *function, int line, int severity, char *format, 
 		vsnprintf(message, sizeof(message), format, arglist);
 
 	static char buffer[0x500];
-	ssize_t len = snprintf(buffer, sizeof(buffer), "%s[%s] %s\n", header, getseverity(severity), message);
-
-	return (int) dogwrite(logfd, buffer, len);
+	ssize_t num = snprintf(buffer, sizeof(buffer), "%s[%s] %s\n", header, getseverity(severity), message);
+	if (num < 0) return -1;
+	return (int) dogwrite(logfd, buffer, (size_t)num);
 }
 

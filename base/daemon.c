@@ -1,6 +1,6 @@
 #include "daemon.h"
 
-int daemonize(int nochdir, int noclose)
+int daemoninit(int nochdir, int noclose)
 {
 
 	int result = 0;
