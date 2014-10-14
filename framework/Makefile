@@ -16,19 +16,22 @@ CC = gcc
 CFLAGS = -Weverything
 CFLAGS = -Wall
 
+BASE_INCLUDE = ../base
+BASE_LIBRARY = ../base
+
 nesoxserver: nesoxserver.c nesox.h
-	$(CC) $(CFLAGS) $< -o $@
+	$(CC) $(CFLAGS) -I $(BASE_INCLUDE) $< -o $@ -L $(BASE_LIBRARY) -lbase
 
 nesoxclient: nesoxclient.c nesox.h
-	$(CC) $(CFLAGS) $< -o $@
+	$(CC) $(CFLAGS) -I $(BASE_INCLUDE) $< -o $@ -L $(BASE_LIBRARY) -lbase
 
 nesox: nesox.c nesox.h
-	$(CC) $(CFLAGS) $< -o $@
+	$(CC) $(CFLAGS) -I $(BASE_INCLUDE) $< -o $@ -L $(BASE_LIBRARY) -lbase
 
 .PHONY:	clean test
 
 clean:
-	rm -rf *.o *.exe $(SERVER) $(CLIENT)
+	rm -rf *.o *.exe $(SERVER) $(CLIENT) nesox
 
 test:
 	$(MAIN)

@@ -1,6 +1,11 @@
 #ifndef NESOX
 #define NESOX
 
+#include "timing.h"
+#include "logger.h"
+#include "socker.h"
+#include "daemon.h"
+
 #include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
