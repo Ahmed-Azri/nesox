@@ -6,7 +6,7 @@ logopen("loggertest.log");
 
 sleep(2);
 
-logtrace("%s", "Hello, LOG!!!!Hello, LOG!!!!Hello, LOG!!!!Hello, LOG!!!!Hello, LOG!!!!Hello, LOG!!!!Hello, LOG!!!!Hello, LOG!!!!Hello, LOG!!!!Hello, LOG!!!!Hello, LOG!!!!Hello, LOG!!!!Hello, LOG!!!!Hello, LOG!!!!Hello, LOG!!!!");
+logtrace("%s", "Hello, LOG!!!!Hello, LOG!!!!Hello, LOG!!!!Hello, LOG!!!!Hello, LOG!!!!Hello, LOG!!!!Hello, LOG!!!!Hello, LOG!!!!Hello, LOG!!!!");
 logerror("%s", "Hello, LOG!!!!");
 logstats("%s", "Hello, LOG!!!!");
 

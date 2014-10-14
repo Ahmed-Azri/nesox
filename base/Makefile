@@ -1,7 +1,7 @@
 
 MAIN = timing_test
-MAIN = daemon_test
 MAIN = logger_test
+MAIN = daemon_test
 
 main: $(MAIN)
 
