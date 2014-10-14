@@ -49,16 +49,20 @@ int main(int argc, char *argv[])
 	ssize_t allread = 0;
 	ssize_t numread = 0;
 
+	timepoint s; timepin(&s);
 	while (allread < amount) {
 		while (((numread = recv(socketfd, datastore + allread, amount - allread, 0)) == -1)
 			&& (errno == EINTR))
 			;
 		allread += numread;
 	}
+	timepoint e; timepin(&e);
 	printf("num read: %zd\n", allread);
 
 	for (int i = 0; i < amount; i++) putchar(datastore[i]);
 	printf("num read: %zd\n", allread);
+	printf("time consumed: %.6f seconds\n", timeint(s,e));
+	printf("time consumed: %.6f microseconds\n", timeint(s,e)*1000000);
 
 	free(datastore);
 	close(socketfd);

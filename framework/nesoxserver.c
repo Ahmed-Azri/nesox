@@ -72,7 +72,7 @@ int main(int argc, char *argv[])
 
 		connectedfd = accept(listeningfd, (struct sockaddr *)(&clientaddress), &length);
 		if (connectedfd < 0) { perror("perror: accept error!"); return -1; }
-		printf("\n");
+
 		printf("accept new connection!");
 		printf(" counter:%d\n", counter);
 
@@ -90,13 +90,18 @@ int main(int argc, char *argv[])
 		ssize_t allwrite = 0;
 		ssize_t numwrite = 0;
 
+		timepoint s; timepin(&s);
 		while (allwrite < datasize) {
 			while (((numwrite = send(connectedfd, datastore + allwrite, datasize - allwrite, 0)) == -1)
 				&& (errno == EINTR))
 				;
 			allwrite += numwrite;
 		}
-		printf("num write: %zd", numwrite);
+		timepoint e; timepin(&e);
+
+		printf("num write: %zd\n", numwrite);
+		printf("time consumed: %.6f seconds\n", timeint(s,e));
+		printf("time consumed: %.6f microseconds\n", timeint(s,e)*1000000);
 
 		fflush(NULL);
 		close(connectedfd);
