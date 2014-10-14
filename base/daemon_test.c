@@ -1,5 +1,6 @@
 #include "daemon.h"
 #include "logger.h"
+#include "timing.h"
 
 int main(){
 
@@ -10,9 +11,22 @@ int main(){
 
 	sleep(3);
 
-	printf("%s\n", "hello!!!");
+	logtrace("%s: enter!", timestamp());
 
-	LOG("Hello, LOG!!!");
+	timepoint start;
+	timepin(&start);
+
+	sleep(3);
+
+	timepoint currt;
+	timepin(&currt);
+
+	timerange interval = timeint(start, currt);
+
+	logtrace("time elapse: %.4f seconds!", timeint(start, currt));
+	logtrace("time elapse: %.4f seconds!", interval);
+
+	logtrace("%s: leave!", timestamp());
 
 	logclose();
 	return 0;

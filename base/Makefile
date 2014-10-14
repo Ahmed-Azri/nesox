@@ -17,7 +17,7 @@ logger_test: logger_test.c logger.o
 daemon.o: daemon.c daemon.h
 	$(CC) -c $(CFLAGS) $< -o $@
 
-daemon_test: daemon_test.c daemon.o logger.o
+daemon_test: daemon_test.c daemon.o logger.o timing.o
 	$(CC) $(CFLAGS) $^ -o $@
 
 timing.o: timing.c timing.h

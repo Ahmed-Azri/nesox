@@ -8,7 +8,9 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
+#include <time.h>
 #include <sys/stat.h>
+#include <sys/time.h>
 
 #define logtrace(...) logprintf( __FILE__, __FUNCTION__, __LINE__, TRACE, __VA_ARGS__ )
 #define logerror(...) logprintf( __FILE__, __FUNCTION__, __LINE__, ERROR, __VA_ARGS__ )

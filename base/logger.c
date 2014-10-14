@@ -14,6 +14,15 @@ static char *getseverity(int severity)
 	return pseverity;
 }
 
+static char *getlogtime()
+{
+	static char loggingtime[0x5f];
+	time_t t;
+	time(&t);
+	strftime(loggingtime, 0x5f, "%Y%m%d%H%M%S", localtime(&t));
+	return loggingtime;
+}
+
 static ssize_t dogwrite(int filedes, void *buffer, size_t size) {
    ssize_t bytes;
 
@@ -37,9 +46,9 @@ int logprintf(char *file, char *function, int line, int severity, char *format, 
 {
 	static char header[0x100];
 	if (file != NULL && function != NULL && line != -1)
-		snprintf(header, sizeof(header), "%s(%s):%04d ", file, function, line);
+		snprintf(header, sizeof(header), "%s %s(%10s):%04d ", getlogtime(), file, function, line);
 	else
-		snprintf(header, sizeof(header), "");
+		snprintf(header, sizeof(header), "%s ", getlogtime());
 
 	static char message[0x400];
 	va_list arglist;
