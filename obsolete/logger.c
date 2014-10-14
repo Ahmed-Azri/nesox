@@ -134,19 +134,3 @@ int logclose() {
    while (retval = close(fd), retval == -1 && errno == EINTR) ;
    return retval;
 }
-
-int LOG(char *fmt, ...) {
-   va_list ap;
-   char ch;
-   int len;
-   list *new_entry;
-
-   va_start(ap, fmt);
-   len = vsnprintf(&ch, 1, fmt, ap);
-   new_entry = insert_new_entry(len, 1);
-   if (new_entry == NULL)
-      return -1;
-   vsprintf(new_entry->entry, fmt, ap);
-   logsend();
-   return 0;
-}

@@ -10,12 +10,16 @@
 #include <unistd.h>
 #include <sys/stat.h>
 
+#define LOG(...) logprintf( __VA_ARGS__ ), logflush()
+
+#define TRACE 0
+#define ERROR 1
+#define SINFO 2
+
 int logopen(char *filename);
 int logclose(void);
-int logprintf(char *format, ...);
-int logsend(void);
-int logclear(void);
 
-int LOG(char *format, ...);
+int logprintf(char *format, ...);
+int logflush(void);
 
 #endif
