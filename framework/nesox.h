@@ -26,5 +26,6 @@
 #define datastoresize 0xffffffff
 #define numbytesofint 0xa
 #define optionargsize 0x100
+#define cmdmaxargsize 0x100
 
 #endif

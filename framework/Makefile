@@ -31,7 +31,7 @@ nesox: nesox.c nesox.h
 .PHONY:	clean test
 
 clean:
-	rm -rf *.o *.exe $(SERVER) $(CLIENT) nesox
+	rm -rf *.o *.exe *.log $(SERVER) $(CLIENT) nesox
 
 test:
 	$(MAIN)

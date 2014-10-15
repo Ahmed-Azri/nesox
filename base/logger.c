@@ -36,6 +36,12 @@ int logopen(char *filename)
    return logfd;
 }
 
+int logdup(int filedes)
+{
+	logfd = dup(filedes);
+	return logfd;
+}
+
 int logclose()
 {
 	result = close(logfd);

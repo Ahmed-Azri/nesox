@@ -2,9 +2,8 @@
 
 int main(){
 
-logopen("loggertest.log");
-
-sleep(2);
+//logopen("loggertest.log");
+logdup(1);
 
 logtrace("%s", "Hello, LOG!!!!Hello, LOG!!!!Hello, LOG!!!!Hello, LOG!!!!Hello, LOG!!!!Hello, LOG!!!!Hello, LOG!!!!Hello, LOG!!!!Hello, LOG!!!!");
 logerror("%s", "Hello, LOG!!!!");

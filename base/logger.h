@@ -23,6 +23,7 @@
 #define STATS 2
 
 int logopen(char *filename);
+int logdup(int filedes);
 int logclose(void);
 
 int logprintf(char *file, char *function, int line, int severity, char *format, ...);
