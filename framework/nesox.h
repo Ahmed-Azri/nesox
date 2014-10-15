@@ -22,10 +22,14 @@
 #include <arpa/inet.h>
 #include <netinet/in.h>
 
-#define maxbuffersize 0x100
 #define datastoresize 0xffffffff
-#define numbytesofint 0xa
+#define numdigits_int 0xa
+#define maxbuffersize 0x100
 #define optionargsize 0x100
 #define cmdmaxargsize 0x100
+
+#define kilobytes 1024
+#define megabytes 1048576
+#define gigabytes 1073741824
 
 #endif

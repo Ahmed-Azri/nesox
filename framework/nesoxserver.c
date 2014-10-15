@@ -12,7 +12,7 @@ int main(int argc, char *argv[])
 
 	if (argc != 4) {
 		printf("%s\n", "usage: nesoxserver host port filename");
-		printf("%s\n", "default: 127.0.0.1:8848 ../data/bible.txt");
+		printf("%s\n", "default: 127.0.0.1:8848 ../data/bible");
 	}
 	else {
 		ipaddress = argv[1];
@@ -76,11 +76,12 @@ int main(int argc, char *argv[])
 		printf("accept new connection!");
 		printf(" counter:%d\n", counter);
 
+
 		char buffer[maxbuffersize];
 		ssize_t numread = 0;
 		bzero(buffer, maxbuffersize);
 
-		numread = read(connectedfd, buffer, numbytesofint);
+		numread = read(connectedfd, buffer, numdigits_int);
 		unsigned datasize = atoi(buffer);
 		printf("num read: %zd\n", numread);
 		printf("buffer: %s\n", buffer);
@@ -102,6 +103,8 @@ int main(int argc, char *argv[])
 		printf("num write: %zd\n", numwrite);
 		printf("time consumed: %.6f seconds\n", timeint(s,e));
 		printf("time consumed: %.6f microseconds\n", timeint(s,e)*1000000);
+
+
 
 		fflush(NULL);
 		close(connectedfd);
