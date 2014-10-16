@@ -132,7 +132,7 @@ int server(int background, char *host, short port, char *filename)
 	int result = 0;
 
 	char *datastore = NULL;
-	int datasize = loader(filename, &datasize);
+	int datasize = loader(filename, &datastore);
 	if (datasize < 0) { logerror("loader failed: %s", strerror(errno)); return -1; }
 
 	struct sockaddr_in serveraddress, clientaddress;
@@ -161,22 +161,24 @@ int server(int background, char *host, short port, char *filename)
 
 
 		// server task 1: get message
-		message m; getmessage(connectedfd, &m);
+		message m;
+		result = getmessage(connectedfd, &m);
+		if (result < 0) { logerror("getmessage failed!"); return -1; }
 		logtrace("got a message: %s", encode(&m));
 
 		// server task 2: parse message
 		handler handlefunc = parsemessage(&m);
+		if (!handlefunc) { logerror("parsemessage failed!"); return -1; }
 		logtrace("message parsed!");
 
 		// server task 3: handle message
-
 		/**
 		 * For getting a general message handling mechanism, 'datastore' is passsed to each handler!
 		 *  1. Each handler should allocate its own local buffer to 'getdata'!
 		 *  2. 'm.size' is the 'size' info from message, its meaning depends on its context
 		 */
-
-		if (handlefunc != NULL) (*handlefunc)(connectedfd, datastore, m.size);
+		result = (*handlefunc)(connectedfd, datastore, m.size);
+		if (result < 0) { logerror("message handler failed!"); return -1; }
 		logtrace("message handled!");
 
 
@@ -202,6 +204,10 @@ int reader(int background, char *host, short port, int amount)
 
 	int result = 0;
 
+	char *datastore = (char *)malloc(amount * sizeof(char));
+	if (datastore == NULL) { logerror("malloc failed: %s", strerror(errno)); return -1; }
+	logtrace("malloc datastore size: %u", amount);
+
 	struct sockaddr_in serveraddress;
 	int socketfd = socker(host, port, &serveraddress);
 	if (socketfd < 0) { logerror("socket/socker failed: %s", strerror(errno)); return -1; }
@@ -211,18 +217,18 @@ int reader(int background, char *host, short port, int amount)
 	if (result < 0) { logerror("connect failed: %s", strerror(errno)); return -1; }
 	logtrace("connected!");
 
-	// reader task 1 - send request : put message (and put data)
-	helloreq(socketfd, NULL, 0);
 
-	// reader task 2 - receive response: get message (and get data)
-	char store[maxbuffersize];
-	message m;
-	getmessage(socketfd, &m);
-	logtrace("got message: %s", encode(&m));
-	if (m.size > 0) getdata(socketfd, store, m.size);
-	logtrace("got data: %s", store);
+	message m = messageinit(RETRIEVE, amount);
+	putmessage(socketfd, &m);
+	logtrace("request sent: %s", encode(&m));
+
+	long num = getdata(socketfd, datastore, amount);
+	logtrace("got the data!!!");
+	logtrace("data size: %d", num);
+
 
 	close(socketfd);
+	free(datastore);
 	logtrace("reader return");
 	return 0;
 }

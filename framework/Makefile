@@ -14,7 +14,8 @@ c: $(CLIENT)
 HOST = 127.0.0.1
 PORT = 8848
 FILE = ../data/biblewarpease
-SIZE = 1024
+SIZE = 1048576
+SIZE = 6291456
 
 CC = clang
 CC = gcc

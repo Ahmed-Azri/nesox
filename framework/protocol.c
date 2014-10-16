@@ -29,6 +29,7 @@ int hellorep(int fd, char *data, int size)
 	return 0;
 }
 
+
 handler parsemessage(message *m)
 {
 	handler fun = NULL;
@@ -38,6 +39,11 @@ handler parsemessage(message *m)
 			break;
 		case ECHO_REQ: break;
 		case ECHO_REP: break;
+		case RETRIEVE:
+			fun = putdata;
+			break;
+		case TRANSFER: break;
+		case SCHEDULE: break;
 		default: break;
 	}
 	return fun;
