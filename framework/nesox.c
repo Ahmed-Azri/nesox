@@ -4,6 +4,7 @@ static timepoint enter, leave;
 
 static int server(int, char*, short, char*);
 static int reader(int, char*, short, int);
+static int loader(char* filename, char **store);
 
 int usage()
 {
@@ -85,13 +86,8 @@ int main(int argc, char *argv[])
 	return 0;
 }
 
-int server(int background, char *host, short port, char *filename)
+int loader(char *filename, char **store)
 {
-	logtrace("server run in %s!", background ? "background" : "frontend");
-	logtrace("host: %s", host);
-	logtrace("port: %d", port);
-	logtrace("file: %s", filename);
-
 	int result = 0;
 
 	struct stat filestatus;
@@ -122,6 +118,23 @@ int server(int background, char *host, short port, char *filename)
 	if (result < 0) { logerror("close failed: %s", strerror(errno)); return -1; }
 	logtrace("file closed!");
 
+	*store = datastore;
+	return datasize;
+}
+
+int server(int background, char *host, short port, char *filename)
+{
+	logtrace("server run in %s!", background ? "background" : "frontend");
+	logtrace("host: %s", host);
+	logtrace("port: %d", port);
+	logtrace("file: %s", filename);
+
+	int result = 0;
+
+	char *datastore = NULL;
+	int datasize = loader(filename, &datasize);
+	if (datasize < 0) { logerror("loader failed: %s", strerror(errno)); return -1; }
+
 	struct sockaddr_in serveraddress, clientaddress;
 	socklen_t sockerlength = sizeof(struct sockaddr_in);
 	int listeningfd = socker(host, port, &serveraddress);
@@ -144,9 +157,12 @@ int server(int background, char *host, short port, char *filename)
 		int connectedfd = accept(listeningfd, (struct sockaddr *)(&clientaddress), &sockerlength);
 		if (connectedfd < 0) { logerror("accept failed: %s", strerror(errno)); return -1; }
 		logtrace("accept connection: %d", counter);
+		timepoint s; timepin(&s);
 
 		// handle(connectedfd);
 
+		timepoint e; timepin(&e);
+		logstats("time consumed: %.8f", timeint(s,e));
 		close(connectedfd);
 		logtrace("closed connection: %d", counter);
 	} //foreach acceptable connection!

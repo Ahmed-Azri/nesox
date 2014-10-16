@@ -1,8 +1,10 @@
+
 MAIN = timing_test
 MAIN = daemon_test
 MAIN = socker_test
 MAIN = base_test
 MAIN = logger_test
+MAIN = message_test
 
 LIBS = libbase.a
 
@@ -39,6 +41,12 @@ socker.o: socker.c socker.h
 socker_test: socker_test.c socker.o
 	$(CC) $(CFLAGS) $^ -o $@
 
+message.o: message.c message.h
+	$(CC) -c $(CFLAGS) $< -o $@
+
+message_test: message_test.c message.o
+	$(CC) $(CFLAGS) $^ -o $@
+
 libbase.a: logger.o daemon.o socker.o timing.o
 	$(AR) $@ $^
 
@@ -50,5 +58,4 @@ clean:
 
 test:
 	$(MAIN)
-
 

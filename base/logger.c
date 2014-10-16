@@ -9,6 +9,7 @@ static int result = 0;
 static char *getseverity(int severity)
 {
 	static char *pseverity = "TRACE";
+	if (severity == TRACE) pseverity = "TRACE";
 	if (severity == ERROR) pseverity = "ERROR";
 	if (severity == STATS) pseverity = "STATS";
 	return pseverity;

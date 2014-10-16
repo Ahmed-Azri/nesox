@@ -11,6 +11,11 @@ main: $(MAIN)
 s: $(SERVER)
 c: $(CLIENT)
 
+HOST = 127.0.0.1
+PORT = 8848
+FILE = ../data/biblewarpease
+SIZE = 1024
+
 CC = clang
 CC = gcc
 CFLAGS = -Weverything
@@ -28,10 +33,15 @@ nesoxclient: nesoxclient.c nesox.h
 nesox: nesox.c nesox.h
 	$(CC) $(CFLAGS) -I $(BASE_INCLUDE) $< -o $@ -L $(BASE_LIBRARY) -lbase
 
-.PHONY:	clean test
+
+.PHONY:	clean test ts tc
 
 clean:
 	rm -rf *.o *.exe *.log $(SERVER) $(CLIENT) nesox
 
 test:
 	$(MAIN)
+ts:
+	nesox -r server -f $(FILE) $(HOST) $(PORT)
+tc:
+	nesox -r reader -s $(SIZE) $(HOST) $(PORT)
