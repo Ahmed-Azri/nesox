@@ -29,6 +29,47 @@ int hellorep(int fd, char *data, int size)
 	return 0;
 }
 
+long transfer(int socketdes, char *datastore, long datasize, long requestsize)
+{
+	long allput = 0;
+	long numput = 0;
+
+	int n = requestsize / datasize;
+	int r = requestsize % datasize;
+
+	for (int i = 0; i < n; i++){
+		numput = putdata(socketdes, datastore, datasize);
+		if (numput < 0) return -1;
+		else allput += numput;
+	}
+	logtrace("put size [%d] data [%d] times", datasize, n);
+	numput = putdata(socketdes, datastore, r);
+	if (numput < 0) return -1;
+	else allput += numput;
+
+	return allput;
+}
+
+long retrieve(int socketdes, char *datastore, long storesize, long replysize)
+{
+	long allget = 0;
+	long numget = 0;
+
+	int n = replysize / storesize;
+	int r = replysize % storesize;
+
+	for (int i = 0; i < n; i++) {
+		numget = getdata(socketdes, datastore, storesize);
+		if (numget < 0) return -1;
+		else allget += numget;
+	}
+	logtrace("get size [%d] data [%d] times", storesize, n);
+	numget = getdata(socketdes, datastore, r);
+	if (numget < 0) return -1;
+	else allget += numget;
+
+	return allget;
+}
 
 handler parsemessage(message *m)
 {
@@ -40,7 +81,7 @@ handler parsemessage(message *m)
 		case ECHO_REQ: break;
 		case ECHO_REP: break;
 		case RETRIEVE:
-			fun = putdata;
+			fun = transfer;
 			break;
 		case TRANSFER: break;
 		case SCHEDULE: break;

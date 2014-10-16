@@ -21,4 +21,7 @@ int hellorep(int, char*, int);
 int echoreq(int, char*, int);
 int echorep(int, char*, int);
 
+long transfer(int socketdes, char *datastore, long datasize, long requestsize);
+long retrieve(int socketdes, char *datastore, long storesize, long replysize);
+
 #endif

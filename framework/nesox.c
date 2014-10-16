@@ -3,7 +3,7 @@
 static timepoint enter, leave;
 
 static int server(int, char*, short, char*);
-static int reader(int, char*, short, int);
+static int reader(int, char*, short, long);
 static int loader(char* filename, char **store);
 
 int usage()
@@ -79,7 +79,7 @@ int main(int argc, char *argv[])
 		logdup(2);
 
 	if (!strcmp(optrole, "server")) { server(background, arghost, (short)atoi(argport), optfile); }
-	if (!strcmp(optrole, "reader")) { reader(background, arghost, (short)atoi(argport), atoi(optsize)); }
+	if (!strcmp(optrole, "reader")) { reader(background, arghost, (short)atoi(argport), atol(optsize)); }
 
 	timepin(&leave);
 	fprintf(stderr, "time: %.8f second(s)\n", timeint(enter, leave));
@@ -101,9 +101,9 @@ int loader(char *filename, char **store)
 
 	if (datasize > datastoresize) { datasize = datastoresize; logtrace("datasize shrink to storesize!"); }
 
-	char *datastore = (char *)malloc(datastoresize * sizeof(char));
+	char *datastore = (char *)malloc(datasize * sizeof(char));
 	if (datastore == NULL) { logerror("malloc failed: %s", strerror(errno)); return -1; }
-	logtrace("datastore size: %u", datastoresize);
+	logtrace("datastore size: %u", datasize);
 
 	int fd = open(filename, O_RDONLY, S_IRUSR);
 	if (fd < 0) { logerror("open failed: %s", strerror(errno)); return -1; }
@@ -132,7 +132,7 @@ int server(int background, char *host, short port, char *filename)
 	int result = 0;
 
 	char *datastore = NULL;
-	int datasize = loader(filename, &datastore);
+	long datasize = loader(filename, &datastore);
 	if (datasize < 0) { logerror("loader failed: %s", strerror(errno)); return -1; }
 
 	struct sockaddr_in serveraddress, clientaddress;
@@ -177,10 +177,17 @@ int server(int background, char *host, short port, char *filename)
 		 *  1. Each handler should allocate its own local buffer to 'getdata'!
 		 *  2. 'm.size' is the 'size' info from message, its meaning depends on its context
 		 */
-		result = (*handlefunc)(connectedfd, datastore, m.size);
-		if (result < 0) { logerror("message handler failed!"); return -1; }
-		logtrace("message handled!");
-
+		if (!(m.type - RETRIEVE)) {
+			long numtransfer = transfer(connectedfd, datastore, datasize, m.size);
+			if (numtransfer < 0) { logerror("handle retrieve (transfer) failed!"); return -1; }
+			logtrace("transfer data size: %ld", numtransfer);
+		}
+		else
+		{
+			result = (*handlefunc)(connectedfd, datastore, m.size);
+			if (result < 0) { logerror("message handler failed!"); return -1; }
+			logtrace("message handled!");
+		}
 
 		timepoint e; timepin(&e);
 		logstats("connection processing time: %.8f", timeint(s,e));
@@ -195,18 +202,19 @@ int server(int background, char *host, short port, char *filename)
 	return 0;
 }
 
-int reader(int background, char *host, short port, int amount)
+int reader(int background, char *host, short port, long requestsize)
 {
 	logtrace("reader run in %s!", background ? "background" : "frontend");
 	logtrace("host: %s", host);
 	logtrace("port: %d", port);
-	logtrace("size: %d", amount);
+	logtrace("size: %ld", requestsize);
 
 	int result = 0;
 
-	char *datastore = (char *)malloc(amount * sizeof(char));
+	long storesize = ((unsigned)requestsize > gigabytes) ? gigabytes : requestsize;
+	char *datastore = (char *)malloc(storesize * sizeof(char));
 	if (datastore == NULL) { logerror("malloc failed: %s", strerror(errno)); return -1; }
-	logtrace("malloc datastore size: %u", amount);
+	logtrace("malloc datastore size: %ld", storesize);
 
 	struct sockaddr_in serveraddress;
 	int socketfd = socker(host, port, &serveraddress);
@@ -218,14 +226,18 @@ int reader(int background, char *host, short port, int amount)
 	logtrace("connected!");
 
 
-	message m = messageinit(RETRIEVE, amount);
+	message m = messageinit(RETRIEVE, requestsize);
 	putmessage(socketfd, &m);
 	logtrace("request sent: %s", encode(&m));
 
-	long num = getdata(socketfd, datastore, amount);
-	logtrace("got the data!!!");
-	logtrace("data size: %d", num);
+	timepoint sgetdata; timepin(&sgetdata);
 
+	long numretrieve = retrieve(socketfd, datastore, storesize, requestsize);
+	if (numretrieve < 0) { logerror("retrieve failed!"); return -1; }
+	logtrace("retrieve data size: %d", numretrieve);
+
+	timepoint egetdata; timepin(&egetdata);
+	logtrace("time cost: %0.8f seconds", timeint(sgetdata,egetdata));
 
 	close(socketfd);
 	free(datastore);
