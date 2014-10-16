@@ -54,7 +54,7 @@ base_test: base_test.c
 	$(CC) -I $(INCLUDE) -o $@ $< -L $(LIBRARY) -lbase
 
 clean:
-	rm -rf *.o *.a *_test *.log
+	rm -rf *.o *.a *_test *.log *.cache
 
 test:
 	$(MAIN)
