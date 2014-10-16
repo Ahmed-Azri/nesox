@@ -6,6 +6,7 @@
 #include "socker.h"
 #include "daemon.h"
 #include "message.h"
+#include "handler.h"
 
 #include "protocol.h"
 

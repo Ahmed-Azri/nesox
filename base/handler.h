@@ -11,7 +11,7 @@
 typedef int (*handler)(int, char*, int);
 typedef int (*handlertable[maxnumhandler])(int, char*, int);
 
-//I/O sample handlers
+//I/O  handlers
 long getdata(int fd, char *store, int size);
 long putdata(int fd, char *store, int size);
 

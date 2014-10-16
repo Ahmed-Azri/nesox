@@ -159,15 +159,29 @@ int server(int background, char *host, short port, char *filename)
 		logtrace("accept connection: %d", counter);
 		timepoint s; timepin(&s);
 
-		char cache[maxbuffersize] = "";
-		message mreceived;
-		getmessage(connectedfd, &mreceived);
-		logtrace("message type: [%d]", mreceived.type);
-		if (mreceived.type == HELLO) read(connectedfd, cache, mreceived.size);
-		logtrace("data: %s", cache);
+
+		// server task 1: get message
+		message m; getmessage(connectedfd, &m);
+		logtrace("got a message: %s", encode(&m));
+
+		// server task 2: parse message
+		handler handlefunc = parsemessage(&m);
+		logtrace("message parsed!");
+
+		// server task 3: handle message
+
+		/**
+		 * For getting a general message handling mechanism, 'datastore' is passsed to each handler!
+		 *  1. Each handler should allocate its own local buffer to 'getdata'!
+		 *  2. 'm.size' is the 'size' info from message, its meaning depends on its context
+		 */
+
+		if (handlefunc != NULL) (*handlefunc)(connectedfd, datastore, m.size);
+		logtrace("message handled!");
+
 
 		timepoint e; timepin(&e);
-		logstats("time consumed: %.8f", timeint(s,e));
+		logstats("connection processing time: %.8f", timeint(s,e));
 		close(connectedfd);
 		logtrace("closed connection: %d", counter);
 	} //foreach acceptable connection!
@@ -197,13 +211,16 @@ int reader(int background, char *host, short port, int amount)
 	if (result < 0) { logerror("connect failed: %s", strerror(errno)); return -1; }
 	logtrace("connected!");
 
-	ssize_t num;
-	char data[] = "Hello, this is nesox client!";
-	message m = messageinit(HELLO, sizeof(data));
-	putmessage(socketfd, &m);
-	logtrace("sent hello message");
-	num = write(socketfd, data, sizeof(data));
-	logtrace("sent hello data: %s", data);
+	// reader task 1 - send request : put message (and put data)
+	helloreq(socketfd, NULL, 0);
+
+	// reader task 2 - receive response: get message (and get data)
+	char store[maxbuffersize];
+	message m;
+	getmessage(socketfd, &m);
+	logtrace("got message: %s", encode(&m));
+	if (m.size > 0) getdata(socketfd, store, m.size);
+	logtrace("got data: %s", store);
 
 	close(socketfd);
 	logtrace("reader return");

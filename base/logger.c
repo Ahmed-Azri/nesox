@@ -53,7 +53,7 @@ int logprintf(char *file, char *function, int line, int severity, char *format, 
 {
 	static char header[0x100];
 	if (file != NULL && function != NULL && line != -1)
-		snprintf(header, sizeof(header), "%s %s(%10s):%04d ", getlogtime(), file, function, line);
+		snprintf(header, sizeof(header), "%s %10s(%10s):%04d ", getlogtime(), file, function, line);
 	else
 		snprintf(header, sizeof(header), "%s ", getlogtime());
 

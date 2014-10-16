@@ -11,7 +11,7 @@ long getdata(int fd, char *store, int size)
 	ssize_t num = 0;
 
 	while (all < size) {
-		while (((num = send(fd, store + all, size - all, 0)) == -1) && (errno == EINTR));
+		while (((num = recv(fd, store + all, size - all, 0)) == -1) && (errno == EINTR));
 		all += num;
 	}
 
@@ -26,7 +26,7 @@ long putdata(int fd, char *store, int size)
 	ssize_t num = 0;
 
 	while (all < size) {
-		while (((num = recv(fd, store + all, size - all, 0)) == -1) && (errno == EINTR));
+		while (((num = send(fd, store + all, size - all, 0)) == -1) && (errno == EINTR));
 		all += num;
 	}
 
