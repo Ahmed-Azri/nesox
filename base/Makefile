@@ -47,7 +47,7 @@ message.o: message.c message.h
 message_test: message_test.c message.o
 	$(CC) $(CFLAGS) $^ -o $@
 
-libbase.a: logger.o daemon.o socker.o timing.o
+libbase.a: logger.o daemon.o socker.o timing.o message.o
 	$(AR) $@ $^
 
 base_test: base_test.c

@@ -159,7 +159,12 @@ int server(int background, char *host, short port, char *filename)
 		logtrace("accept connection: %d", counter);
 		timepoint s; timepin(&s);
 
-		// handle(connectedfd);
+		char cache[maxbuffersize] = "";
+		message mreceived;
+		getmessage(connectedfd, &mreceived);
+		logtrace("message type: [%d]", mreceived.type);
+		if (mreceived.type == HELLO) read(connectedfd, cache, mreceived.size);
+		logtrace("data: %s", cache);
 
 		timepoint e; timepin(&e);
 		logstats("time consumed: %.8f", timeint(s,e));
@@ -192,7 +197,13 @@ int reader(int background, char *host, short port, int amount)
 	if (result < 0) { logerror("connect failed: %s", strerror(errno)); return -1; }
 	logtrace("connected!");
 
-
+	ssize_t num;
+	char data[] = "Hello, this is nesox client!";
+	message m = messageinit(HELLO, sizeof(data));
+	putmessage(socketfd, &m);
+	logtrace("sent hello message");
+	num = write(socketfd, data, sizeof(data));
+	logtrace("sent hello data: %s", data);
 
 	close(socketfd);
 	logtrace("reader return");

@@ -5,6 +5,7 @@
 #include "logger.h"
 #include "socker.h"
 #include "daemon.h"
+#include "message.h"
 
 #include <unistd.h>
 #include <stdio.h>

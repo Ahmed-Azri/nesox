@@ -4,6 +4,8 @@
 #define FILE_PERMS ( S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH )
 #define OPEN_FLAGS ( O_RDWR | O_CREAT )
 
+enum messagetype { HELLO = 0, ECHO = 1 };
+
 int main(){
 
 char data[0xff] = "Hello, message module!!";

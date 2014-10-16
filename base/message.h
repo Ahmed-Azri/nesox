@@ -13,7 +13,6 @@
 
 #define messageformat "%03d%020ld"
 
-enum messagetype { HELLO = 0, ECHO = 1 };
 
 typedef struct message {
 	char  type;
