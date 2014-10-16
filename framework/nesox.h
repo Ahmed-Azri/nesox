@@ -7,6 +7,8 @@
 #include "daemon.h"
 #include "message.h"
 
+#include "protocol.h"
+
 #include <unistd.h>
 #include <stdio.h>
 #include <ctype.h>

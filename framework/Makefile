@@ -24,14 +24,17 @@ CFLAGS = -Wall
 BASE_INCLUDE = ../base
 BASE_LIBRARY = ../base
 
+protocol.o: protocol.c protocol.h
+	$(CC) -c $(CFLAGS) -I $(BASE_INCLUDE) $< -o $@
+
 nesoxserver: nesoxserver.c nesox.h
 	$(CC) $(CFLAGS) -I $(BASE_INCLUDE) $< -o $@ -L $(BASE_LIBRARY) -lbase
 
 nesoxclient: nesoxclient.c nesox.h
 	$(CC) $(CFLAGS) -I $(BASE_INCLUDE) $< -o $@ -L $(BASE_LIBRARY) -lbase
 
-nesox: nesox.c nesox.h
-	$(CC) $(CFLAGS) -I $(BASE_INCLUDE) $< -o $@ -L $(BASE_LIBRARY) -lbase
+nesox: nesox.c protocol.o
+	$(CC) $(CFLAGS) -I $(BASE_INCLUDE) $^ -o $@ -L $(BASE_LIBRARY) -lbase
 
 
 .PHONY:	clean test ts tc

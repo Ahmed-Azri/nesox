@@ -5,6 +5,7 @@ MAIN = socker_test
 MAIN = base_test
 MAIN = logger_test
 MAIN = message_test
+MAIN = handler_test
 
 LIBS = libbase.a
 
@@ -47,7 +48,13 @@ message.o: message.c message.h
 message_test: message_test.c message.o
 	$(CC) $(CFLAGS) $^ -o $@
 
-libbase.a: logger.o daemon.o socker.o timing.o message.o
+handler.o: handler.c handler.h
+	$(CC) -c $(CFLAGS) $< -o $@
+
+handler_test: handler_test.c handler.o
+	$(CC) $(CFLAGS) $^ -o $@
+
+libbase.a: logger.o daemon.o socker.o timing.o message.o handler.o
 	$(AR) $@ $^
 
 base_test: base_test.c
