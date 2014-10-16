@@ -18,11 +18,10 @@ typedef struct message {
 message messageinit(char type, long size, message *m);
 
 char *encode(message *m);
-char *decode(message *m);
+message decode(char *ms);
 
 int putmessage(int des, message *m);
 int getmessage(int des, message *m);
 
 #endif
-
 
