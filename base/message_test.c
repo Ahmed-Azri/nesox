@@ -22,11 +22,11 @@ message x = decode(messagestring);
 fprintf(stderr, "type: [%03d][%d]\n", x.type, x.type);
 fprintf(stderr, "size: [%020ld][%ld]\n", x.size, x.size);
 
-message z;
 int fd1 = open("message.cache", OPEN_FLAGS, FILE_PERMS);
 putmessage(fd1, &m);
 close(fd1);
 
+message z;
 int fd2 = open("message.cache", OPEN_FLAGS, FILE_PERMS);
 getmessage(fd2, &z);
 close(fd2);

@@ -12,6 +12,7 @@ char *encode(message *m)
 {
 	static char buffer[numdigitsmssg];
 	int num = snprintf(buffer, sizeof(buffer), messageformat, m->type, m->size);
+	//fprintf(stderr, "encode: %d\n", num);
 	if (num != numdigitschar + numdigitslong ) return NULL;
 	return buffer;
 }
@@ -20,7 +21,8 @@ message decode(char *s)
 {
 	message m;
 	int num = sscanf(s, messageformat, &m.type, &m.size);
-	if (num != numdigitschar + numdigitslong ) return nullmessage;
+	//fprintf(stderr, "decode: %d\n", num);
+	//if (num != numdigitschar + numdigitslong ) return nullmessage;
 	return m;
 }
 
