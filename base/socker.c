@@ -1,5 +1,7 @@
 #include "socker.h"
 
+//todo: add UDP/multicast/broadcast support
+//todo: investigate raw socket support feasibility
 
 int socker(char *host, short port, struct sockaddr_in *address)
 {
@@ -9,3 +11,4 @@ int socker(char *host, short port, struct sockaddr_in *address)
 
 	return socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
 }
+
