@@ -1,3 +1,4 @@
+OS = $(shell uname)
 
 SERVER = nesoxserver
 CLIENT = nesoxclient
@@ -24,14 +25,20 @@ SIZE = 3221225472
 SIZE = 4294967296
 SIZE = 2147483648
 
+ifeq ($(OS), Darwin)
 CC = clang
-CC = gcc
-CFLAGS = -Weverything
-CFLAGS = -Wall
-CFLAGS = -w
+WARN = -Weverything
+else ifeq ($(OS), Linux)
+CC = gcc -std=gnu99
+WARN = -Wall
+endif
+NOWARN = -w
+AR = ar cru
+CFLAGS = $(NOWARN)
 
 BASE_INCLUDE = ../base
 BASE_LIBRARY = ../base
+
 
 protocol.o: protocol.c protocol.h
 	$(CC) -c $(CFLAGS) -I $(BASE_INCLUDE) $< -o $@
@@ -46,7 +53,7 @@ nesox: nesox.c protocol.o
 	$(CC) $(CFLAGS) -I $(BASE_INCLUDE) $^ -o $@ -L $(BASE_LIBRARY) -lbase
 
 
-.PHONY:	clean test ts tc
+.PHONY:	clean test ts tr tc build info
 
 clean:
 	rm -rf *.o *.exe *.log $(SERVER) $(CLIENT) nesox
@@ -63,3 +70,8 @@ tc:
 
 build: nesox
 	cp nesox ../bin/nesox
+
+info:
+	@echo "OS:" $(OS)
+	@echo "CC:" $(CC)
+	@echo "Warning all:" $(WARN)

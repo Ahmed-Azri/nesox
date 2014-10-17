@@ -1,24 +1,31 @@
+OS = $(shell uname)
 
 MAIN = timing_test
 MAIN = socker_test
-MAIN = base_test
 MAIN = logger_test
+MAIN = daemon_test
 MAIN = message_test
 MAIN = handler_test
-MAIN = daemon_test
+MAIN = base_test
 
 LIBS = libbase.a
 
 main: $(MAIN)
 libs: $(LIBS)
 
+ifeq ($(OS), Darwin)
+CC = clang
+WARN = -Weverything
+else ifeq ($(OS), Linux)
+CC = gcc -std=gnu99
+WARN = -Wall
+endif
+NOWARN = -w
 AR = ar cru
-CC = gcc
-CFLAGS = -Weverything
-CFLAGS = -Wall
-CFLAGS = -w
-INCLUDE = ./
-LIBRARY = ./
+CFLAGS = $(NOWARN)
+BASE_INCLUDE = .
+BASE_LIBRARY = .
+
 
 logger.o: logger.c logger.h
 	$(CC) -c $(CFLAGS) $< -o $@
@@ -59,8 +66,11 @@ handler_test: handler_test.c handler.o
 libbase.a: logger.o daemon.o socker.o timing.o message.o handler.o
 	$(AR) $@ $^
 
-base_test: base_test.c
-	$(CC) -I $(INCLUDE) -o $@ $< -L $(LIBRARY) -lbase
+base_test: base_test.c libs
+	$(CC) $(CFLAGS) -I $(BASE_INCLUDE) -o $@ $< -L $(BASE_LIBRARY) -lbase
+
+
+.PHONY: clean test info
 
 clean:
 	rm -rf *.o *.a *_test *.log *.cache
@@ -68,3 +78,7 @@ clean:
 test:
 	$(MAIN)
 
+info:
+	@echo "OS:" $(OS)
+	@echo "CC:" $(CC)
+	@echo "Warning all:" $(WARN)
