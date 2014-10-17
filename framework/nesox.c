@@ -95,6 +95,10 @@ int main(int argc, char *argv[])
 	else
 		logdup(2);
 
+	char workingdir[maxbuffersize] = "";
+	getcwd(workingdir, sizeof(workingdir));
+	logtrace("working directory: %s", workingdir);
+	
 	unsigned delay = (unsigned)atoi(argdely);
 	microsleep(delay);
 
