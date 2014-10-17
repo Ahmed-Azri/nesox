@@ -1,0 +1,15 @@
+#!/bin/bash
+
+echo "nesox - data transfer scheduling prototype"
+
+cd base 
+make libs
+cd ..
+
+cd framework
+make build
+cd ..
+
+echo "build successed!"
+
+

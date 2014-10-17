@@ -1,0 +1,18 @@
+#!/bin/bash
+
+echo "clean building of nesox"
+
+cd base
+make clean
+cd ..
+
+cd framework
+make clean
+cd ..
+
+cd bin
+rm -rf nesox
+cd ..
+
+echo "clean finished!"
+

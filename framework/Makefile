@@ -59,3 +59,6 @@ tr:
 	nesox -r reader -s $(SIZE) $(HOST) $(PORT)
 tc:
 	nesox -r client -f $(FILE) $(HOST) $(PORT)
+
+build: nesox
+	cp nesox ../bin/nesox
