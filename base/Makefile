@@ -15,6 +15,7 @@ libs: $(LIBS)
 AR = ar cru
 CC = gcc
 CFLAGS = -Weverything
+CFLAGS = -Wall
 INCLUDE = ./
 LIBRARY = ./
 

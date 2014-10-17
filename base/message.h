@@ -19,6 +19,8 @@ typedef struct message {
 	long  size;
 } message;
 
+message nullmessage = {0,0};
+
 message messageinit(char type, long size);
 
 char *encode(message *m);

@@ -20,6 +20,7 @@ message decode(char *s)
 {
 	message m;
 	int num = sscanf(s, messageformat, &m.type, &m.size);
+	if (num != numdigitschar + numdigitslong ) return nullmessage;
 	return m;
 }
 
