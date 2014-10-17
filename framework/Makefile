@@ -19,10 +19,10 @@ SIZE = 1048576
 SIZE = 6291456
 SIZE = 8388608
 
-SIZE = 2147483648
+SIZE = 1073741824
 SIZE = 3221225472
 SIZE = 4294967296
-SIZE = 1073741824
+SIZE = 2147483648
 
 CC = clang
 CC = gcc
@@ -52,7 +52,10 @@ clean:
 
 test:
 	$(MAIN)
+
 ts:
 	nesox -r server -f $(FILE) $(HOST) $(PORT)
-tc:
+tr:
 	nesox -r reader -s $(SIZE) $(HOST) $(PORT)
+tc:
+	nesox -r client -f $(FILE) $(HOST) $(PORT)

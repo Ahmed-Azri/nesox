@@ -4,7 +4,9 @@ static timepoint enter, leave;
 
 static int server(int, char*, short, char*);
 static int reader(int, char*, short, long);
-static int loader(char* filename, char **store);
+static int client(int, char*, short, char*);
+
+static int loaddata(char *filename, char **store);
 
 int usage()
 {
@@ -80,13 +82,14 @@ int main(int argc, char *argv[])
 
 	if (!strcmp(optrole, "server")) { server(background, arghost, (short)atoi(argport), optfile); }
 	if (!strcmp(optrole, "reader")) { reader(background, arghost, (short)atoi(argport), atol(optsize)); }
+	if (!strcmp(optrole, "client")) { client(background, arghost, (short)atoi(argport), optfile); }
 
 	timepin(&leave);
 	fprintf(stderr, "time: %.8f second(s)\n", timeint(enter, leave));
 	return 0;
 }
 
-int loader(char *filename, char **store)
+int loaddata(char *filename, char **store)
 {
 	int result = 0;
 
@@ -132,8 +135,9 @@ int server(int background, char *host, short port, char *filename)
 	int result = 0;
 
 	char *datastore = NULL;
-	long datasize = loader(filename, &datastore);
-	if (datasize < 0) { logerror("loader failed: %s", strerror(errno)); return -1; }
+	long datasize = loaddata(filename, &datastore);
+	if (datasize < 0) { logerror("loaddata failed: %s", strerror(errno)); return -1; }
+	logtrace("load data successed!");
 
 	struct sockaddr_in serveraddress, clientaddress;
 	socklen_t sockerlength = sizeof(struct sockaddr_in);
@@ -177,10 +181,30 @@ int server(int background, char *host, short port, char *filename)
 		 *  1. Each handler should allocate its own local buffer to 'getdata'!
 		 *  2. 'm.size' is the 'size' info from message, its meaning depends on its context
 		 */
-		if (!(m.type - RETRIEVE)) {
+		if (!(m.type - LOADDATA)) {
+			free(datastore);
+			filename = (char *) malloc(maxbuffersize * sizeof(char));
+			result = getdata(connectedfd, filename, m.size);
+			if(result < 0) { logerror("get file name failed!"); return -1; }
+			logtrace("data file name: %s", filename);
+			datasize = loaddata(filename, &datastore);
+			if (datasize < 0) { logerror("loaddata failed: %s", strerror(errno)); return -1; }
+			logtrace("load data successed!");
+			free(filename);
+			message dataloadmessage = messageinit(LOADDATA, datasize);
+			result = putmessage(connectedfd, &dataloadmessage);
+			if (result < 0) { logerror("putmessage failed!"); return -1; }
+			logtrace("sent back loaded file size: %d", datasize);
+		}
+		else if (!(m.type - RETRIEVE)) {
+			timepoint stransfer; timepin(&stransfer);
+
 			long numtransfer = transfer(connectedfd, datastore, datasize, m.size);
 			if (numtransfer < 0) { logerror("handle retrieve (transfer) failed!"); return -1; }
 			logtrace("transfer data size: %ld", numtransfer);
+
+			timepoint etransfer; timepin(&etransfer);
+			logstats("data transfer time cost: %0.8f seconds", timeint(stransfer, etransfer));
 		}
 		else
 		{
@@ -226,22 +250,61 @@ int reader(int background, char *host, short port, long requestsize)
 	logtrace("connected!");
 
 
+
 	message m = messageinit(RETRIEVE, requestsize);
 	putmessage(socketfd, &m);
 	logtrace("request sent: %s", encode(&m));
+
+
 
 	timepoint sgetdata; timepin(&sgetdata);
 
 	long numretrieve = retrieve(socketfd, datastore, storesize, requestsize);
 	if (numretrieve < 0) { logerror("retrieve failed!"); return -1; }
-	logtrace("retrieve data size: %d", numretrieve);
+	logtrace("retrieve data size: %ld", numretrieve);
 
 	timepoint egetdata; timepin(&egetdata);
-	logtrace("time cost: %0.8f seconds", timeint(sgetdata,egetdata));
+	logstats("data retrieve time cost: %0.8f seconds", timeint(sgetdata,egetdata));
+
+
 
 	close(socketfd);
 	free(datastore);
 	logtrace("reader return");
+	return 0;
+}
+
+int client(int background, char *host, short port, char *filename)
+{
+	logtrace("client run in %s!", background ? "background" : "frontend");
+	logtrace("file: %s", filename);
+
+	long result = 0;
+
+	struct sockaddr_in serveraddress;
+	int socketfd = socker(host, port, &serveraddress);
+	if (socketfd < 0) { logerror("socket/socker failed: %s", strerror(errno)); return -1; }
+	logtrace("socket/socker successed!");
+
+	result = connect(socketfd, (struct sockaddr *)(&serveraddress), (socklen_t)(sizeof(serveraddress)));
+	if (result < 0) { logerror("connect failed: %s", strerror(errno)); return -1; }
+	logtrace("connected!");
+
+	long filenamesize = strlen(filename);
+	message dataloadmessage = messageinit(LOADDATA, filenamesize);
+	result = putmessage(socketfd, &dataloadmessage);
+	if (result < 0) { logerror("putmessage failed: %s", strerror(errno)); return -1; }
+
+	result = putdata(socketfd, filename, filenamesize);
+	if (result < 0) { logerror("putdata failed: %s", strerror(errno)); return -1; }
+
+	message dataloadfeedback;
+	result = getmessage(socketfd, &dataloadfeedback);
+	if (result < 0) { logerror("getmessage failed: %s", strerror(errno)); return -1; }
+	if (!(dataloadfeedback.type - LOADDATA)) logtrace("loaded data size: %ld", dataloadfeedback.size);
+
+	close(socketfd);
+	logtrace("client return");
 	return 0;
 }
 

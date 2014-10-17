@@ -10,10 +10,14 @@ enum messagetype {
 	RETRIEVE	= 3,	// reader -> server
 	TRANSFER	= 4,	// server -> reader
 	SCHEDULE	= 5, 	// controller -> server
+	LOADDATA	= 6,	// client -> server
+	SHUTDOWN 	= 7,	// server -> server
 	MSGTYPELEN
 };
 
 handler parsemessage(message *m);
+
+int nullhandle(int, char *, int);
 
 int helloreq(int, char*, int);
 int hellorep(int, char*, int);
@@ -23,5 +27,6 @@ int echorep(int, char*, int);
 
 long transfer(int socketdes, char *datastore, long datasize, long requestsize);
 long retrieve(int socketdes, char *datastore, long storesize, long replysize);
+
 
 #endif

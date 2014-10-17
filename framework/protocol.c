@@ -1,5 +1,11 @@
 #include "protocol.h"
 
+int nullhandle(int sd, char *s, int n)
+{
+	logtrace("nullhandle");
+	return 0;
+}
+
 int helloreq(int fd, char *data, int size)
 {
 	static char hellorequest[] = "Hello, this is Nesox (REQ)!!!";
@@ -78,13 +84,25 @@ handler parsemessage(message *m)
 		case HELLO:
 			fun = hellorep;
 			break;
-		case ECHO_REQ: break;
-		case ECHO_REP: break;
+		case ECHO_REQ:
+			fun = nullhandle;
+			break;
+		case ECHO_REP:
+			fun = nullhandle;
+			break;
 		case RETRIEVE:
 			fun = transfer;
 			break;
-		case TRANSFER: break;
-		case SCHEDULE: break;
+		case TRANSFER:
+			fun = retrieve;
+			break;
+		case SCHEDULE:
+			fun = nullhandle;
+			break;
+		case LOADDATA:
+			fun = nullhandle;
+			break;
+		case SHUTDOWN:
 		default: break;
 	}
 	return fun;
