@@ -11,9 +11,9 @@
 #include <signal.h>
 #include <syslog.h>
 
-#define NOCHDIR 1
+#define NOCHDIR NULL
 #define CLOSEFD 0
 
-int daemoninit(int nochdir, int noclose);
+int daemoninit(char *dir, int noclose);
 
 #endif

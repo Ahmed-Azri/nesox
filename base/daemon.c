@@ -1,6 +1,6 @@
 #include "daemon.h"
 
-int daemoninit(int nochdir, int noclose)
+int daemoninit(char *dir, int noclose)
 {
 
 	int result = 0;
@@ -25,7 +25,7 @@ int daemoninit(int nochdir, int noclose)
 	if ((pid = fork()) < 0) { perror("daemonize: fork failed!"); exit(1); }
 	if (pid != 0) exit(0);
 
-	if (!nochdir) result = chdir("/"); else result = 0;
+	if (dir) result = chdir(dir); else result = 0;
 	if (result < 0) { perror("daemonize: chdir failed!"); exit(1); }
 
 	if (noclose) return 0;

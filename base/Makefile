@@ -1,11 +1,11 @@
 
 MAIN = timing_test
-MAIN = daemon_test
 MAIN = socker_test
 MAIN = base_test
 MAIN = logger_test
 MAIN = message_test
 MAIN = handler_test
+MAIN = daemon_test
 
 LIBS = libbase.a
 
