@@ -1,5 +1,6 @@
 #include "timing.h"
 
+static long million = 1000000L;
 
 char *timestamp()
 {
@@ -19,5 +20,13 @@ timepoint timepin(timepoint *instant)
 timerange timeint(timepoint s, timepoint e)
 {
 	return ( e.tv_sec - s.tv_sec ) + ( e.tv_usec - s.tv_usec)/1000000.0;
+}
+
+int microsleep(long microseconds)
+{
+	struct timespec ts;
+	ts.tv_sec = microseconds / million;
+	ts.tv_nsec = (microseconds % million) * 1000;
+	return nanosleep(&ts, NULL);
 }
 

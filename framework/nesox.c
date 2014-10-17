@@ -10,14 +10,19 @@ static int loaddata(char *filename, char **store);
 
 int usage()
 {
-	fprintf(stderr, "%s\n", "usage: nesox [options] host port");
+	fprintf(stderr, "%s\n", "usage: nesox [options] host port [delay]");
 	fprintf(stderr, "%s\n", "options:");
 	fprintf(stderr, "%s\t%s\n", "  -r role", "role: server or reader (default: reader)");
 	fprintf(stderr, "%s\t%s\n", "  -f file", "file: pathname of data file (default: (null))");
 	fprintf(stderr, "%s\t%s\n", "  -s size", "size: bytes num to transfer (default: 1M)");
 	fprintf(stderr, "%s\t%s\n", "  -g ground", "ground: run in background as a daemon or console (default: console)");
-	fprintf(stderr, "%s\t%s\n", "comment: ", "(host, port) represents endpoint of communication");
-	fprintf(stderr, "%s\t%s\n", "notice:  ", "!!! host should be IP address only !!!");
+	fprintf(stderr, "%s\t%s\n", "  -d workdir", "workdir: working directory for daemon (default: \"./\")");
+	fprintf(stderr, "%s\n", "comment: ");
+	fprintf(stderr, "%s\t%s\n", "  host   ", "IP address for communication");
+	fprintf(stderr, "%s\t%s\n", "  port   ", "port number for communication");
+	fprintf(stderr, "%s\t%s\n", "  delay  ", "num of microseconds before run server/reader ... ");
+	fprintf(stderr, "%s\n", "");
+	fprintf(stderr, "%s\t%s\n", "notice: ", "!!! host should be IP address only !!!");
 	fprintf(stderr, "%s\t%s\n", "contact: ", "liying.hku@gmail.com");
 	return 0;
 }
@@ -27,13 +32,15 @@ int main(int argc, char *argv[])
 	timepin(&enter);
 	if (argc < 3) { usage(); return -1; }
 
-	char optstring[] = "r:f:s:g:";
+	char optstring[] = "r:f:s:g:d:";
 	char optrole[optionargsize] = "reader";
 	char optfile[optionargsize] = "(null)";
 	char optsize[optionargsize] = "1048576";
 	char optgrnd[optionargsize] = "console";
+	char optwdir[optionargsize] = "./";
 	char arghost[cmdmaxargsize] = "(null)";
 	char argport[cmdmaxargsize] = "(null)";
+	char argdely[cmdmaxargsize] = "0";
 
 	int optc;
 	while ((optc = getopt(argc, argv, optstring)) != -1) {
@@ -50,6 +57,9 @@ int main(int argc, char *argv[])
 		case 'g':
 			snprintf(optgrnd, sizeof(optgrnd), "%s", optarg);
 			break;
+		case 'd':
+			snprintf(optwdir, sizeof(optwdir), "%s", optarg);
+			break;
 		case '?':
 		default :
 			usage();
@@ -62,23 +72,31 @@ int main(int argc, char *argv[])
 	snprintf(arghost, sizeof(arghost), "%s", argv[0]);
 	snprintf(argport, sizeof(argport), "%s", argv[1]);
 
+	if (argc == 3)
+	snprintf(argdely, sizeof(argdely), "%s", argv[2]);
+
 	fprintf(stderr, "role: %s\n", optrole);
 	fprintf(stderr, "file: %s\n", optfile);
 	fprintf(stderr, "size: %s\n", optsize);
 	fprintf(stderr, "grnd: %s\n", optgrnd);
+	fprintf(stderr, "wdir: %s\n", optwdir);
 
 	fprintf(stderr, "host: %s\n", arghost);
 	fprintf(stderr, "port: %s\n", argport);
+	fprintf(stderr, "dely: %s\n", argdely);
 
 	int background = strcmp(optgrnd, "console");
 	if (background) {
 		char logfilename[maxbuffersize] = "";
 		snprintf(logfilename, sizeof(logfilename), "nesox-%d.log", (int)getpid());
-		daemoninit(NOCHDIR, CLOSEFD);
+		daemoninit(optwdir, CLOSEFD);
 		logopen(logfilename);
 	}
 	else
 		logdup(2);
+
+	unsigned delay = (unsigned)atoi(argdely);
+	microsleep(delay);
 
 	if (!strcmp(optrole, "server")) { server(background, arghost, (short)atoi(argport), optfile); }
 	if (!strcmp(optrole, "reader")) { reader(background, arghost, (short)atoi(argport), atol(optsize)); }

@@ -16,6 +16,7 @@ AR = ar cru
 CC = gcc
 CFLAGS = -Weverything
 CFLAGS = -Wall
+CFLAGS = -w
 INCLUDE = ./
 LIBRARY = ./
 

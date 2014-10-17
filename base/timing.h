@@ -13,4 +13,6 @@ typedef double timerange;
 timepoint timepin(timepoint *instant);
 timerange timeint(timepoint s, timepoint e);
 
+int microsleep(long microseconds);
+
 #endif

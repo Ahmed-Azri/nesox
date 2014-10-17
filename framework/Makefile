@@ -28,6 +28,7 @@ CC = clang
 CC = gcc
 CFLAGS = -Weverything
 CFLAGS = -Wall
+CFLAGS = -w
 
 BASE_INCLUDE = ../base
 BASE_LIBRARY = ../base
