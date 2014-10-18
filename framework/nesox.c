@@ -88,9 +88,13 @@ int main(int argc, char *argv[])
 	int background = strcmp(optgrnd, "console");
 	if (background) {
 		char logfilename[maxbuffersize] = "";
-		snprintf(logfilename, sizeof(logfilename), "nesox-%s%d.log", argport, (int)getpid());
+		snprintf(logfilename, sizeof(logfilename), "logs/nesox-%s%d.log", argport, (int)getpid());
 		daemoninit(optwdir, CLOSEFD);
-		logopen(logfilename);
+		int r = logopen(logfilename);
+		if (r < 0) {
+			snprintf(logfilename, sizeof(logfilename), "nesox-%s%d.log", argport, (int)getpid());
+			logopen(logfilename);
+		}
 	}
 	else
 		logdup(2);

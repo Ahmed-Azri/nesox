@@ -11,7 +11,11 @@ make clean
 cd ..
 
 cd bin
-rm -rf nesox
+rm -rf nesox *.log
+cd ..
+
+cd logs
+rm -rf *.log
 cd ..
 
 echo "clean finished!"
