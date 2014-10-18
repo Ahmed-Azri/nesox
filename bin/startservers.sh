@@ -1,6 +1,8 @@
 #!/bin/bash
 
 OS=`uname`
+if [ $OS = Linux ]; then NESOX_HOME=/root/nesox; fi
+
 FILE=$NESOX_HOME/data/biblewarpease
 
 if [ $OS = Linux ] 
