@@ -7,7 +7,7 @@ MAIN = daemon_test
 MAIN = message_test
 MAIN = handler_test
 MAIN = base_test
-MAIN = message_test
+MAIN = socker_test
 
 LIBS = libbase.a
 

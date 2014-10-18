@@ -25,6 +25,9 @@ SIZE = 3221225472
 SIZE = 4294967296
 SIZE = 2147483648
 
+LEVEL = trace
+LEVEL = stats
+
 ifeq ($(OS), Darwin)
 CC = clang
 WARN = -Weverything
@@ -62,11 +65,11 @@ test:
 	$(MAIN)
 
 ts:
-	nesox -r server -f $(FILE) $(HOST) $(PORT)
+	nesox -l $(LEVEL) -r server -f $(FILE) $(HOST) $(PORT)
 tr:
-	nesox -r reader -s $(SIZE) $(HOST) $(PORT)
+	nesox -l $(LEVEL) -r reader -s $(SIZE) $(HOST) $(PORT)
 tc:
-	nesox -r client -f $(FILE) $(HOST) $(PORT)
+	nesox -l $(LEVEL) -r client -f $(FILE) $(HOST) $(PORT)
 
 build: nesox
 	cp nesox ../bin/nesox

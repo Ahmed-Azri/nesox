@@ -23,6 +23,7 @@
 #define ERROR 2
 
 int getseveritylevel(char *severity);
+
 int logopen(char *filename, int severity);
 int logdup(int filedes, int severity);
 int logclose(void);

@@ -9,6 +9,7 @@ int main(){
 	if (sd < 0) { perror("socker failed!"); return -1; }
 	fprintf(stderr, "%s\n", "socker successed!");
 
+	fprintf(stderr, "connect to --> ipaddress: %s portnum: %d\n", gethost((struct sockaddr *)&address), getport((struct sockaddr *)&address));
 	int result = connect(sd, (struct sockaddr *)(&address), (socklen_t)(sizeof(address)));
 	if (result < 0 ) { perror("connect failed!"); return  -1; }
 	fprintf(stderr, "%s\n", "connect successed!");
