@@ -88,7 +88,7 @@ int main(int argc, char *argv[])
 	int background = strcmp(optgrnd, "console");
 	if (background) {
 		char logfilename[maxbuffersize] = "";
-		snprintf(logfilename, sizeof(logfilename), "nesox-%d.log", (int)getpid());
+		snprintf(logfilename, sizeof(logfilename), "nesox-%s%d.log", argport, (int)getpid());
 		daemoninit(optwdir, CLOSEFD);
 		logopen(logfilename);
 	}
@@ -227,6 +227,9 @@ int server(int background, char *host, short port, char *filename)
 
 			timepoint etransfer; timepin(&etransfer);
 			logstats("data transfer time cost: %0.8f seconds", timeint(stransfer, etransfer));
+		}
+		else if (!(m.type - TRANSFER)) {
+			//todo: getdata(source, size); reader(background, source, caculated_port, size);
 		}
 		else
 		{
