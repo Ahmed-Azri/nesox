@@ -71,9 +71,6 @@ tr:
 tc:
 	nesox -l $(LEVEL) -r client -f $(FILE) $(HOST) $(PORT)
 
-build: nesox
-	cp nesox ../bin/nesox
-
 info:
 	@echo "OS:" $(OS)
 	@echo "CC:" $(CC)

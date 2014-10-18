@@ -22,8 +22,10 @@ int usage()
 	fprintf(stderr, "%s\t%s\n", "  host   ", "IP address for communication");
 	fprintf(stderr, "%s\t%s\n", "  port   ", "port number for communication");
 	fprintf(stderr, "%s\t%s\n", "  delay  ", "num of microseconds before run server/reader ... ");
+	fprintf(stderr, "%s\n", "notice: ");
+	fprintf(stderr, "%s\t%s\n", "  host   ", "!! host should be IP address only !!");
+	fprintf(stderr, "%s\t%s\n", "  pesudo ", "!! todo: change the \"unlimited pseudo\" transfer to limited one!!");
 	fprintf(stderr, "%s\n", "");
-	fprintf(stderr, "%s\t%s\n", "notice: ", "!!! host should be IP address only !!!");
 	fprintf(stderr, "%s\t%s\n", "contact: ", "liying.hku@gmail.com");
 	return 0;
 }
@@ -365,4 +367,3 @@ int client(int background, char *host, short port, char *filename)
 	logtrace("client return");
 	return 0;
 }
-
