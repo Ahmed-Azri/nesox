@@ -4,7 +4,17 @@
 #define OPEN_FLAGS ( O_WRONLY | O_APPEND | O_CREAT )
 
 static int logfd = -1;
+static int level = TRACE;
 static int result = 0;
+
+int getseveritylevel(char *severity)
+{
+	static severitylevel = TRACE;
+	if (!strcmp(severity, "TRACE") || !strcmp(severity, "trace")) severitylevel = TRACE;
+	if (!strcmp(severity, "STATS") || !strcmp(severity, "stats")) severitylevel = STATS;
+	if (!strcmp(severity, "ERROR") || !strcmp(severity, "error")) severitylevel = ERROR;
+	return severitylevel;
+}
 
 static char *getseverity(int severity)
 {
@@ -25,21 +35,23 @@ static char *getlogtime()
 }
 
 static ssize_t dogwrite(int filedes, void *buffer, size_t size) {
-   ssize_t bytes;
+	ssize_t bytes;
 
-   while (((bytes = write(filedes, buffer, size)) == -1) && (errno == EINTR));
-   return bytes;
+	while (((bytes = write(filedes, buffer, size)) == -1) && (errno == EINTR));
+	return bytes;
 }
 
-int logopen(char *filename)
+int logopen(char *filename, int severity)
 {
-   logfd = open(filename, OPEN_FLAGS, FILE_PERMS);
-   return logfd;
+	logfd = open(filename, OPEN_FLAGS, FILE_PERMS);
+	level = severity;
+	return logfd;
 }
 
-int logdup(int filedes)
+int logdup(int filedes, int severity)
 {
 	logfd = dup(filedes);
+	level = severity;
 	return logfd;
 }
 
@@ -51,6 +63,7 @@ int logclose()
 
 int logprintf(char *file, char *function, int line, int severity, char *format, ...)
 {
+	if (severity < level) return 0;
 	static char header[0x100];
 	if (file != NULL && function != NULL && line != -1)
 		snprintf(header, sizeof(header), "%s %10s(%10s):%04d ", getlogtime(), file, function, line);

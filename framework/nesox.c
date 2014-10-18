@@ -1,5 +1,6 @@
 #include "nesox.h"
 
+static debug = 1;
 static timepoint enter, leave;
 
 static int server(int, char*, short, char*);
@@ -17,6 +18,7 @@ int usage()
 	fprintf(stderr, "%s\t%s\n", "  -s size", "size: bytes num to transfer (default: 1M)");
 	fprintf(stderr, "%s\t%s\n", "  -g ground", "ground: run in background as a daemon or console (default: console)");
 	fprintf(stderr, "%s\t%s\n", "  -d workdir", "workdir: working directory for daemon (default: \"./\")");
+	fprintf(stderr, "%s\t%s\n", "  -l level", "level: [ trace | stats | error ] (default: stats)");
 	fprintf(stderr, "%s\n", "comment: ");
 	fprintf(stderr, "%s\t%s\n", "  host   ", "IP address for communication");
 	fprintf(stderr, "%s\t%s\n", "  port   ", "port number for communication");
@@ -32,12 +34,13 @@ int main(int argc, char *argv[])
 	timepin(&enter);
 	if (argc < 3) { usage(); return -1; }
 
-	char optstring[] = "r:f:s:g:d:";
+	char optstring[] = "r:f:s:g:d:l:";
 	char optrole[optionargsize] = "reader";
 	char optfile[optionargsize] = "(null)";
 	char optsize[optionargsize] = "1048576";
 	char optgrnd[optionargsize] = "console";
 	char optwdir[optionargsize] = "./";
+	char optlevl[optionargsize] = "stats";
 	char arghost[cmdmaxargsize] = "(null)";
 	char argport[cmdmaxargsize] = "(null)";
 	char argdely[cmdmaxargsize] = "0";
@@ -60,6 +63,9 @@ int main(int argc, char *argv[])
 		case 'd':
 			snprintf(optwdir, sizeof(optwdir), "%s", optarg);
 			break;
+		case 'l':
+			snprintf(optlevl, sizeof(optlevl), "%s", optarg);
+			break;
 		case '?':
 		default :
 			usage();
@@ -75,34 +81,41 @@ int main(int argc, char *argv[])
 	if (argc == 3)
 	snprintf(argdely, sizeof(argdely), "%s", argv[2]);
 
+	if (debug = 0) {
+
 	fprintf(stderr, "role: %s\n", optrole);
 	fprintf(stderr, "file: %s\n", optfile);
 	fprintf(stderr, "size: %s\n", optsize);
 	fprintf(stderr, "grnd: %s\n", optgrnd);
 	fprintf(stderr, "wdir: %s\n", optwdir);
+	fprintf(stderr, "levl: %s\n", optlevl);
 
 	fprintf(stderr, "host: %s\n", arghost);
 	fprintf(stderr, "port: %s\n", argport);
 	fprintf(stderr, "dely: %s\n", argdely);
 
+	}
+
 	int background = strcmp(optgrnd, "console");
 	if (background) {
-		char logfilename[maxbuffersize] = "";
-		snprintf(logfilename, sizeof(logfilename), "logs/nesox-%s%d.log", argport, (int)getpid());
+
 		daemoninit(optwdir, CLOSEFD);
-		int r = logopen(logfilename);
+
+		char logfilename[maxbuffersize] = "";
+		snprintf(logfilename, sizeof(logfilename), "logs/nesox-%s-%s-%d.log", arghost, argport, (int)getpid());
+		int r = logopen(logfilename, getseveritylevel(optlevl));
 		if (r < 0) {
-			snprintf(logfilename, sizeof(logfilename), "nesox-%s%d.log", argport, (int)getpid());
-			logopen(logfilename);
+			snprintf(logfilename, sizeof(logfilename), "nesox-%s-%s-%d.log", arghost, argport, (int)getpid());
+			logopen(logfilename, getseveritylevel(optlevl));
 		}
 	}
 	else
-		logdup(2);
+		logdup(2, getseveritylevel(optlevl));
 
 	char workingdir[maxbuffersize] = "";
 	getcwd(workingdir, sizeof(workingdir));
 	logtrace("working directory: %s", workingdir);
-	
+
 	unsigned delay = (unsigned)atoi(argdely);
 	microsleep(delay);
 

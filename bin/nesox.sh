@@ -24,10 +24,13 @@ do
 	ports="$ports $port"
 done < $inputports
 
-echo "Nesox Transfer Scheduling Prototype"
-echo "OS:" $os
-echo "Nesox Home:" $home
-echo "File:" $file
-echo "Hostname:" $host
-echo "Nodes:" $nodes
-echo "Ports:" $ports
+info()
+{
+	echo "OS:" $os
+	echo "Nesox Home:" $home
+	echo "File:" $file
+	echo "Hostname:" $host
+	echo "Nodes:" $nodes
+	echo "Ports:" $ports
+}
+

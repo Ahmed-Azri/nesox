@@ -19,11 +19,12 @@
 #define LOG(...) logprintf( NULL, NULL, -1, TRACE, __VA_ARGS__ )
 
 #define TRACE 0
-#define ERROR 1
-#define STATS 2
+#define STATS 1
+#define ERROR 2
 
-int logopen(char *filename);
-int logdup(int filedes);
+int getseveritylevel(char *severity);
+int logopen(char *filename, int severity);
+int logdup(int filedes, int severity);
 int logclose(void);
 
 int logprintf(char *file, char *function, int line, int severity, char *format, ...);
