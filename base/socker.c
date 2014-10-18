@@ -16,7 +16,7 @@ int socker(char *host, short port, struct sockaddr_in *address)
 int setsockreuse(int sock)
 {
 	int option = 1;
-	return setsockopt(sock, IPPROTO_TCP, SO_REUSEADDR | SO_REUSEPORT, &option, sizeof(option));
+	return setsockopt(sock, IPPROTO_TCP, SO_REUSEADDR/* | SO_REUSEPORT (Linux NOT support)*/, &option, sizeof(option));
 }
 
 int binder(int sock, char *host, short port)
