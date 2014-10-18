@@ -35,10 +35,9 @@ static char *getlogtime()
 }
 
 static ssize_t dogwrite(int filedes, void *buffer, size_t size) {
-	ssize_t bytes;
-
-	while (((bytes = write(filedes, buffer, size)) == -1) && (errno == EINTR));
-	return bytes;
+	ssize_t num;
+	while (((num = write(filedes, buffer, size)) == -1) && (errno == EINTR));
+	return num;
 }
 
 int logopen(char *filename, int severity)
