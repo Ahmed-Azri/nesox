@@ -12,7 +12,8 @@ int usage()
 {
 	fprintf(stderr, "%s\n", "usage: nesox [options] host port [delay]");
 	fprintf(stderr, "%s\n", "options:");
-	fprintf(stderr, "%s\t%s\n", "  -r role", "role: server or reader (default: reader)");
+	fprintf(stderr, "%s\t%s\n", "  -m mode", "mode: master or standalone (default: standalone) todo!!");
+	fprintf(stderr, "%s\t%s\n", "  -r role", "role: server or reader (default: reader) todo: master");
 	fprintf(stderr, "%s\t%s\n", "  -f file", "file: pathname of data file (default: (null))");
 	fprintf(stderr, "%s\t%s\n", "  -s size", "size: bytes num to transfer (default: 1M)");
 	fprintf(stderr, "%s\t%s\n", "  -g ground", "ground: run in background as a daemon or console (default: console)");
