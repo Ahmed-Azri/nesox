@@ -2,6 +2,7 @@ os=`uname`
 bin=`dirname "$0"`
 home=`cd "$bin"/../; pwd`
 host=127.0.0.1
+user=root
 
 if [ "$os" = "Linux" ]; then host=`hostname -i`; fi
 file=$home/data/biblewarpease
@@ -23,6 +24,7 @@ do
 	ports="$ports $port"
 done < $inputports
 
+echo "Nesox Transfer Scheduling Prototype"
 echo "OS:" $os
 echo "Nesox Home:" $home
 echo "File:" $file
