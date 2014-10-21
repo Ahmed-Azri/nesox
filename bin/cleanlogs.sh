@@ -1,8 +1,8 @@
-. nesox.sh
+source nesox.sh
 
 logs=`cd "$home"/logs; pwd`
 
 cd $logs
-rm -rf *
-cd -
+rm -rf *.log
 
+exit 0
