@@ -1,5 +1,23 @@
 source nesox.sh
 
+loadengine=usage
+
+usage()
+{
+	echo "usage: loadbench.sh [options] [size] [delay]"
+	echo "options:"
+	echo "  -f loadfile.ld"
+	echo "  -a (all2all)"
+	echo
+	echo "notice:"
+	echo "  size: data to transfer in bytes for -a option"
+	echo " delay: data to transfer in bytes for -a option"
+	echo
+	echo "example:"
+	echo "loadengine.sh -a size delay"
+	echo "contact: liying.hku@gmail.com"
+	echo
+}
 
 nodeprefix="202.45.128.17"
 portprefix="817"
@@ -38,7 +56,6 @@ do
 	for snode in $nodes
 	do
 		sport="8${dnode:11}"
-		printf "%s:%s %s\n" $snode $sport $dnode
 		command="nesox -g back -r reader -s $datasize $snode $sport $delay"
 		echo $command
 		sshcommand="ssh $user@$dnode $command"
@@ -51,16 +68,16 @@ while getopts ":f:a" opt;
 do
 	case $opt in
 	("f")
-		loadfile=$OPTARG
 		loadengine=processloadfile
+		loadfile=$OPTARG
+	;;
+	("a")
+		loadengine=all2all
+		loadfile=""
 	;;
 	(":")
 		echo "Option -$OPTARG requires an argument." >&2
 		exit 1
-	;;
-	("a")
-		loadfile=""
-		loadengine=all2all
 	;;
 	("?")
 		echo "Invalid option: -$OPTARG" >&2
@@ -70,8 +87,13 @@ do
 done
 shift $((OPTIND - 1))
 
+if ["$1" = ""]
+then
+datasize=1024
+else
 datasize="$1"
+fi
+
 delay="$2$million"
 
 $loadengine $loadfile $datasize $delay
-
