@@ -87,7 +87,7 @@ do
 done
 shift $((OPTIND - 1))
 
-if ["$1" = ""]
+if [ "$1" = "" ];
 then
 datasize=1024
 else
