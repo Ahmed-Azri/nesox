@@ -1,6 +1,7 @@
 os=`uname`
 bin=`dirname "$0"`
 home=`cd "$bin"/../; pwd`
+logs=`cd "$home"/logs; pwd`
 host=127.0.0.1
 user=root
 
