@@ -104,10 +104,10 @@ int main(int argc, char *argv[])
 		daemoninit(optwdir, CLOSEFD);
 
 		char logfilename[maxbuffersize] = "";
-		snprintf(logfilename, sizeof(logfilename), "logs/nesox-%s-%s-%d.log", arghost, argport, (int)getpid());
+		snprintf(logfilename, sizeof(logfilename), "logs/nesox-%s-%s-%s-%d.log", optrole, arghost, argport, (int)getpid());
 		int r = logopen(logfilename, getseveritylevel(optlevl));
 		if (r < 0) {
-			snprintf(logfilename, sizeof(logfilename), "nesox-%s-%s-%d.log", arghost, argport, (int)getpid());
+			snprintf(logfilename, sizeof(logfilename), "nesox-%s-%s-%s-%d.log", optrole, arghost, argport, (int)getpid());
 			logopen(logfilename, getseveritylevel(optlevl));
 		}
 	}
