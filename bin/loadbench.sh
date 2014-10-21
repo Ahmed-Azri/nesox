@@ -39,8 +39,8 @@ do
 	sport="$portprefix$d"
 	delay="$delaysec$million"
 	command="nesox -g back -r reader -s $datasize $snode $sport $delay"
-	echo -e "${PURPLE}$command${RESTORE}"
 	sshcommand="ssh $user@$dnode $command"
+	echo -e "${PURPLE}$sshcommand${RESTORE}"
 	$sshcommand
 done < $loadfile
 }
@@ -57,8 +57,8 @@ do
 	do
 		sport="8${dnode:11}"
 		command="nesox -g back -r reader -s $datasize $snode $sport $delay"
-		echo $command
 		sshcommand="ssh $user@$dnode $command"
+		echo -e "${PURPLE}$sshcommand${RESTORE}"
 		$sshcommand
 	done
 done
