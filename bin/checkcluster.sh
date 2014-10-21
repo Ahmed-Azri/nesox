@@ -1,6 +1,6 @@
 source nesox.sh
 
-command="ps -leaf | grep nesox"
+command="ps -e -o pid -o time -o times -o cmd grep nesox"
 
 for node in $nodes
 do
@@ -8,4 +8,3 @@ do
 	echo $command
 	ssh $user@$node $command
 done
-
