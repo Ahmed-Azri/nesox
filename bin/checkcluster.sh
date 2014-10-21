@@ -1,6 +1,6 @@
 source nesox.sh
 
-command="ps -e -o pid -o time -o cmd | grep neso[x]"
+command="ps -e -o pid -o time -o cmd | grep -v grep nesox"
 
 for node in $nodes
 do
