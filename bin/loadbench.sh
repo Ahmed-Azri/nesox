@@ -19,9 +19,6 @@ usage()
 	echo
 }
 
-nodeprefix="202.45.128.17"
-portprefix="817"
-
 randnum=$RANDOM
 
 processloadfile()

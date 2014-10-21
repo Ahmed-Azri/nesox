@@ -2,6 +2,7 @@ os=`uname`
 bin=`dirname "$0"`
 home=`cd "$bin"/../; pwd`
 logs=`cd "$home"/logs; pwd`
+stat=`cd "$home"/stat; pwd`
 host=127.0.0.1
 user=root
 
@@ -15,6 +16,9 @@ ports=
 
 thousand=000
 million=000000
+
+nodeprefix="202.45.128.17"
+portprefix="817"
 
 while read node
 do
