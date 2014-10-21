@@ -41,7 +41,8 @@ do
 	shellcommand="nesox -g back -r reader -d $home -s $datasize $snode $sport $delay"
 	sshcommand="ssh $user@$dnode $shellcommand"
 	echo -e "${PURPLE}$sshcommand${RESTORE}"
-	$sshcommand
+	coproc $sshcommand
+	wait $!
 done < $loadfile
 }
 
@@ -59,7 +60,8 @@ do
 		shellcommand="nesox -g back -r reader -d $home -s $datasize $snode $sport $delay"
 		sshcommand="ssh $user@$dnode $shellcommand"
 		echo -e "${PURPLE}$sshcommand${RESTORE}"
-		$sshcommand
+		coproc $sshcommand
+		wait $!
 	done
 done
 }
