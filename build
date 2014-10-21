@@ -13,7 +13,8 @@ cd ..
 cp framework/nesox bin/nesox
 
 if [ -d logs ]; then echo "logs made"; else mkdir logs; fi
-if [ -d stat ]; then echo "stat made"; else mkdir stat; fi
+if [ -d stat1 ]; then echo "stat1 made"; else mkdir stat1; fi
+if [ -d stat2 ]; then echo "stat2 made"; else mkdir stat2; fi
 
 echo "build successed!"
 

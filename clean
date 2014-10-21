@@ -18,5 +18,13 @@ cd logs
 rm -rf *.log
 cd ..
 
+cd stat1
+rm -rf *
+cd ..
+
+cd stat2
+rm -rf *
+cd ..
+
 echo "clean finished!"
 

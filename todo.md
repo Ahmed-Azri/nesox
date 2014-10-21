@@ -9,4 +9,6 @@ Architecture
 standing (daemon) roles: master; workers/slaves (servers);
 communication (connection) roles: client/server;
 
+Names
+Nicky, Matthew, Carl, PK
 
