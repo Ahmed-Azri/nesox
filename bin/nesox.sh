@@ -9,10 +9,11 @@ file=$home/data/biblewarpease
 inputnodes="$bin"/nodes
 inputports="$bin"/ports
 
-source color
-
 nodes=
 ports=
+
+thousand=000
+million=000000
 
 while read node
 do
@@ -34,3 +35,4 @@ info()
 	echo "Ports:" $ports
 }
 
+source color
