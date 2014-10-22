@@ -8,6 +8,8 @@ static int client(int, char*, short, char*);
 static int reader(int, char*, short, long);
 static int loader(char *filename, char **store);
 
+static char gethostindex(char* host);
+
 int usage()
 {
 	fprintf(stderr, "%s\n", "usage: nesox [options] host port [delay]");
@@ -255,8 +257,8 @@ int server(int background, char *host, short port, char *filename)
 			timepoint etransfer; timepin(&etransfer);
 			logtrace("data transfer time cost: %0.8f second(s)", timeint(stransfer, etransfer));
 
-			logstats("(%s:%hu)>>(%s:%hu):%ld:%0.8f:%0.8f:%0.8f",
-				host, port, counterparthost, counterpartport, numtransfer,
+			logstats("(%s:%hu)>>(%s:%hu):%c:%c:%ld:%0.8f:%0.8f:%0.8f",
+				host, port, counterparthost, counterpartport, gethostindex(host), gethostindex(counterparthost), numtransfer,
 				timeinstant(stransfer), timeinstant(etransfer), timeint(stransfer, etransfer));
 
 
@@ -329,8 +331,8 @@ int reader(int background, char *host, short port, long requestsize)
 	timepoint eretrieve; timepin(&eretrieve);
 	logtrace("data retrieve time cost: %0.8f second(s)", timeint(sretrieve,eretrieve));
 
-	logstats("(%s:%hu)>>(%s:%hu):%ld:%0.8f:%0.8f:%0.8f",
-		host, port, localhost, localport, numretrieve,
+	logstats("(%s:%hu)>>(%s:%hu):%c:%c:%ld:%0.8f:%0.8f:%0.8f",
+		host, port, localhost, localport, gethostindex(host), gethostindex(localhost), numretrieve,
 		timeinstant(sretrieve), timeinstant(eretrieve), timeint(sretrieve,eretrieve));
 
 
@@ -373,4 +375,11 @@ int client(int background, char *host, short port, char *filename)
 	close(socketfd);
 	logtrace("client return");
 	return 0;
+}
+
+static char gethostindex(char* host)
+{
+	char hostindex = 0;
+	int index = strlen(host) - 1;
+	return host[index];
 }
