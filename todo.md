@@ -13,8 +13,21 @@ Names
 -----
 Nicky, Matthew, Carl, PK
 
-statistics data file format:
-source->destination:data-size:start-time:end-time:time-interval
+nesox system input and output
+-----------------------------
+**input: transfer matrix**
+form: wordloads (loadN.ld)
 
+**output:completion time matrix**
+form: compute.c ->
+
+
+statistics data file format
+---------------------------
+source:destination:data-size:start-time:end-time:time-interval
+
+load distribution and generation
+--------------------------------
+what kind of transfer matrix is represative?
 
 

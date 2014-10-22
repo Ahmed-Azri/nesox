@@ -32,6 +32,7 @@
 #define maxbuffersize 0x100
 #define optionargsize 0x100
 #define cmdmaxargsize 0x100
+#define maxflowlistsize 0x100
 
 #define kilobytes 1024
 #define megabytes 1048576

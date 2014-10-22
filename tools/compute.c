@@ -23,15 +23,36 @@ int main(int argc, char *argv[])
 	size_t capacity = 0;
 	ssize_t linelen;
 
+	flow flist[maxflowlistsize];
+	int flistsize = 0;
+
 	for (int i = 0; (linelen = getline(&line, &capacity, stdin)) > 0; i++) {
 		if (debug) fprintf(stderr, "%ld/%ld: %s", linelen, capacity, line);
 
 		char *temp = advance(line, "[STATS]");
 		char *this = advance(temp, "):");
 
-		flow f = flowinit(i+1);
+		int flowindex = i + 1;
+
+		flow f = flowinit(flowindex);
 		parseflow(this, &f);
-		printflow(f);
+		flist[i] = f;
+
+		flistsize = flowindex;
+	}
+
+	for (int i = 0; i < flistsize; i++) {
+		fprintf(stderr, "%02d/%02d-", i, flistsize);
+		printflow(flist[i]);
+	}
+
+	double firststart = 0.0;
+	double lastfinish = 0.0;
+
+	double shortst = 0.0;
+	double longest = 0.0;
+
+	for (int i = 0; i < flistsize; i++) {
 
 	}
 

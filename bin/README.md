@@ -13,7 +13,7 @@ build
 deploy
 startcluster.sh
 loadbench.sh -a 102400 5
-loadbench.sh -f sample.ld
+loadbench.sh -f load01.ld
 collectdata.sh
 stopcluster.sh
 checkcluster.sh

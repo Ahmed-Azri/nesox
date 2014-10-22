@@ -4,7 +4,7 @@ loadengine=usage
 
 usage()
 {
-	echo "usage: loadbench.sh [options] [size] [delay]"
+	echo "usage: loadbench.sh [options] [size] [delay] [portfamily]"
 	echo "options:"
 	echo "  -f loadfile.ld"
 	echo "  -a (all2all)"
@@ -12,6 +12,7 @@ usage()
 	echo "notice:"
 	echo "  size: data to transfer in bytes for -a option"
 	echo " delay: data to transfer in bytes for -a option"
+	echo "portfm: port family: 6, 7, 8, 9 (default:8)"
 	echo
 	echo "example:"
 	echo "loadengine.sh -a size delay"
@@ -24,6 +25,8 @@ randnum=$RANDOM
 processloadfile()
 {
 loadfile="$1"
+portfamily="$2"
+
 while read line
 do
 	s="${line:0:1}"
@@ -33,7 +36,7 @@ do
 	printf "%s->%d:%s:%s\n" $s $d $datasize $delaysec
 	snode="$nodeprefix$s"
 	dnode="$nodeprefix$d"
-	sport="$portprefix$d"
+	sport="${portfamily:0:1}${portprefix:1:2}$d"
 	delay="$delaysec$million"
 	shellcommand="nesox -g back -r reader -d $home -s $datasize $snode $sport $delay"
 	sshcommand="ssh $user@$dnode $shellcommand"
@@ -47,13 +50,14 @@ all2all()
 {
 datasize="$1"
 delay="$2$million"
+portfamily="$3"
 
 echo -e "${PURPLE}all-to-all work load${RESTORE}"
 for dnode in $nodes
 do
 	for snode in $nodes
 	do
-		sport="8${dnode:11}"
+		sport="${portfamily:0:1}${dnode:11}"
 		shellcommand="nesox -g back -r reader -d $home -s $datasize $snode $sport $delay"
 		sshcommand="ssh $user@$dnode $shellcommand"
 		echo -e "${PURPLE}$sshcommand${RESTORE}"
@@ -93,6 +97,20 @@ else
 datasize="$1"
 fi
 
+if [ "$2" = "" ];
+then
+delay=0
+else
 delay="$2"
+fi
 
-$loadengine $loadfile $datasize $delay
+if [ "$3" = "" ];
+then
+portfamily=8
+else
+portfamily="$3"
+fi
+
+$loadengine $loadfile $datasize $delay $portfamily
+
+
