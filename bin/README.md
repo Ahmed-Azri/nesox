@@ -5,6 +5,7 @@ Bash Scripts for Nesox Cluster Benchmarking
 
 operations on d0:
 -----------------
+clean
 git pull
 cleancluster.sh
 checkcluster.sh

@@ -1,3 +1,4 @@
+OS = $(shell uname)
 
 MAIN = compute
 
