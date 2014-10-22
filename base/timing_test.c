@@ -14,8 +14,8 @@ int main(){
 
 	timerange interval = timeint(start, currt);
 
-	printf("time elapse: %.4f seconds!\n", timeint(start, currt));
-	printf("time elapse: %.4f seconds!\n", interval);
+	printf("since: %.4f time elapse: %.4f seconds!\n", timeinstant(start), timeint(start, currt));
+	printf("time elapse: %.4f seconds until %.4f!\n", interval, timeinstant(currt));
 
 	printf("%s: leave!\n", timestamp());
 

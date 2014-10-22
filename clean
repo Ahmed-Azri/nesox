@@ -19,15 +19,15 @@ rm -rf *.log
 cd ..
 
 cd stat
-rm -rf *
+rm -rf *.log
 cd ..
 
 cd stat1
-rm -rf *
+rm -rf *logs*
 cd ..
 
 cd stat2
-rm -rf *
+rm -rf *.log
 cd ..
 
 

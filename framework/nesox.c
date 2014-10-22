@@ -254,7 +254,10 @@ int server(int background, char *host, short port, char *filename)
 
 			timepoint etransfer; timepin(&etransfer);
 			logtrace("data transfer time cost: %0.8f second(s)", timeint(stransfer, etransfer));
-			logstats("(%s:%hu)>>(%s:%hu):%ld:%0.8f", host, port, counterparthost, counterpartport, numtransfer, timeint(stransfer, etransfer));
+
+			logstats("(%s:%hu)>>(%s:%hu):%ld:%0.8f:%0.8f:%0.8f",
+				host, port, counterparthost, counterpartport, numtransfer,
+				timeinstant(stransfer), timeinstant(etransfer), timeint(stransfer, etransfer));
 
 
 		}
@@ -325,7 +328,10 @@ int reader(int background, char *host, short port, long requestsize)
 
 	timepoint eretrieve; timepin(&eretrieve);
 	logtrace("data retrieve time cost: %0.8f second(s)", timeint(sretrieve,eretrieve));
-	logstats("(%s:%hu)>>(%s:%hu):%ld:%0.8f", host, port, localhost, localport, numretrieve, timeint(sretrieve,eretrieve));
+
+	logstats("(%s:%hu)>>(%s:%hu):%ld:%0.8f:%0.8f:%0.8f",
+		host, port, localhost, localport, numretrieve,
+		timeinstant(sretrieve), timeinstant(eretrieve), timeint(sretrieve,eretrieve));
 
 
 

@@ -9,9 +9,13 @@ char *timestamp(void);
 
 typedef struct timeval timepoint;
 typedef double timerange;
+typedef double instant;
 
-timepoint timepin(timepoint *instant);
+instant timeinstant(timepoint t);
+
+timepoint timepin(timepoint *p);
 timerange timeint(timepoint s, timepoint e);
+
 
 int microsleep(long microseconds);
 

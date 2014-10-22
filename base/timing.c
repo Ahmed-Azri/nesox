@@ -11,10 +11,15 @@ char *timestamp()
 	return timestampstring;
 }
 
-timepoint timepin(timepoint *instant)
+instant timeinstant(timepoint t)
 {
-	gettimeofday(instant, NULL);
-	return *instant;
+	return t.tv_sec + t.tv_usec/1000000.0;
+}
+
+timepoint timepin(timepoint *p)
+{
+	gettimeofday(p, NULL);
+	return *p;
 }
 
 timerange timeint(timepoint s, timepoint e)
