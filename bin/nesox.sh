@@ -3,6 +3,7 @@ bin=`dirname "$0"`
 home=`cd "$bin"/../; pwd`
 logs=`cd "$home"/logs; pwd`
 stat=`cd "$home"/stat; pwd`
+load=`cd "$home"/load; pwd`
 host=127.0.0.1
 user=root
 
