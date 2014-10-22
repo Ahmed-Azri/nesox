@@ -6,12 +6,17 @@ Bash Scripts for Nesox Cluster Benchmarking
 operations on d0:
 -----------------
 git pull
+cleancluster.sh
 checkcluster.sh
+clean
 build
+deploy
 startcluster.sh
+loadbench.sh -a 102400 5
 loadbench.sh -f sample.ld
 collectdata.sh
 stopcluster.sh
+checkcluster.sh
 
 operations on mac:
 ------------------

@@ -4,7 +4,7 @@ command="ps -e -o pid -o time -o cmd | grep -v grep | grep nesox"
 
 for node in $nodes
 do
-	echo -e "${RED}check nesox on $node ... ${RESTORE}"
+	echo -e "${BLUE}check nesox on $node ... ${RESTORE}"
 	echo $command
 	ssh $user@$node $command
 done
