@@ -80,10 +80,12 @@ do
 	;;
 	(":")
 		echo "Option -$OPTARG requires an argument." >&2
+		usage
 		exit 1
 	;;
 	("?")
 		echo "Invalid option: -$OPTARG" >&2
+		usage
 		exit 1
 	;;
 	esac

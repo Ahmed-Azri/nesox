@@ -29,8 +29,8 @@ int main(int argc, char *argv[])
 	for (int i = 0; (linelen = getline(&line, &capacity, stdin)) > 0; i++) {
 		if (debug) fprintf(stderr, "%ld/%ld: %s", linelen, capacity, line);
 
-		char *temp = advance(line, "[STATS]");
-		char *this = advance(temp, "):");
+		char *temp = advance(line, "[STATS]"); if (!temp) continue;
+		char *this = advance(temp, "):"); if (!this) continue;
 
 		int flowindex = i + 1;
 
