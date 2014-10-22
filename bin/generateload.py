@@ -45,5 +45,5 @@ random.shuffle(pairs)
 for pair in pairs:
 	rand = long(round(random.gauss(mean, variance)))
 	if rand < 0: rand = 0
-	print '{0} {1} {2} {3}'.format(pair[0], pair[1], rand, delay)
+	print '{0} {1} {3} {2}'.format(pair[0], pair[1], rand, delay)
 

@@ -53,3 +53,8 @@ logaggregate = $loadname-$algorithm.data
 statfile = $loadname-$algorithm.stat
 
 e.g., norm-102400-100000.ld
+
+
+reference
+---------
+http://bashcookbook.com/bashinfo/source/bash-3.1/examples/scripts.noah/string.bash

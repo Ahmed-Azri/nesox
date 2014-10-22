@@ -1,5 +1,6 @@
 os=`uname`
 bin=`dirname "$0"`
+bin=`cd $bin; pwd`
 home=`cd "$bin"/../; pwd`
 logs=`cd "$home"/logs; pwd`
 stat=`cd "$home"/stat; pwd`
@@ -41,5 +42,50 @@ info()
 	echo "Ports:" $ports
 }
 
-source color
+# Usage: strstr s1 s2
+#
+# Strstr echoes a substring starting at the first occurrence of string s2 in
+# string s1, or nothing if s2 does not occur in the string.  If s2 points to
+# a string of zero length, strstr echoes s1.
+function strstr ()
+{
+    # if s2 points to a string of zero length, strstr echoes s1
+    [ ${#2} -eq 0 ] && { echo "$1" ; return 0; }
 
+    # strstr echoes nothing if s2 does not occur in s1
+    case "$1" in
+    *$2*) ;;
+    *) return 1;;
+    esac
+
+    # use the pattern matching code to strip off the match and everything
+    # following it
+    first=${1/$2*/}
+
+    # then strip off the first unmatched portion of the string
+    echo "${1##$first}"
+}
+
+function getloadname()
+{
+	read loadpathname < $bin/status
+	loadpathnamelength=${#loadpathname}
+
+	loadfilename=`strstr $loadpathname "load"`
+	loadfilenamelength=${#loadfilename}
+
+
+	loadpathnamelength=$(expr $loadpathnamelength - 3)
+	loadfilenamelength=$(expr $loadfilenamelength - 8)
+
+	if [ "$loadfilename" = "" ]
+	then
+		loadname=${loadpathname:0:loadpathnamelength}
+	else
+		loadname=${loadfilename:5:loadfilenamelength}
+	fi
+
+	echo $loadname
+}
+
+source color

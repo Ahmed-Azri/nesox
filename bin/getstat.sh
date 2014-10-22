@@ -9,3 +9,6 @@ scp -r root@d0:$remotehome/stat2/* $home/stat2/
 else
 scp -r root@d0:$remotehome/stat1/* $home/stat1/
 fi
+
+scp -r root@d0:$remotehome/bin/status $home/bin/status
+

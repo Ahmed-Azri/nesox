@@ -31,8 +31,8 @@ while read line
 do
 	s="${line:0:1}"
 	d="${line:2:1}"
-	datasize="${line:4:4}"
-	delaysec="${line:9:1}"
+	datasize="${line:6}"
+	delaysec="${line:4:1}"
 	printf "%s->%d:%s:%s\n" $s $d $datasize $delaysec
 	snode="$nodeprefix$s"
 	dnode="$nodeprefix$d"
@@ -112,6 +112,8 @@ portfamily=8
 else
 portfamily="$3"
 fi
+
+echo $loadfile > $bin/status
 
 $loadengine $loadfile $datasize $delay $portfamily
 

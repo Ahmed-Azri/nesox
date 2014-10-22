@@ -8,9 +8,11 @@ function usage()
 	echo "aggregate.sh [output statistic file name]"
 }
 
+loadname=`getloadname`
+
 if [ "$1" = "" ]
 then
-aggregatefile="$stat/stat.data"
+aggregatefile="$stat/$loadname.data"
 else
 aggregatefile="$stat/$1"
 fi
