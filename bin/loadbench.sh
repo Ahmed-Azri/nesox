@@ -75,8 +75,9 @@ do
 		loadfile=$OPTARG
 	;;
 	("a")
-		loadengine=all2all
-		loadfile=""
+		echo "Obselete option!" >&2
+		usage
+		exit 1
 	;;
 	(":")
 		echo "Option -$OPTARG requires an argument." >&2
@@ -94,20 +95,6 @@ shift $((OPTIND - 1))
 
 if [ "$1" = "" ];
 then
-datasize=1024
-else
-datasize="$1"
-fi
-
-if [ "$2" = "" ];
-then
-delay=0
-else
-delay="$2"
-fi
-
-if [ "$3" = "" ];
-then
 portfamily=8
 else
 portfamily="$3"
@@ -115,6 +102,6 @@ fi
 
 echo $loadfile > $bin/status
 
-$loadengine $loadfile $datasize $delay $portfamily
+$loadengine $loadfile $portfamily
 
 
