@@ -3,11 +3,16 @@ source nesox.sh
 readerlogfiles=nesox-reader*.log
 serverlogfiles=nesox-server*.log
 
+function usage()
+{
+	echo "aggregate.sh [output statistic file name]"
+}
+
 if [ "$1" = "" ]
 then
-aggregatefile="$stat/$1"
-else
 aggregatefile="$stat/stat.data"
+else
+aggregatefile="$stat/$1"
 fi
 
 if [ "$2" = "" ]
@@ -29,7 +34,7 @@ logfilename="$1"
 
 while read line
 do
-	echo $line
+	echo $line >> $aggregatefile
 done < $logfilename
 
 }

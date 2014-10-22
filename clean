@@ -10,8 +10,12 @@ cd framework
 make clean
 cd ..
 
+cd tools
+make clean
+cd ..
+
 cd bin
-rm -rf nesox *.log
+rm -rf nesox compute *.log
 cd ..
 
 cd logs

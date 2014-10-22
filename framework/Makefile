@@ -56,7 +56,7 @@ nesox: nesox.c protocol.o
 	$(CC) $(CFLAGS) -I $(BASE_INCLUDE) $^ -o $@ -L $(BASE_LIBRARY) -lbase
 
 
-.PHONY:	clean test ts tr tc build info
+.PHONY:	clean test ts tr tc info
 
 clean:
 	rm -rf *.o *.exe *.log $(SERVER) $(CLIENT) nesox
