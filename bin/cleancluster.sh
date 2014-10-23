@@ -2,9 +2,9 @@ source nesox.sh
 
 if [ "$1" = "" ]
 then
-command="rm -rf $logs/*.log"
-else
 command="rm -rf $logs/nesox-reader-*.log"
+else
+command="rm -rf $logs/*.log"
 fi
 
 for node in $nodes
