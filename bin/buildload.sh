@@ -7,7 +7,8 @@ function generateone()
 mean="$1"
 variance="$2"
 delay="$3"
-loadname="norm-$mean-$variance"
+timeinstant=`timestamp`
+loadname="norm-$mean-$variance-$timeinstant"
 loadfile="$load/$loadname.ld"
 
 generateload.py $mean $variance $delay > $loadfile

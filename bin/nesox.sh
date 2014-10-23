@@ -88,4 +88,9 @@ function getloadname()
 	echo $loadname
 }
 
+function timestamp()
+{
+	date +%s
+}
+
 source color
