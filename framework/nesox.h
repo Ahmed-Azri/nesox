@@ -26,6 +26,9 @@
 #include <arpa/inet.h>
 #include <netinet/in.h>
 
+#include <limits.h>
+#include <float.h>
+
 #define datastoresize 0xffffffff
 #define numdigits_int 10
 #define numdigitslong 20
@@ -40,6 +43,9 @@
 
 #define maxint64value 18446744073709551616L
 #define maxint32value 4294967296
+
+#define min(m,n) ((m) < (n) ?  (m) : (n))
+#define max(m,n) ((m) < (n) ?  (n) : (m))
 
 #endif
 

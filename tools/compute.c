@@ -13,11 +13,11 @@ static int printflow(flow f);
 static flow parseflow(char *s, flow *f);
 static flow flowinit(int index);
 
-static int debug = 0;
+static int debug = 1;
 
 int main(int argc, char *argv[])
 {
-	fprintf(stderr, "%s: Best Wish!\n", argv[0]);
+	if (debug) fprintf(stderr, "%s: Best Wishes!\n", argv[0]);
 
 	char *line = NULL;
 	size_t capacity = 0;
@@ -42,19 +42,52 @@ int main(int argc, char *argv[])
 	}
 
 	for (int i = 0; i < flistsize; i++) {
+		if ( flist[i].sindex == flist[i].dindex ) continue;
 		fprintf(stderr, "%02d/%02d-", i, flistsize);
 		printflow(flist[i]);
 	}
 
-	double firststart = 0.0;
-	double lastfinish = 0.0;
+	double firststart = DBL_MAX;
+	double lastfinish = DBL_MIN;
+	double transferspan = 0.0;
 
-	double shortst = 0.0;
-	double longest = 0.0;
+	double shortstcompletiontime = DBL_MAX;
+	double longestcompletiontime = DBL_MIN;
+
+	double averagecompletiontime = 0.0;
+	double totalcompletiontime = 0.0;
+
+	long totaldatasize = 0;
+	long mindatasize = LONG_MAX;
+	long maxdatasize = LONG_MIN;
+
+	double averagedatasize = 0.0;
+
+	int effectiveflownum = 0;
 
 	for (int i = 0; i < flistsize; i++) {
+		if ( flist[i].sindex == flist[i].dindex ) continue;
 
+		firststart = min(firststart, flist[i].stime);
+		lastfinish = max(lastfinish, flist[i].etime);
+
+		totalcompletiontime += flist[i].interval;
+		shortstcompletiontime = min(shortstcompletiontime, flist[i].interval);
+		longestcompletiontime = max(longestcompletiontime, flist[i].interval);
+
+		mindatasize = min(mindatasize, flist[i].datasize);
+		maxdatasize = max(maxdatasize, flist[i].datasize);
+		totaldatasize += flist[i].datasize;
+		effectiveflownum++;
 	}
+	averagecompletiontime = totalcompletiontime / effectiveflownum;
+	averagedatasize = totaldatasize / effectiveflownum;
+	transferspan = lastfinish - firststart;
+
+	fprintf(stderr, "\n[%0.8f:%0.8f:%0.8f][%ld:%ld:%ld:%0.8f][%0.8f:%0.8f:%0.8f:%0.8f]\n",
+		firststart, lastfinish, transferspan,
+		mindatasize, maxdatasize, totaldatasize, averagedatasize,
+		shortstcompletiontime, longestcompletiontime, totalcompletiontime, averagecompletiontime);
 
 	return 0;
 }

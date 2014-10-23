@@ -1,5 +1,7 @@
 source nesox.sh
 
+cd $home/stat2
+
 readerlogfiles=nesox-reader*.log
 serverlogfiles=nesox-server*.log
 
