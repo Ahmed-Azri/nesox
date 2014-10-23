@@ -7,14 +7,17 @@ function generateone()
 mean="$1"
 variance="$2"
 delay="$3"
+algorithm="$4-"
 timeinstant=`timestamp`
-loadname="norm-$mean-$variance-$timeinstant"
+loadname="norm-$mean-$variance-$algorithm$timeinstant"
 loadfile="$load/$loadname.ld"
 
 generateload.py $mean $variance $delay > $loadfile
 
 }
 
+# can generate from 100 to 900 for drawing a line
+#
 function a2a()
 {
 

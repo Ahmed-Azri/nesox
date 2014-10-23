@@ -13,11 +13,11 @@ static int printflow(flow f);
 static flow parseflow(char *s, flow *f);
 static flow flowinit(int index);
 
-static int debug = 1;
+static int debug = 0;
 
 int main(int argc, char *argv[])
 {
-	if (debug) fprintf(stderr, "%s: Best Wishes!\n", argv[0]);
+	fprintf(stderr, "%s: Best Wishes!\n", argv[0]);
 
 	char *line = NULL;
 	size_t capacity = 0;
