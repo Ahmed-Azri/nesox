@@ -8,6 +8,7 @@ mean="$1"
 variance="$2"
 delay="$3"
 algorithm="$4-"
+if [ "$4" = "" ]; then algorithm="hp-"; fi
 timeinstant=`timestamp`
 loadname="norm-$mean-$variance-$algorithm$timeinstant"
 loadfile="$load/$loadname.ld"

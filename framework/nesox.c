@@ -12,8 +12,8 @@ static char gethostindex(char* host);
 
 int usage()
 {
-	fprintf(stderr, "%s\n", "usage: nesox [options] host port [delay]");
-	fprintf(stderr, "%s\n", "options:");
+	fprintf(stderr, "%s\n", "Usage: nesox [options] host port [delay]");
+	fprintf(stderr, "%s\n", "Options:");
 	fprintf(stderr, "%s\t%s\n", "  -m mode", "mode: master or standalone (default: standalone) todo!!");
 	fprintf(stderr, "%s\t%s\n", "  -r role", "role: server or reader (default: reader) todo: master");
 	fprintf(stderr, "%s\t%s\n", "  -f file", "file: pathname of data file (default: (null))");
@@ -21,15 +21,15 @@ int usage()
 	fprintf(stderr, "%s\t%s\n", "  -g ground", "ground: run in background as a daemon or console (default: console)");
 	fprintf(stderr, "%s\t%s\n", "  -d workdir", "workdir: working directory for daemon (default: \"./\")");
 	fprintf(stderr, "%s\t%s\n", "  -l level", "level: [ trace | stats | error ] (default: stats)");
-	fprintf(stderr, "%s\n", "comment: ");
+	fprintf(stderr, "%s\n", "Comment: ");
 	fprintf(stderr, "%s\t%s\n", "  host   ", "IP address for communication");
 	fprintf(stderr, "%s\t%s\n", "  port   ", "port number for communication");
-	fprintf(stderr, "%s\t%s\n", "  delay  ", "num of microseconds before run server/reader ... ");
-	fprintf(stderr, "%s\n", "notice: ");
+	fprintf(stderr, "%s\t%s\n", "  delay  ", "num of microseconds before server/reader start");
+	fprintf(stderr, "%s\n", "Notice: ");
 	fprintf(stderr, "%s\t%s\n", "  host   ", "!! host should be IP address only !!");
-	fprintf(stderr, "%s\t%s\n", "  pesudo ", "!! todo: change the \"unlimited pseudo\" transfer to limited one!!");
+	fprintf(stderr, "%s\t%s\n", "  pesudo ", "!! todo: change \"unlimited pseudo\" transfer to limited one!!");
 	fprintf(stderr, "%s\n", "");
-	fprintf(stderr, "%s\t%s\n", "contact: ", "liying.hku@gmail.com");
+	fprintf(stderr, "%s\t%s\n", "Contact: ", "liying.hku@gmail.com");
 	return 0;
 }
 
