@@ -6,6 +6,7 @@ do
 	timestring=`date`
 	shellcommand='date --set="$timestring"'
 	sshcommand="ssh $user@$node $shellcommand"
+	echo $sshcommand
 	coproc $sshcommand
 	wait $!
 done
