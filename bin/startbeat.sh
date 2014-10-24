@@ -15,7 +15,7 @@ if [ "$2" != "" ]; then beaternode="$2"; fi
 serverhost="$nodeprefix$servernode"
 beaterhost="$nodeprefix$beaternode"
 
-frequency=1
+frequency=4
 if [ "$3" != "" ]; then frequency="$3"; fi
 
 size=104857600
