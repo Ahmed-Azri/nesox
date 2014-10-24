@@ -24,11 +24,13 @@ size=1048576
 scommand="nesox -g background -d $beat -r server -f $file $serverhost $beaterport"
 bcommand="nesox -g background -d $beat -r beater -s $size $serverhost $beaterport $frequency"
 
-sshscommand="ssh $user@serverhost $scommand"
-sshbcommand="ssh $user@beaterhost $bcommand"
+sshscommand="ssh $user@$serverhost $scommand"
+sshbcommand="ssh $user@$beaterhost $bcommand"
 
 echo -e "${YELLOW}start heart beating server on $serverhost ${RESTORE}"
-coproc $sshscommand
+echo $sshscommand
+#coproc $sshscommand
 echo -e "${YELLOW}start heart beating beater on $beaterhost ${RESTORE}"
-coproc $sshbcommand
+echo $sshbcommand
+#coproc $sshbcommand
 
