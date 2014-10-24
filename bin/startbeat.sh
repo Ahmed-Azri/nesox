@@ -30,7 +30,9 @@ sshbcommand="ssh $user@$beaterhost $bcommand"
 echo -e "${YELLOW}start heart beating server on $serverhost ${RESTORE}"
 echo $sshscommand
 coproc $sshscommand
+wait $!
 echo -e "${YELLOW}start heart beating beater on $beaterhost ${RESTORE}"
 echo $sshbcommand
 coproc $sshbcommand
+wait $!
 
