@@ -28,6 +28,8 @@ SIZE = 2147483648
 LEVEL = trace
 LEVEL = stats
 
+DELAY = 2
+
 ifeq ($(OS), Darwin)
 CC = clang
 WARN = -Weverything
@@ -70,6 +72,10 @@ tr:
 	nesox -l $(LEVEL) -r reader -s $(SIZE) $(HOST) $(PORT)
 tc:
 	nesox -l $(LEVEL) -r client -f $(FILE) $(HOST) $(PORT)
+tb:
+	nesox -l $(LEVEL) -r beater -s $(SIZE)  $(HOST) $(PORT) $(DELAY)
+hb:
+	nesox -d $(NESOX_HOME)/heartbeat -g background -l $(LEVEL) -r beater $(HOST) $(PORT) $(DELAY)
 
 info:
 	@echo "OS:" $(OS)

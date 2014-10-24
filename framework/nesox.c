@@ -6,6 +6,7 @@ static timepoint enter, leave;
 static int server(int, char*, short, char*);
 static int client(int, char*, short, char*);
 static int reader(int, char*, short, long);
+static int beater(int, char*, short, long, int);
 static int loader(char *filename, char **store);
 
 static char gethostindex(char* host);
@@ -125,6 +126,7 @@ int main(int argc, char *argv[])
 
 	if (!strcmp(optrole, "server")) { server(background, arghost, (short)atoi(argport), optfile); }
 	if (!strcmp(optrole, "reader")) { reader(background, arghost, (short)atoi(argport), atol(optsize)); }
+	if (!strcmp(optrole, "beater")) { beater(background, arghost, (short)atoi(argport), atol(optsize), delay); }
 	if (!strcmp(optrole, "client")) { client(background, arghost, (short)atoi(argport), optfile); }
 
 	timepin(&leave);
@@ -374,6 +376,15 @@ int client(int background, char *host, short port, char *filename)
 
 	close(socketfd);
 	logtrace("client return");
+	return 0;
+}
+
+int beater(int background, char *host, short port, long requestsize, int frequency)
+{
+	logtrace("beater run in %s!", background ? "background" : "frontend");
+	if (frequency == 0) frequency = 1;
+	for (int i = 0; i < wseconds && !sleep(frequency); i++) reader(background, host, port, requestsize);
+	logtrace("beater return");
 	return 0;
 }
 

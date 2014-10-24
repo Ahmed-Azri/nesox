@@ -34,6 +34,10 @@ cd stat2
 rm -rf *.log
 cd ..
 
+cd heartbeat
+rm -rf *.log
+cd ..
+
 echo "" > bin/status
 
 echo "clean finished!"
