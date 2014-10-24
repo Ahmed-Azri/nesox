@@ -63,3 +63,4 @@ asides: cluster admin scripts
 reference
 ---------
 http://bashcookbook.com/bashinfo/source/bash-3.1/examples/scripts.noah/string.bash
+http://www.enderunix.org/docs/eng/daemon.php
