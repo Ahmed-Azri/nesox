@@ -1,6 +1,6 @@
 source nesox.sh
 
-for node in nodes
+for node in $nodes
 do
 	timestring=`date`
 	shellcommand="date -s "$timestring""
