@@ -28,5 +28,6 @@ do
 	do
 		parsereader $logfilename $aggregatefile
 	done
+	cd ..
 done
 
