@@ -5,6 +5,7 @@ home=`cd "$bin"/../; pwd`
 logs=`cd "$home"/logs; pwd`
 stat=`cd "$home"/stat; pwd`
 load=`cd "$home"/load; pwd`
+ldlg=`cd "$home"loadlogs; pwd`
 beat=`cd $home/heartbeat; pwd`
 host=127.0.0.1
 user=root
@@ -86,6 +87,37 @@ function getloadname()
 		loadname=${loadfilename:5:loadfilenamelength}
 	fi
 
+	echo $loadname
+}
+
+function getloadnamefromloadfile()
+{
+	loadpathname="$1"
+	loadpathnamelength=${#loadpathname}
+
+	loadfilename=`strstr $loadpathname "load"`
+	loadfilenamelength=${#loadfilename}
+
+
+	loadpathnamelength=$(expr $loadpathnamelength - 3)
+	loadfilenamelength=$(expr $loadfilenamelength - 8)
+
+	if [ "$loadfilename" = "" ]
+	then
+		loadname=${loadpathname:0:loadpathnamelength}
+	else
+		loadname=${loadfilename:5:loadfilenamelength}
+	fi
+
+	echo $loadname
+}
+
+function getloadnamefromdatafile()
+{
+	datafile="$1"
+	datafilelength=${#datafile}
+	datafilelength=$(expr $datafilelength - 5)
+	loadname=${datafile:0:datafilelength}
 	echo $loadname
 }
 

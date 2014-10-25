@@ -7,7 +7,7 @@ usage()
 	echo "usage: loadbench.sh [options] [size] [delay] [portfamily]"
 	echo "options:"
 	echo "  -f loadfile.ld"
-	echo "  -a (all2all)"
+	echo "  -a (load all files in load directory)"
 	echo
 	echo "notice:"
 	echo "  size: data to transfer in bytes for -a option"
@@ -26,6 +26,8 @@ processloadfile()
 {
 loadfile="$1"
 portfamily="$2"
+loadname=`getloadnamefromloadfile $loadfile`
+loadhome="$ldlg/loadname"
 
 while read line
 do
@@ -38,7 +40,14 @@ do
 	dnode="$nodeprefix$d"
 	sport="${portfamily:0:1}${portprefix:1:2}$d"
 	delay="$delaysec$million"
-	shellcommand="nesox -g back -r reader -d $home -s $datasize $snode $sport $delay"
+
+	shellcommand="mkdir -p $loadhome"
+	sshcommand="ssh $user@$dnode $shellcommand"
+	echo -e "${PURPLE}$sshcommand${RESTORE}"
+	coproc $sshcommand
+	wait $!
+
+	shellcommand="nesox -g back -r reader -d $loadhome -s $datasize $snode $sport $delay"
 	sshcommand="ssh $user@$dnode $shellcommand"
 	echo -e "${PURPLE}$sshcommand${RESTORE}"
 	coproc $sshcommand

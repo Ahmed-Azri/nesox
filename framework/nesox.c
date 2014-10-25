@@ -14,7 +14,7 @@ static char gethostindex(char* host);
 int usage()
 {
 	fprintf(stderr, "%s\n", "Usage: nesox [options] host port [delay]");
-	fprintf(stderr, "%s\n", "Options:");
+	fprintf(stderr, "%s\n", "Options: ");
 	fprintf(stderr, "%s\t%s\n", "  -m mode", "mode: master or standalone (default: standalone) todo!!");
 	fprintf(stderr, "%s\t%s\n", "  -r role", "role: server or reader (default: reader) todo: master");
 	fprintf(stderr, "%s\t%s\n", "  -f file", "file: pathname of data file (default: (null))");
@@ -125,9 +125,9 @@ int main(int argc, char *argv[])
 	microsleep(delay);
 
 	if (!strcmp(optrole, "server")) { server(background, arghost, (short)atoi(argport), optfile); }
+	if (!strcmp(optrole, "client")) { client(background, arghost, (short)atoi(argport), optfile); }
 	if (!strcmp(optrole, "reader")) { reader(background, arghost, (short)atoi(argport), atol(optsize)); }
 	if (!strcmp(optrole, "beater")) { beater(background, arghost, (short)atoi(argport), atol(optsize), delay); }
-	if (!strcmp(optrole, "client")) { client(background, arghost, (short)atoi(argport), optfile); }
 
 	timepin(&leave);
 	if (debug = 0) fprintf(stderr, "time: %.8f second(s)\n", timeint(enter, leave));

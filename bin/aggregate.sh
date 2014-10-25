@@ -7,7 +7,7 @@ serverlogfiles=nesox-server*.log
 
 function usage()
 {
-	echo "aggregate.sh [output statistic file name]"
+	echo "aggregate.sh [output statistical file name]"
 }
 
 loadname=`getloadname`
