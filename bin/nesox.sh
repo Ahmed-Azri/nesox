@@ -6,6 +6,7 @@ logs=`cd "$home"/logs; pwd`
 stat=`cd "$home"/stat; pwd`
 load=`cd "$home"/load; pwd`
 ldlg=`cd $home/loadlogs; pwd`
+ldst=`cd $home/stat0; pwd`
 beat=`cd $home/heartbeat; pwd`
 host=127.0.0.1
 user=root
