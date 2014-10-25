@@ -27,7 +27,7 @@ processloadfile()
 loadfile="$1"
 portfamily="$2"
 loadname=`getloadnamefromloadfile $loadfile`
-loadhome="$ldlg/loadname"
+loadhome="$ldlg/$loadname"
 
 while read line
 do
