@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo "clean building of nesox"
+echo "clean nesox"
 
 cd base
 make clean
@@ -26,14 +26,6 @@ cd stat
 rm -rf *.log
 cd ..
 
-cd stat1
-rm -rf *logs*
-cd ..
-
-cd stat2
-rm -rf *.log
-cd ..
-
 cd heartbeat
 rm -rf *.log
 cd ..
@@ -41,4 +33,3 @@ cd ..
 echo "" > bin/status
 
 echo "clean finished!"
-

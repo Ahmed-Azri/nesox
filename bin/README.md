@@ -17,7 +17,7 @@ collectdata.sh
 stopcluster.sh
 checkcluster.sh
 
-operations on mac:
+operations on mac: (obsolete)
 ------------------
 getstat.sh 2 (default: stat1)
 cd stat2 (stat1)
@@ -38,6 +38,10 @@ on mac: execute buildload.sh
 
 for each load
 	on d0: loadbench.sh -f load.ld
-	on d0: collectdata.sh
-	goto: operations on mac
+	wait for some time
 
+on d0: collectdata.sh
+on d0: aggregate.sh
+on d0: compute.sh
+
+on mac: getstat.sh

@@ -1,14 +1,7 @@
 source nesox.sh
 
 remotehome=/root/nesox
-option=$1
 
-if [ "$option" = "2" ]
-then
-scp -r root@d0:$remotehome/stat2/* $home/stat2/
-else
-scp -r root@d0:$remotehome/stat1/* $home/stat1/
-fi
-
-scp -r root@d0:$remotehome/bin/status $home/bin/status
+echo "get stat files from nesox master node"
+scp -r root@d0:$remotehome/stat/*.stat $home/stat/
 

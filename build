@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo "nesox - data transfer scheduling prototype"
+echo "build nesox"
 
 cd base
 make libs
@@ -21,10 +21,5 @@ if [ -d heartbeat ]; then echo "heartbeat made"; else mkdir heartbeat; fi
 if [ -d logs ]; then echo "logs made"; else mkdir logs; fi
 if [ -d loadlogs ]; then echo "loadlogs made"; else mkdir loadlogs; fi
 if [ -d stat ]; then echo "stat made"; else mkdir stat; fi
-if [ -d stat0 ]; then echo "stat0 made"; else mkdir stat0; fi
-if [ -d stat1 ]; then echo "stat1 made"; else mkdir stat1; fi
-if [ -d stat2 ]; then echo "stat2 made"; else mkdir stat2; fi
 
 echo "build successed!"
-
-
