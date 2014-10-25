@@ -1,6 +1,11 @@
 source nesox.sh
 
+rm -rf $home/stat/*
+
 command="rm -rf $home/loadlogs/*"
+$command
+
+if [ "$os" != Linux ]; then exit 0; fi;
 
 for node in $nodes
 do
@@ -8,5 +13,3 @@ do
 	echo $command
 	ssh $user@$node $command
 done
-
-rm -rf $home/stat/*
