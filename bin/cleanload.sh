@@ -1,6 +1,6 @@
 source nesox.sh
 
-command="rm -rf $home/loadlogs/*.log"
+command="rm -rf $home/loadlogs/*"
 
 for node in $nodes
 do
