@@ -22,6 +22,10 @@ cd logs
 rm -rf *.log
 cd ..
 
+cd loadlogs
+rm -rf *
+cd ..
+
 cd stat
 rm -rf *.*
 cd ..
