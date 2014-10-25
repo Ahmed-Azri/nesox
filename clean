@@ -23,7 +23,7 @@ rm -rf *.log
 cd ..
 
 cd stat
-rm -rf *.log
+rm -rf *.*
 cd ..
 
 cd heartbeat
