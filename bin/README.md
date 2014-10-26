@@ -36,10 +36,7 @@ data collection procedure
 on mac: design and express featured work load into buildload.sh
 on mac: execute buildload.sh
 
-for each load
-	on d0: loadbench.sh -f load.ld
-	wait for some time
-
+on d0: loadall.sh
 on d0: collectdata.sh
 on d0: aggregate.sh
 on d0: compute.sh
