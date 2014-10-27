@@ -1,6 +1,5 @@
 source nesox.sh
 
-
 function generateone()
 {
 
@@ -17,6 +16,7 @@ generateload.py $mean $variance $delay > $loadfile
 
 }
 
+
 # all-to-all communication: from 100 megabytes to 1000 megebytes
 #
 function a2a()
@@ -26,6 +26,7 @@ do
 	generateone $mean 0000
 done
 }
+
 
 # shuffle communication: some flow will be zero
 #

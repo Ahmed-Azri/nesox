@@ -47,3 +47,11 @@ on d0: aggregate.sh
 on d0: compute.sh
 
 on mac: getstat.sh
+on mac: analysis.sh (todo)
+
+
+manually manage and archive statistical data in terms of algorithms
+-------------------------------------------------------------------
+
+
+
