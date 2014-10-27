@@ -8,27 +8,34 @@ mean="$1"
 variance="$2"
 delay="$3"
 algorithm="$4-"
-if [ "$4" = "" ]; then algorithm="hp-"; fi
+if [ "$4" = "" ]; then algorithm=""; fi
 timeinstant=`timestamp`
-loadname="norm-$mean-$variance-$algorithm$timeinstant"
+loadname="norm-$variance-$mean-$algorithm$timeinstant"
 loadfile="$load/$loadname.ld"
 
 generateload.py $mean $variance $delay > $loadfile
 
 }
 
-# can generate from 100 to 900 for drawing a line
+# all-to-all communication: from 100 megabytes to 1000 megebytes
 #
 function a2a()
 {
+for mean in $(seq -w 100 100 1600)
+do
+	generateone $mean 0000
+done
+}
 
-generateone 100 0
-generateone 200 0
-generateone 400 0
-generateone 800 0
-
+# shuffle communication: some flow will be zero
+#
+function shuffle()
+{
+for mean in $(seq -w 100 100 1600)
+do
+	generateone $mean $mean
+done
 }
 
 a2a
-
-
+shuffle
