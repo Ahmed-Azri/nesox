@@ -7,6 +7,7 @@ stat=`cd "$home"/stat; pwd`
 load=`cd "$home"/load; pwd`
 ldlg=`cd $home/loadlogs; pwd`
 beat=`cd $home/heartbeat; pwd`
+sched=`cd $home/sched; pwd`
 host=127.0.0.1
 user=root
 
