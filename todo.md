@@ -61,7 +61,15 @@ asides: ryu and nesox scheduler as ryu applications
 asides: cluster admin scripts
 
 
-
+controller plane
+----------------
+maclearner: done
+1. how to goto table: OFPInstructionGotoTable
+2. how to match: OFPMatch
+3. how to modify table (flow): OFPFlowMod
+4. how to packetout: OFPPacketOut
+5. priority
+6.
 
 reference
 ---------
