@@ -12,6 +12,7 @@ class MACLEARNER(app_manager.RyuApp):
 
     def __init__(self, *args, **kwargs):
         super(MACLEARNER, self).__init__(*args, **kwargs)
+        self.mac_to_port = {}
 
     """
     todo: these basic flow operation could be moved to a `base` .py file
