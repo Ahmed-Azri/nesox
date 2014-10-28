@@ -70,11 +70,11 @@ class MACLEARNER(app_manager.RyuApp):
         self.insertflow(datapath, 202, 0, match, actions)
         self.insertflow(datapath, 203, 0, match, actions)
 
-        self.logger.info("Handler = Switch Basic Features: enter!")
+        self.logger.info("Handler = Switch Basic Features: leave!")
 
     @set_ev_cls(ofp_event.EventOFPPacketIn, MAIN_DISPATCHER)
     def packet_in_handler(self, ev):
-        self.logger.info("Handler = Packet In: enter!")
+        # self.logger.info("Handler = Packet In: enter!")
         msg = ev.msg
         datapath = msg.datapath
         ofproto = datapath.ofproto
@@ -95,9 +95,6 @@ class MACLEARNER(app_manager.RyuApp):
         if ip4 is not None:
             self.logger.info("PacketIN(%s):%s->%s:%s)", dpid, ip4.src, ip4.dst, in_port)
 
-        """
-        learn a mac address to avoid FLOOD next time.
-        """
         self.mac_to_port[dpid][src] = in_port
 
         if dst in self.mac_to_port[dpid]:
@@ -109,9 +106,6 @@ class MACLEARNER(app_manager.RyuApp):
 
         actions = [parser.OFPActionOutput(out_port)]
 
-        """
-        install a flow to avoid packet_in next time
-        """
 
         if out_port != ofproto.OFPP_FLOOD:
             match = parser.OFPMatch(in_port=in_port, eth_dst=dst)
@@ -124,5 +118,5 @@ class MACLEARNER(app_manager.RyuApp):
         out = parser.OFPPacketOut(datapath=datapath, buffer_id=msg.buffer_id, in_port=in_port, actions=actions, data=data)
         datapath.send_msg(out)
 
-        self.logger.info("Handler = Packet In: enter!")
+        # self.logger.info("Handler = Packet In: leave!")
 
