@@ -98,18 +98,18 @@ class MACLEARNER(app_manager.RyuApp):
         if dst in self.mac_to_port[dpid]:
             out_port = self.mac_to_port[dpid][dst]
         else:
-            out_port = ofproto.OFPP_FLOOD
+            out_port = protocol.OFPP_FLOOD
 
         self.logger.info("OutPort: %s", out_port)
 
         actions = [parser.OFPActionOutput(out_port)]
 
-        if out_port != ofproto.OFPP_FLOOD:
+        if out_port != protocol.OFPP_FLOOD:
             match = parser.OFPMatch(in_port=in_port, eth_dst=dst)
             self.insertflow(datapath, 200, 1, match, actions)
 
         data = None
-        if message.buffer_id == ofproto.OFP_NO_BUFFER:
+        if message.buffer_id == protocol.OFP_NO_BUFFER:
             data = message.data
 
         out = parser.OFPPacketOut(datapath=datapath, buffer_id=message.buffer_id, in_port=in_port, actions=actions, data=data)
