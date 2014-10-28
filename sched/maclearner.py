@@ -25,6 +25,15 @@ class MACLEARNER(app_manager.RyuApp):
             table_id=table_id, priority=priority, match=match, instructions=instruction)
         datapath.send_msg(modification)
 
+    def insertgoto(self, datapath, table_id, priority, match, goto_tid)
+        protocol = datapath.ofproto
+        parser = datapath.ofproto_parser
+        instruction = [OFPInstructionGotoTable(goto_tid)]
+        modification = parser.OFPFlowMod(datapath=datapath,
+            table_id=table_id, priority=priority, match=match, instructions=instruction)
+        datapath.send_msg(modification)
+
+
     @set_ev_cls(ofp_event.EventOFPSwitchFeatures, CONFIG_DISPATCHER)
     def switch_features_handler(self, ev):
         self.logger.info("Handler = Switch Basic Features: enter!")
@@ -64,11 +73,12 @@ class MACLEARNER(app_manager.RyuApp):
         match = parser.OFPMatch()
         actions = [parser.OFPActionOutput(ofproto.OFPP_CONTROLLER, ofproto.OFPCML_NO_BUFFER)]
 
-        # self.insertflow(datapath, 100, 0, match, actions)
-        # self.insertflow(datapath, 200, 0, match, actions)
-        # self.insertflow(datapath, 201, 0, match, actions)
-        # self.insertflow(datapath, 202, 0, match, actions)
-        # self.insertflow(datapath, 203, 0, match, actions)
+        self.insertgoto(datapath, 100, 0, match, 200)
+
+        self.insertflow(datapath, 200, 0, match, actions)
+        self.insertflow(datapath, 201, 0, match, actions)
+        self.insertflow(datapath, 202, 0, match, actions)
+        self.insertflow(datapath, 203, 0, match, actions)
 
         self.logger.info("Handler = Switch Basic Features: leave!")
 
