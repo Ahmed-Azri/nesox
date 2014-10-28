@@ -7,5 +7,5 @@ logpathname=$logs
 
 
 echo -e "${GREEN}start nesox ryu applications: $applications ${RESTORE}"
-ryu-manager --log-dir $logpathname --log-file $logpathname $applications
+ryu-manager --log-dir $logpathname --log-file $logfilename $applications
 
