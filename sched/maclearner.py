@@ -28,7 +28,7 @@ class MACLEARNER(app_manager.RyuApp):
     def insertgoto(self, datapath, table_id, priority, match, goto_tid):
         protocol = datapath.ofproto
         parser = datapath.ofproto_parser
-        instruction = [OFPInstructionGotoTable(goto_tid)]
+        instruction = [parser.OFPInstructionGotoTable(goto_tid)]
         modification = parser.OFPFlowMod(datapath=datapath,
             table_id=table_id, priority=priority, match=match, instructions=instruction)
         datapath.send_msg(modification)
