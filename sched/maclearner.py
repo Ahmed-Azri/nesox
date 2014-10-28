@@ -63,16 +63,16 @@ class MACLEARNER(app_manager.RyuApp):
         match = parser.OFPMatch()
         actions = [parser.OFPActionOutput(ofproto.OFPP_CONTROLLER, ofproto.OFPCML_NO_BUFFER)]
 
-        self.add_flow(datapath, 100, 0, match, actions)
-        self.add_flow(datapath, 200, 0, match, actions)
-        self.add_flow(datapath, 201, 0, match, actions)
-        self.add_flow(datapath, 202, 0, match, actions)
-        self.add_flow(datapath, 203, 0, match, actions)
+        self.insertflow(datapath, 100, 0, match, actions)
+        self.insertflow(datapath, 200, 0, match, actions)
+        self.insertflow(datapath, 201, 0, match, actions)
+        self.insertflow(datapath, 202, 0, match, actions)
+        self.insertflow(datapath, 203, 0, match, actions)
 
         self.logger.info("Handler = Switch Basic Features: enter!")
 
     @set_ev_cls(ofp_event.EventOFPPacketIn, MAIN_DISPATCHER)
-    def _packet_in_handler(self, ev):
+    def packet_in_handler(self, ev):
         self.logger.info("Handler = Packet In: enter!")
         msg = ev.msg
         datapath = msg.datapath
@@ -114,7 +114,7 @@ class MACLEARNER(app_manager.RyuApp):
 
         if out_port != ofproto.OFPP_FLOOD:
             match = parser.OFPMatch(in_port=in_port, eth_dst=dst)
-            self.add_flow(datapath, 200, 1, match, actions)
+            self.insertflow(datapath, 200, 1, match, actions)
 
         data = None
         if msg.buffer_id == ofproto.OFP_NO_BUFFER:
