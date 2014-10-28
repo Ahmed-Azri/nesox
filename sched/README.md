@@ -10,5 +10,8 @@ It is OK to run 2 applications at the same time!!!
 
 
 
-
+event -> message -> datapath -> protocol ->
+							 -> parser
+				 -> data => packet -> protocols -> ethernet
+				 								-> ipv4
 
