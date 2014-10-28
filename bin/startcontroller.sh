@@ -1,7 +1,7 @@
 source nesox.sh
 
 applications=$sched/maclearner.py
-mainappname=maclearner
+mainappname=maclearner.log
 logfilename=$mainappname
 logpathname=$logs
 
