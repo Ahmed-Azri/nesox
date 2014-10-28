@@ -10,7 +10,7 @@ class MACLEARNER(app_manager.RyuApp):
     OFP_VERSIONS = [ofproto_v1_3.OFP_VERSION]
 
     def __init__(self, *args, **kwargs):
-        super(NesoxTest03, self).__init__(*args, **kwargs)
+        super(MACLEARNER, self).__init__(*args, **kwargs)
 
     def send_echo_request(self, datapath, data):
         ofp = datapath.ofproto
