@@ -90,8 +90,6 @@ class MACLEARNER(app_manager.RyuApp):
         dpid = datapath.id
         self.mac_to_port.setdefault(dpid, {})
 
-        if ip4 is not None:
-            self.logger.info("PacketIn(%s):%s->%s:%s)", dpid, ip4.src, ip4.dst, in_port)
 
         self.mac_to_port[dpid][src] = in_port
 
@@ -100,7 +98,8 @@ class MACLEARNER(app_manager.RyuApp):
         else:
             out_port = protocol.OFPP_FLOOD
 
-        self.logger.info("OutPort: %s", out_port)
+        if ip4 is not None:
+            self.logger.info("PacketIn(%s):[%s:(%s)]>>[%s:(%s)])", dpid, ip4.src, in_port, ip4.dst, out_port)
 
         actions = [parser.OFPActionOutput(out_port)]
 
