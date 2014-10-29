@@ -37,6 +37,7 @@ class METER(app_manager.RyuApp):
         datapath = event.msg.datapath
         self.send_meter_stats_request(datapath)
         self.send_meter_config_stats_request(datapath)
+        self.send_meter_features_stats_request(datapath)
         self.logger.info("METER: Handler = Switch Features: leave!")
 
     @set_ev_cls(ofp_event.EventOFPMeterStatsReply, MAIN_DISPATCHER)
