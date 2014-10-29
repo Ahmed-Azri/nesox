@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo "deploy nesox over nesox testbed"
+echo "deploy nesox over testbed"
 
 cpc bin
 
