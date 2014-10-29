@@ -49,5 +49,6 @@ class DISPATCHER(app_manager.RyuApp):
         for node in nodes:
             match = parser.OFPMatch(tcp_src=node)
             self.insertgoto(datapath, 200, 1, match, 201)
+            print match
 
         self.logger.info("DISPATCHER: Handler = Switch Features: leave!")
