@@ -73,6 +73,7 @@ class MACLEARNER(app_manager.RyuApp):
         match = parser.OFPMatch()
         actions = [parser.OFPActionOutput(ofproto.OFPP_CONTROLLER, ofproto.OFPCML_NO_BUFFER)]
 
+        self.insertflow(datapath, 203, 0, match, actions)
         self.insertflow(datapath, 203, 1, match, actions)
 
         self.logger.info("MACLEARNER: Handler = Switch Basic Features: leave!")

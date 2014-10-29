@@ -30,6 +30,6 @@ class POLICYENGINE(app_manager.RyuApp):
         parser = datapath.ofproto_parser
 
         match = parser.OFPMatch()
-        self.insertgoto(datapath, 100, 0, match, 200)
+        self.insertgoto(datapath, 100, 1, match, 200)
 
         self.logger.info("POLICYENGINE: Handler = Switch Features: leave!")
