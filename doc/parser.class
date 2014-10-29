@@ -119,9 +119,11 @@ class OFPFlowStatsReply(OFPMultipartReply):
 class OFPAggregateStats(ofproto_parser.namedtuple('OFPAggregateStats', (
 class OFPAggregateStatsRequest(OFPFlowStatsRequestBase):
 class OFPAggregateStatsReply(OFPMultipartReply):
+
 class OFPTableStats(ofproto_parser.namedtuple('OFPTableStats', (
 class OFPTableStatsRequest(OFPMultipartRequest):
 class OFPTableStatsReply(OFPMultipartReply):
+
 class OFPPortStats(ofproto_parser.namedtuple('OFPPortStats', (
 class OFPPortStatsRequest(OFPMultipartRequest):
 class OFPPortStatsReply(OFPMultipartReply):
@@ -140,10 +142,15 @@ class OFPGroupDescStatsReply(OFPMultipartReply):
 class OFPGroupFeaturesStats(ofproto_parser.namedtuple('OFPGroupFeaturesStats',
 class OFPGroupFeaturesStatsRequest(OFPMultipartRequest):
 class OFPGroupFeaturesStatsReply(OFPMultipartReply):
+
+
+
 class OFPMeterBandStats(StringifyMixin):
+
 class OFPMeterStats(StringifyMixin):
 class OFPMeterStatsRequest(OFPMultipartRequest):
 class OFPMeterStatsReply(OFPMultipartReply):
+
 class OFPMeterBand(StringifyMixin):
 class OFPMeterBandHeader(OFPMeterBand):
 class OFPMeterBandDrop(OFPMeterBandHeader):
@@ -152,9 +159,12 @@ class OFPMeterBandExperimenter(OFPMeterBandHeader):
 class OFPMeterConfigStats(StringifyMixin):
 class OFPMeterConfigStatsRequest(OFPMultipartRequest):
 class OFPMeterConfigStatsReply(OFPMultipartReply):
+
 class OFPMeterFeaturesStats(ofproto_parser.namedtuple('OFPMeterFeaturesStats',
 class OFPMeterFeaturesStatsRequest(OFPMultipartRequest):
 class OFPMeterFeaturesStatsReply(OFPMultipartReply):
+
+
 
 class OFPTableFeaturesStats(StringifyMixin):
 class OFPTableFeatureProp(StringifyMixin):
@@ -175,8 +185,10 @@ class OFPPortDescStatsReply(OFPMultipartReply):
 class OFPExperimenterMultipart(ofproto_parser.namedtuple(
 class OFPExperimenterStatsRequestBase(OFPMultipartRequest):
 class OFPExperimenterStatsRequest(OFPExperimenterStatsRequestBase):
+
 class ONFFlowMonitorRequest(StringifyMixin):
 class ONFFlowMonitorStatsRequest(OFPExperimenterStatsRequestBase):
+
 class OFPExperimenterStatsReply(OFPMultipartReply):
 class OFPBarrierRequest(MsgBase):
 class OFPBarrierReply(MsgBase):

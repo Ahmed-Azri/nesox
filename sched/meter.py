@@ -1,0 +1,41 @@
+from ryu import utils
+from ryu.base import app_manager
+from ryu.ofproto import ofproto_v1_3
+from ryu.controller import ofp_event
+from ryu.controller.handler import set_ev_cls
+from ryu.controller.handler import HANDSHAKE_DISPATCHER, CONFIG_DISPATCHER, MAIN_DISPATCHER
+from ryu.lib.packet import packet, ethernet, ipv4
+
+
+class METER(app_manager.RyuApp):
+    OFP_VERSIONS = [ofproto_v1_3.OFP_VERSION]
+
+    def __init__(self, *args, **kwargs):
+        super(METER, self).__init__(*args, **kwargs)
+
+    def send_meter_stats_request(self, datapath):
+        protocol = datapath.ofproto
+        parser = datapath.ofproto_parser
+        request = parser.OFPMeterStatsRequest(datapath, 0, protocol.OFPM_ALL)
+        datapath.send_msg(request)
+
+    @set_ev_cls(ofp_event.EventOFPSwitchFeatures, CONFIG_DISPATCHER)
+    def switch_features_handler(self, event):
+        self.logger.info("METER: Handler = Switch Features: enter!")
+        datapath = event.msg.datapath
+        self.send_meter_stats_request(datapath)
+        self.logger.info("METER: Handler = Switch Features: leave!")
+
+    @set_ev_cls(ofp_event.EventOFPMeterStatsReply, MAIN_DISPATCHER)
+    def meter_stats_reply_handler(self, ev):
+        meters = []
+        for stat in ev.msg.body:
+            meters.append('meter_id=0x%08x len=%d flow_count=%d '
+                          'packet_in_count=%d byte_in_count=%d '
+                          'duration_sec=%d duration_nsec=%d '
+                          'band_stats=%s' %
+                          (stat.meter_id, stat.len, stat.flow_count,
+                           stat.packet_in_count, stat.byte_in_count,
+                           stat.duration_sec, stat.duration_nsec,
+                           stat.band_stats))
+        self.logger.debug('MeterStats: %s', meters)
