@@ -13,6 +13,12 @@ class METER(app_manager.RyuApp):
     def __init__(self, *args, **kwargs):
         super(METER, self).__init__(*args, **kwargs)
 
+    def send_meter_features_stats_request(self, datapath):
+        ofp_parser = datapath.ofproto_parser
+        req = ofp_parser.OFPMeterFeaturesStatsRequest(datapath, 0)
+        datapath.send_msg(req)
+
+
     def send_meter_config_stats_request(self, datapath):
         ofp = datapath.ofproto
         ofp_parser = datapath.ofproto_parser
@@ -56,3 +62,18 @@ class METER(app_manager.RyuApp):
                            (stat.length, stat.flags, stat.meter_id,
                             stat.bands))
         self.logger.info('MeterConfigStats: %s', configs)
+
+    @set_ev_cls(ofp_event.EventOFPMeterFeaturesStatsReply, MAIN_DISPATCHER)
+    def meter_features_stats_reply_handler(self, ev):
+        features = []
+        for stat in ev.msg.body:
+            features.append('max_meter=%d band_types=0x%08x '
+                            'capabilities=0x%08x max_band=%d '
+                            'max_color=%d' %
+                            (stat.max_meter, stat.band_types,
+                             stat.capabilities, stat.max_band,
+                             stat.max_color))
+        self.logger.debug('MeterFeaturesStats: %s', configs)
+
+
+
