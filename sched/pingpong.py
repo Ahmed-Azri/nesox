@@ -32,6 +32,7 @@ class PINGPONG(app_manager.RyuApp):
 
     @set_ev_cls(ofp_event.EventOFPEchoReply, [HANDSHAKE_DISPATCHER, CONFIG_DISPATCHER, MAIN_DISPATCHER])
     def echo_reply_handler(self, event):
-        self.logger.info('OFPEchoReply received: data=%s', utils.hex_array(event.msg.data))
+        self.logger.info('OFPEchoReply received: data=%s', event.msg.data)
+        datapath = event.msg.datapath
         self.send_echo_request(datapath, "Hello, this is Nesox pingpong app!")
 
