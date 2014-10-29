@@ -1,6 +1,10 @@
 Nesox: a network resource scheduler leveraging SDN technique
 =====
 
+Note
+----
+This README is obsolete, please read README files under sub directories. 
+However, useful information can still be found here!!!
 
 About
 -----
