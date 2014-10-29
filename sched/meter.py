@@ -73,7 +73,7 @@ class METER(app_manager.RyuApp):
                             (stat.max_meter, stat.band_types,
                              stat.capabilities, stat.max_band,
                              stat.max_color))
-        self.logger.info('MeterFeaturesStats: %s', configs)
+        self.logger.info('MeterFeaturesStats: %s', features)
 
 
 
