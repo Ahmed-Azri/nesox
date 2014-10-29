@@ -1,6 +1,7 @@
 Performance Data Archive
 ========================
 
-from copy and rename from $home/stat in term of scheduling algorithms
+From copy and rename of $home/stat in terms of scheduling algorithms!
+
 
 
