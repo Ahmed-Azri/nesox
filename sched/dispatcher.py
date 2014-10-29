@@ -42,8 +42,8 @@ class DISPATCHER(app_manager.RyuApp):
         protocol = datapath.ofproto
         parser = datapath.ofproto_parser
 
-        match = parser.OFPMatch()
-        self.insertgoto(datapath, 200, 0, match, 203)
+        # match = parser.OFPMatch()
+        # self.insertgoto(datapath, 200, 0, match, 203)
 
         match = parser.OFPMatch(tcp_src=8478)
         if 'tcp_src' in match:
