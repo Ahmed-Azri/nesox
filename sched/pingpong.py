@@ -13,12 +13,12 @@ class PINGPONG(app_manager.RyuApp):
     def __init__(self, *args, **kwargs):
         super(PINGPONG, self).__init__(*args, **kwargs)
 
-    def send_echo_request(self, datapath, data):
-		protocol = datapath.ofproto
-        parser = datapath.ofproto_parser
 
-        request = parser.OFPEchoRequest(datapath, data)
-        datapath.send_msg(request)
+    def send_echo_request(self, datapath, data):
+    	protocol = datapath.ofproto
+		parser = datapath.ofproto_parser
+		request = parser.OFPEchoRequest(datapath, data)
+		datapath.send_msg(request)
 
 
     @set_ev_cls(ofp_event.EventOFPSwitchFeatures, CONFIG_DISPATCHER)
