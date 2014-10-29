@@ -38,6 +38,6 @@ class RATEALLOCATOR(app_manager.RyuApp):
         parser = datapath.ofproto_parser
 
         match = parser.OFPMatch()
-        self.insertgoto(datapath, 200, 0, match, 203)
+        self.insertgoto(datapath, 202, 0, match, 203)
 
         self.logger.info("RATEALLOCATOR: Handler = Switch Features: leave!")
