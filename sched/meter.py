@@ -13,6 +13,12 @@ class METER(app_manager.RyuApp):
     def __init__(self, *args, **kwargs):
         super(METER, self).__init__(*args, **kwargs)
 
+    def send_meter_config_stats_request(self, datapath):
+        ofp = datapath.ofproto
+        ofp_parser = datapath.ofproto_parser
+        req = ofp_parser.OFPMeterConfigStatsRequest(datapath, 0, ofp.OFPM_ALL)
+        datapath.send_msg(req)
+
     def send_meter_stats_request(self, datapath):
         protocol = datapath.ofproto
         parser = datapath.ofproto_parser
@@ -24,6 +30,7 @@ class METER(app_manager.RyuApp):
         self.logger.info("METER: Handler = Switch Features: enter!")
         datapath = event.msg.datapath
         self.send_meter_stats_request(datapath)
+        self.send_meter_config_stats_request(datapath)
         self.logger.info("METER: Handler = Switch Features: leave!")
 
     @set_ev_cls(ofp_event.EventOFPMeterStatsReply, MAIN_DISPATCHER)
@@ -38,4 +45,14 @@ class METER(app_manager.RyuApp):
                            stat.packet_in_count, stat.byte_in_count,
                            stat.duration_sec, stat.duration_nsec,
                            stat.band_stats))
-        self.logger.debug('MeterStats: %s', meters)
+        self.logger.info('MeterStats: %s', meters)
+
+    @set_ev_cls(ofp_event.EventOFPMeterConfigStatsReply, MAIN_DISPATCHER)
+    def meter_config_stats_reply_handler(self, ev):
+        configs = []
+        for stat in ev.msg.body:
+            configs.append('length=%d flags=0x%04x meter_id=0x%08x '
+                           'bands=%s' %
+                           (stat.length, stat.flags, stat.meter_id,
+                            stat.bands))
+        self.logger.info('MeterConfigStats: %s', configs)
