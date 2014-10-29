@@ -13,26 +13,24 @@ class PINGPONG(app_manager.RyuApp):
     def __init__(self, *args, **kwargs):
         super(PINGPONG, self).__init__(*args, **kwargs)
 
-
     def send_echo_request(self, datapath, data):
-    	protocol = datapath.ofproto
-		parser = datapath.ofproto_parser
-		request = parser.OFPEchoRequest(datapath, data)
-		datapath.send_msg(request)
-
+        protocol = datapath.ofproto
+        parser = datapath.ofproto_parser
+        request = parser.OFPEchoRequest(datapath, data)
+        datapath.send_msg(request)
 
     @set_ev_cls(ofp_event.EventOFPSwitchFeatures, CONFIG_DISPATCHER)
     def switch_features_handler(self, event):
-    	self.logger.info("PINGPONG: Handler = Switch Features: enter!")
-    	datapath = event.msg.datapath
-    	send_echo_request(self, datapath, "Hello, this is Nesox pingpong app!")
-    	self.logger.info("PINGPONG: Handler = Switch Features: leave!")
+        self.logger.info("PINGPONG: Handler = Switch Features: enter!")
+        datapath = event.msg.datapath
+        send_echo_request(self, datapath, "Hello, this is Nesox pingpong app!")
+        self.logger.info("PINGPONG: Handler = Switch Features: leave!")
 
     @set_ev_cls(ofp_event.EventOFPEchoRequest, [HANDSHAKE_DISPATCHER, CONFIG_DISPATCHER, MAIN_DISPATCHER])
-	def echo_request_handler(self, event):
-		self.logger.info('OFPEchoRequest received: data=%s', utils.hex_array(event.msg.data))
+    def echo_request_handler(self, event):
+        self.logger.info('OFPEchoRequest received: data=%s', utils.hex_array(event.msg.data))
 
     @set_ev_cls(ofp_event.EventOFPEchoReply, [HANDSHAKE_DISPATCHER, CONFIG_DISPATCHER, MAIN_DISPATCHER])
-	def echo_request_handler(self, event):
-		self.logger.info('OFPEchoReply received: data=%s', utils.hex_array(event.msg.data))
+    def echo_request_handler(self, event):
+        self.logger.info('OFPEchoReply received: data=%s', utils.hex_array(event.msg.data))
 
