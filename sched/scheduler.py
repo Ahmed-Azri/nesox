@@ -38,6 +38,6 @@ class SCHEDULER(app_manager.RyuApp):
         parser = datapath.ofproto_parser
 
         match = parser.OFPMatch()
-        self.insertgoto(datapath, 201, 0, match, 203)
+        self.insertgoto(datapath, 201, 0, match, 202)
 
         self.logger.info("SCHEDULER: Handler = Switch Features: leave!")
