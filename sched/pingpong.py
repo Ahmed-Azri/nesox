@@ -23,7 +23,7 @@ class PINGPONG(app_manager.RyuApp):
     def switch_features_handler(self, event):
         self.logger.info("PINGPONG: Handler = Switch Features: enter!")
         datapath = event.msg.datapath
-        send_echo_request(self, datapath, "Hello, this is Nesox pingpong app!")
+        self.send_echo_request(self, datapath, "Hello, this is Nesox pingpong app!")
         self.logger.info("PINGPONG: Handler = Switch Features: leave!")
 
     @set_ev_cls(ofp_event.EventOFPEchoRequest, [HANDSHAKE_DISPATCHER, CONFIG_DISPATCHER, MAIN_DISPATCHER])
