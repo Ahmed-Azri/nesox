@@ -2,8 +2,10 @@ class OFPHello(MsgBase):
 class OFPHelloElemVersionBitmap(StringifyMixin):
 class OFPErrorMsg(MsgBase):
 class OFPErrorExperimenterMsg(MsgBase):
+
 class OFPEchoRequest(MsgBase):
 class OFPEchoReply(MsgBase):
+
 class OFPExperimenter(MsgBase):
 class OFPFeaturesRequest(MsgBase):
 class OFPSwitchFeatures(MsgBase):

@@ -36,7 +36,7 @@ class MACLEARNER(app_manager.RyuApp):
 
     @set_ev_cls(ofp_event.EventOFPSwitchFeatures, CONFIG_DISPATCHER)
     def switch_features_handler(self, ev):
-        self.logger.info("Handler = Switch Basic Features: enter!")
+        self.logger.info("MACLEARNER: Handler = Switch Basic Features: enter!")
         datapath = ev.msg.datapath
         ofproto = datapath.ofproto
         parser = datapath.ofproto_parser
@@ -80,7 +80,7 @@ class MACLEARNER(app_manager.RyuApp):
         self.insertflow(datapath, 202, 0, match, actions)
         self.insertflow(datapath, 203, 0, match, actions)
 
-        self.logger.info("Handler = Switch Basic Features: leave!")
+        self.logger.info("MACLEARNER: Handler = Switch Basic Features: leave!")
 
     @set_ev_cls(ofp_event.EventOFPPacketIn, MAIN_DISPATCHER)
     def packet_in_handler(self, event):

@@ -12,6 +12,7 @@ communication (connection) roles: client/server;
 Names
 -----
 Nicky, Matthew, Carl, PK
+Marco, Steve, PK
 
 nesox system input and output
 -----------------------------
