@@ -40,4 +40,10 @@ class RATEALLOCATOR(app_manager.RyuApp):
         match = parser.OFPMatch()
         self.insertgoto(datapath, 202, 0, match, 203)
 
+        """
+        This part involves meter table operation
+        """
+
+
+
         self.logger.info("RATEALLOCATOR: Handler = Switch Features: leave!")

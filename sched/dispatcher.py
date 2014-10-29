@@ -45,17 +45,22 @@ class DISPATCHER(app_manager.RyuApp):
         match = parser.OFPMatch()
         self.insertgoto(datapath, 200, 0, match, 203)
 
+
+        """
+        The following code can not be executed properly, the reason is unknown!!!
+
         match.append_field(protocol.OXM_OF_TCP_SRC, 8478)
         if 'tcp_src' in match:
             print match['tcp_src']
-        actions = [parser.OFPActionOutput(7)]
+        actions = [parser.OFPActionOutput(8)]
         self.insertflow(datapath, 200, 1, match, actions)
-        # self.insertgoto(datapath, 200, 1, match, 201)
+        self.insertgoto(datapath, 200, 1, match, 201)
 
-        # nodes = [8171, 8172, 8173, 8174]
-        # for node in nodes:
-        #     match = parser.OFPMatch(tcp_src=node)
-        #     self.insertgoto(datapath, 200, 1, match, 201)
-        #     print match
+        nodes = [8171, 8172, 8173, 8174]
+        for node in nodes:
+            match = parser.OFPMatch(tcp_src=node)
+            self.insertgoto(datapath, 200, 1, match, 201)
+            print match
+        """
 
         self.logger.info("DISPATCHER: Handler = Switch Features: leave!")

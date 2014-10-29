@@ -72,6 +72,8 @@ maclearner: done
 5. priority (scheduling): high priority match first
 6. meter table operation: (rate control)
 
+7. raise the priority of a specific matching to force that matching happen!!!
+
 reference
 ---------
 http://bashcookbook.com/bashinfo/source/bash-3.1/examples/scripts.noah/string.bash
