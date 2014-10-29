@@ -13,7 +13,31 @@ class RATEALLOCATOR(app_manager.RyuApp):
     def __init__(self, *args, **kwargs):
         super(RATEALLOCATOR, self).__init__(*args, **kwargs)
 
+    def insertflow(self, datapath, table_id, priority, match, actions):
+        protocol = datapath.ofproto
+        parser = datapath.ofproto_parser
+        instruction = [parser.OFPInstructionActions(protocol.OFPIT_APPLY_ACTIONS, actions)]
+        modification = parser.OFPFlowMod(datapath=datapath,
+            table_id=table_id, priority=priority, match=match, instructions=instruction)
+        datapath.send_msg(modification)
+
+    def insertgoto(self, datapath, table_id, priority, match, goto_tid):
+        protocol = datapath.ofproto
+        parser = datapath.ofproto_parser
+        instruction = [parser.OFPInstructionGotoTable(goto_tid)]
+        modification = parser.OFPFlowMod(datapath=datapath,
+            table_id=table_id, priority=priority, match=match, instructions=instruction)
+        datapath.send_msg(modification)
+
     @set_ev_cls(ofp_event.EventOFPSwitchFeatures, CONFIG_DISPATCHER)
     def switch_features_handler(self, event):
         self.logger.info("RATEALLOCATOR: Handler = Switch Features: enter!")
+        message = event.msg
+        datapath = message.datapath
+        protocol = datapath.ofproto
+        parser = datapath.ofproto_parser
+
+        match = parser.OFPMatch()
+        self.insertgoto(datapath, 200, 0, match, 203)
+
         self.logger.info("RATEALLOCATOR: Handler = Switch Features: leave!")

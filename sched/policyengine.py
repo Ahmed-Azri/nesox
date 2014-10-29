@@ -7,19 +7,11 @@ from ryu.controller.handler import HANDSHAKE_DISPATCHER, CONFIG_DISPATCHER, MAIN
 from ryu.lib.packet import packet, ethernet, ipv4
 
 
-class SCHEDULER(app_manager.RyuApp):
+class POLICYENGINE(app_manager.RyuApp):
     OFP_VERSIONS = [ofproto_v1_3.OFP_VERSION]
 
     def __init__(self, *args, **kwargs):
-        super(SCHEDULER, self).__init__(*args, **kwargs)
-
-    def insertflow(self, datapath, table_id, priority, match, actions):
-        protocol = datapath.ofproto
-        parser = datapath.ofproto_parser
-        instruction = [parser.OFPInstructionActions(protocol.OFPIT_APPLY_ACTIONS, actions)]
-        modification = parser.OFPFlowMod(datapath=datapath,
-            table_id=table_id, priority=priority, match=match, instructions=instruction)
-        datapath.send_msg(modification)
+        super(POLICYENGINE, self).__init__(*args, **kwargs)
 
     def insertgoto(self, datapath, table_id, priority, match, goto_tid):
         protocol = datapath.ofproto
@@ -31,13 +23,13 @@ class SCHEDULER(app_manager.RyuApp):
 
     @set_ev_cls(ofp_event.EventOFPSwitchFeatures, CONFIG_DISPATCHER)
     def switch_features_handler(self, event):
-        self.logger.info("SCHEDULER: Handler = Switch Features: enter!")
+        self.logger.info("POLICYENGINE: Handler = Switch Features: enter!")
         message = event.msg
         datapath = message.datapath
         protocol = datapath.ofproto
         parser = datapath.ofproto_parser
 
         match = parser.OFPMatch()
-        self.insertgoto(datapath, 200, 0, match, 203)
+        self.insertgoto(datapath, 100, 0, match, 200)
 
-        self.logger.info("SCHEDULER: Handler = Switch Features: leave!")
+        self.logger.info("POLICYENGINE: Handler = Switch Features: leave!")

@@ -30,6 +30,9 @@ class PINGPONG(app_manager.RyuApp):
     @set_ev_cls(ofp_event.EventOFPEchoRequest, [HANDSHAKE_DISPATCHER, CONFIG_DISPATCHER, MAIN_DISPATCHER])
     def echo_request_handler(self, event):
         self.logger.info('OFPEchoRequest received: data=%s', utils.hex_array(event.msg.data))
+        datapath = event.msg.datapath
+        data = event.msg.data
+        self.send_echo_request(datapath, data)
 
     @set_ev_cls(ofp_event.EventOFPEchoReply, [HANDSHAKE_DISPATCHER, CONFIG_DISPATCHER, MAIN_DISPATCHER])
     def echo_reply_handler(self, event):

@@ -7,11 +7,14 @@ class OFPEchoRequest(MsgBase):
 class OFPEchoReply(MsgBase):
 
 class OFPExperimenter(MsgBase):
+
 class OFPFeaturesRequest(MsgBase):
 class OFPSwitchFeatures(MsgBase):
+
 class OFPGetConfigRequest(MsgBase):
 class OFPGetConfigReply(MsgBase):
 class OFPSetConfig(MsgBase):
+
 class Flow(object):
 class FlowWildcards(object):
 
@@ -29,12 +32,16 @@ class MTVlanPcp(OFPMatchField):
 class MTIPDscp(OFPMatchField):
 class MTIPECN(OFPMatchField):
 class MTIPProto(OFPMatchField):
+
 class MTIPV4Src(OFPMatchField):
 class MTIPV4Dst(OFPMatchField):
+
 class MTTCPSrc(OFPMatchField):
 class MTTCPDst(OFPMatchField):
+
 class MTUDPSrc(OFPMatchField):
 class MTUDPDst(OFPMatchField):
+
 class MTSCTPSrc(OFPMatchField):
 class MTSCTPDst(OFPMatchField):
 class MTICMPV4Type(OFPMatchField):
@@ -66,11 +73,13 @@ class OFPPort(ofproto_parser.namedtuple('OFPPort', (
 class OFPPortStatus(MsgBase):
 class OFPPacketOut(MsgBase):
 class OFPFlowMod(MsgBase):
+
 class OFPInstruction(StringifyMixin):
 class OFPInstructionGotoTable(OFPInstruction):
 class OFPInstructionWriteMetadata(OFPInstruction):
 class OFPInstructionActions(OFPInstruction):
 class OFPInstructionMeter(OFPInstruction):
+
 class OFPActionHeader(StringifyMixin):
 class OFPAction(OFPActionHeader):
 class OFPActionOutput(OFPAction):
@@ -90,10 +99,13 @@ class OFPActionSetField(OFPAction):
 class OFPActionPushPbb(OFPAction):
 class OFPActionPopPbb(OFPAction):
 class OFPActionExperimenter(OFPAction):
+
 class OFPBucket(StringifyMixin):
 class OFPGroupMod(MsgBase):
 class OFPPortMod(MsgBase):
+
 class OFPMeterMod(MsgBase):
+
 class OFPTableMod(MsgBase):
 class OFPMultipartRequest(MsgBase):
 class OFPMultipartReply(MsgBase):

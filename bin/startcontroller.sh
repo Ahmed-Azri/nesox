@@ -1,7 +1,7 @@
 source nesox.sh
 
-applications=$sched/maclearner.py
-mainappname=maclearner.log
+applications=$sched/policyengine.py $sched/dispatcher.py $sched/scheduler.py $sched/rateallocator.py $sched/maclearner.py
+mainappname=controller.log
 logfilename=$mainappname
 logpathname=$logs
 

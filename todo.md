@@ -69,7 +69,7 @@ maclearner: done
 2. how to match: OFPMatch
 3. how to modify table (flow): OFPFlowMod
 4. how to packetout: OFPPacketOut
-5. priority (scheduling)
+5. priority (scheduling): high priority match first
 6. meter table operation: (rate control)
 
 reference
