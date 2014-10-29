@@ -45,7 +45,7 @@ class DISPATCHER(app_manager.RyuApp):
         match = parser.OFPMatch()
         self.insertgoto(datapath, 200, 0, match, 203)
 
-        match = match.append_field(protocol.OXM_OF_TCP_SRC, 8478)
+        match.append_field(protocol.OXM_OF_TCP_SRC, 8478)
         if 'tcp_src' in match:
             print match['tcp_src']
         actions = [parser.OFPActionOutput(7)]
