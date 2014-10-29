@@ -109,7 +109,7 @@ class MACLEARNER(app_manager.RyuApp):
         actions = [parser.OFPActionOutput(out_port)]
 
         if out_port != protocol.OFPP_FLOOD:
-            match = parser.OFPMatch(in_port=in_port, eth_dst=dst)
+            match = parser.OFPMatch(in_port=in_port, eth_dst=dst, tcp_src='8478')
             self.insertflow(datapath, 203, 1, match, actions)
 
         data = None
