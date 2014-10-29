@@ -43,10 +43,12 @@ class DISPATCHER(app_manager.RyuApp):
         parser = datapath.ofproto_parser
 
         match = parser.OFPMatch()
-        self.insertgoto(datapath, 200, 1, match, 201)
+        self.insertgoto(datapath, 200, 0, match, 203)
 
-        # match = parser.OFPMatch(tcp_src=8478)
-        # self.insertgoto(datapath, 200, 1, match, 201)
+        match = parser.OFPMatch(tcp_src=8478)
+        if 'tcp_src' in match:
+            print match['tcp_src']
+        self.insertgoto(datapath, 200, 1, match, 201)
 
         # nodes = [8171, 8172, 8173, 8174]
         # for node in nodes:
