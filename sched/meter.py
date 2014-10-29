@@ -18,7 +18,6 @@ class METER(app_manager.RyuApp):
         req = ofp_parser.OFPMeterFeaturesStatsRequest(datapath, 0)
         datapath.send_msg(req)
 
-
     def send_meter_config_stats_request(self, datapath):
         ofp = datapath.ofproto
         ofp_parser = datapath.ofproto_parser
@@ -75,6 +74,3 @@ class METER(app_manager.RyuApp):
                              stat.capabilities, stat.max_band,
                              stat.max_color))
         self.logger.info('MeterFeaturesStats: %s', features)
-
-
-

@@ -145,17 +145,15 @@ class OFPGroupFeaturesStatsReply(OFPMultipartReply):
 
 
 
+
+
 class OFPMeterBandStats(StringifyMixin):
-
-class OFPMeterStats(StringifyMixin):
-class OFPMeterStatsRequest(OFPMultipartRequest):
-class OFPMeterStatsReply(OFPMultipartReply):
-
 class OFPMeterBand(StringifyMixin):
 class OFPMeterBandHeader(OFPMeterBand):
 class OFPMeterBandDrop(OFPMeterBandHeader):
 class OFPMeterBandDscpRemark(OFPMeterBandHeader):
 class OFPMeterBandExperimenter(OFPMeterBandHeader):
+
 class OFPMeterConfigStats(StringifyMixin):
 class OFPMeterConfigStatsRequest(OFPMultipartRequest):
 class OFPMeterConfigStatsReply(OFPMultipartReply):
@@ -163,6 +161,11 @@ class OFPMeterConfigStatsReply(OFPMultipartReply):
 class OFPMeterFeaturesStats(ofproto_parser.namedtuple('OFPMeterFeaturesStats',
 class OFPMeterFeaturesStatsRequest(OFPMultipartRequest):
 class OFPMeterFeaturesStatsReply(OFPMultipartReply):
+
+class OFPMeterStats(StringifyMixin):
+class OFPMeterStatsRequest(OFPMultipartRequest):
+class OFPMeterStatsReply(OFPMultipartReply):
+
 
 
 

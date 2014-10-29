@@ -64,15 +64,16 @@ asides: cluster admin scripts
 
 controller plane
 ----------------
-maclearner: done
-1. how to goto table: OFPInstructionGotoTable
-2. how to match: OFPMatch
-3. how to modify table (flow): OFPFlowMod
-4. how to packetout: OFPPacketOut
-5. priority (scheduling): high priority match first
+0. maclearner: done
+1. how to goto table: OFPInstructionGotoTable (done)
+2. how to match: OFPMatch (done: but source port does not work!!!)
+3. how to modify table (flow): OFPFlowMod (done)
+4. how to packetout: OFPPacketOut (done)
+5. priority (scheduling): high priority match first (understood!!)
 6. meter table operation: (rate control)
-
 7. raise the priority of a specific matching to force that matching happen!!!
+8. to put code segments into the paper controller part!!!
+
 
 reference
 ---------
