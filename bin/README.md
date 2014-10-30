@@ -41,7 +41,7 @@ on mac: execute buildload.sh
 manunally configurated should be named in (manu-num.ld) (for num in `seq -1 01 - 10`)
 
 
-on d0: loadall.sh (100: meantime, I can do something else!!!)
+on d0: loadall.sh (loadall.sh 120 8: run in interactive mode for OF!!!)
 on d0: collectdata.sh
 on d0: aggregate.sh
 on d0: compute.sh
