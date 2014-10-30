@@ -19,16 +19,16 @@ int usage(int print)
 {
 	if (print < 0) return 0;
 	puts("usage: compute [output mode] [header]");
-	fprintf(stdout, "output mode: \n");
-	fprintf(stdout, "  0: one in all (default)\n");
-	fprintf(stdout, "  1: statistical data in one line\n");
-	fprintf(stdout, "  2: average completion time\n");
-	fprintf(stdout, "  3: transfer span\n");
-	fprintf(stdout, "header: \n");
-	fprintf(stdout, "  0: no header (default)\n");
-	fprintf(stdout, "  1: print header\n");
-	fprintf(stdout, "note: \n");
-	fprintf(stdout, "  seperator is \':\' \n");
+	puts("output mode: ");
+	puts("  0: one in all (default)");
+	puts("  1: statistical data in one line");
+	puts("  2: average completion time");
+	puts("  3: transfer span");
+	puts("header: ");
+	puts("  0: no header (default)");
+	puts("  1: print header");
+	puts("note: ");
+	puts("  seperator is \':\'");
 	return 0;
 }
 
