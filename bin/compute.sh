@@ -10,6 +10,6 @@ do
 	for comparg in $(seq 0 3)
 	do
 		postfix="com$comparg"
-		compute $comparg < $statdatafile 2> $statname.$postfix
+		compute $comparg < $statdatafile 2> $loadname.$postfix
 	done
 done
