@@ -33,9 +33,9 @@ class METER(app_manager.RyuApp):
     def meteradd(self, datapath, meter_id):
         protocol = datapath.ofproto
         parser = datapath.ofproto_parser
-        # bands = [parser.OFPMeterBandDrop(), parser.OFPMeterBandDscpRemark(), parser.OFPMeterBandExperimenter()]
-        # bands = [parser.OFPMeterBandDrop(), parser.OFPMeterBandDscpRemark(), parser.OFPMeterBandExperimenter()]
-        bands = [parser.OFPMeterBandDscpRemark()]
+        # bands = [parser.OFPMeterBandDrop()]
+        # bands = [parser.OFPMeterBandDscpRemark()]
+        bands = [parser.OFPMeterBandExperimenter()]
         modification = parser.OFPMeterMod(datapath=datapath, meter_id=meter_id, bands=bands)
         datapath.send_msg(modification)
 
