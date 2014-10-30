@@ -8,5 +8,9 @@ for statdatafile in $statdatafiles
 do
 	echo $statdatafile
 	loadname=`getloadnamefromdatafile $statdatafile`
-	compute < $statdatafile 2> $loadname.stat
+	for comparg in $(seq 0 3)
+	do
+		statname="compute-$comparg"
+		compute < $statdatafile 2> $statname.stat
+	done
 done
