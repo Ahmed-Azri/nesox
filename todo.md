@@ -70,11 +70,11 @@ controller plane
 3. how to modify table (flow): OFPFlowMod (done)
 4. how to packetout: OFPPacketOut (done)
 5. priority (scheduling): high priority match first (understood!!)
-6. meter table operation: (rate control)
+6. meter table operation: (done!!!)
 7. raise the priority of a specific matching to force that matching happen!!!
 8. to put code segments into the paper controller part!!!
 9. how to create meter (done)
-
+a. how to associate flow to meter (done)
 
 
 reference

@@ -33,6 +33,14 @@ class MACLEARNER(app_manager.RyuApp):
             table_id=table_id, priority=priority, match=match, instructions=instruction)
         datapath.send_msg(modification)
 
+    def attachmeter(self, datapath, table_id, match, meter_id):
+        protocol = datapath.ofproto
+        parser = datapath.ofproto_parser
+        instruction = [parser.OFPInstructionMeter(meter_id=meter_id)]
+        modification = parser.OFPFlowMod(datapath=datapath,
+            table_id=table_id, command=protocol.OFPFC_ADD, match=match, instructions=instruction)
+        datapath.send_msg(modification)
+
 
     @set_ev_cls(ofp_event.EventOFPSwitchFeatures, CONFIG_DISPATCHER)
     def switch_features_handler(self, ev):
