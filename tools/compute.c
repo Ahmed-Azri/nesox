@@ -34,7 +34,7 @@ int usage(int print)
 
 int main(int argc, char *argv[])
 {
-	usage();
+	usage(1);
 
 	int outputmode = 0;
 	int headermode = 0;
