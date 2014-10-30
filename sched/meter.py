@@ -87,7 +87,7 @@ class METER(app_manager.RyuApp):
         modification = parser.OFPMeterMod(datapath=datapath, flags=protocol.OFPMF_PKTPS, meter_id=meter_id, bands=bands)
         datapath.send_msg(modification)
 
-    def changmarkpmeter(self, datapath, meter_id, rate):
+    def changemarkpmeter(self, datapath, meter_id, rate):
         protocol = datapath.ofproto
         parser = datapath.ofproto_parser
         bands = [parser.OFPMeterBandDscpRemark(rate=rate)]
