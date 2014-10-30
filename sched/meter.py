@@ -49,7 +49,28 @@ class METER(app_manager.RyuApp):
         protocol = datapath.ofproto
         parser = datapath.ofproto_parser
         bands = [parser.OFPMeterBandDrop(rate=rate)]
-        modification = parser.OFPMeterMod(datapath=datapath, meter_id=meter_id, bands=bands)
+        modification = parser.OFPMeterMod(datapath=datapath, flags=protocol.OFPMF_KBPS, meter_id=meter_id, bands=bands)
+        datapath.send_msg(modification)
+
+    def insertdropmeterpkt(self, datapath, meter_id, rate):
+        protocol = datapath.ofproto
+        parser = datapath.ofproto_parser
+        bands = [parser.OFPMeterBandDrop(rate=rate)]
+        modification = parser.OFPMeterMod(datapath=datapath, flags=protocol.OFPMF_PKTPS, meter_id=meter_id, bands=bands)
+        datapath.send_msg(modification)
+
+    def insertmarkmeter(self, datapath, meter_id, rate):
+        protocol = datapath.ofproto
+        parser = datapath.ofproto_parser
+        bands = [parser.OFPMeterBandDscpRemark(rate=rate)]
+        modification = parser.OFPMeterMod(datapath=datapath, flags=protocol.OFPMF_KBPS, meter_id=meter_id, bands=bands)
+        datapath.send_msg(modification)
+
+    def insertmarkmeterpkt(self, datapath, meter_id, rate):
+        protocol = datapath.ofproto
+        parser = datapath.ofproto_parser
+        bands = [parser.OFPMeterBandDscpRemark(rate=rate)]
+        modification = parser.OFPMeterMod(datapath=datapath, flags=protocol.OFPMF_PKTPS, meter_id=meter_id, bands=bands)
         datapath.send_msg(modification)
 
 
@@ -62,7 +83,11 @@ class METER(app_manager.RyuApp):
         self.send_meter_features_stats_request(datapath)
 
         self.meteradd(datapath, 1)
-        self.insertdropmeter(datapath, 2, 18888)
+        self.insertdropmeter(datapath, 2, 2)
+        self.insertdropmeterpkt(datapath, 3, 3)
+        self.insertmarkmeter(datapath, 4, 4)
+        self.insertmarkmeterpkt(datapath, 5, 5)
+
         self.logger.info("METER: Handler = Switch Features: leave!")
 
 
