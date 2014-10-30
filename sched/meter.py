@@ -33,7 +33,7 @@ class METER(app_manager.RyuApp):
     def meteradd(self, datapath, meter_id):
         protocol = datapath.ofproto
         parser = datapath.ofproto_parser
-        bands = [OFPMeterBandDrop]
+        bands = [parser.OFPMeterBandDrop]
         modification = parser.OFPMeterMod(datapath=datapath, meter_id=meter_id, bands=bands)
         datapath.send_msg(modification)
 
