@@ -14,9 +14,9 @@ class METER(app_manager.RyuApp):
         super(METER, self).__init__(*args, **kwargs)
 
     def send_meter_features_stats_request(self, datapath):
-        ofp_parser = datapath.ofproto_parser
-        req = ofp_parser.OFPMeterFeaturesStatsRequest(datapath, 0)
-        datapath.send_msg(req)
+        parser = datapath.ofproto_parser
+        request = parser.OFPMeterFeaturesStatsRequest(datapath, 0)
+        datapath.send_msg(request)
 
     def send_meter_config_stats_request(self, datapath):
         ofp = datapath.ofproto
@@ -30,6 +30,14 @@ class METER(app_manager.RyuApp):
         request = parser.OFPMeterStatsRequest(datapath, 0, protocol.OFPM_ALL)
         datapath.send_msg(request)
 
+    def meteradd(self, datapath, meter_id):
+        protocol = datapath.ofproto
+        parser = datapath.ofproto_parser
+        bands = [OFPMeterBandDrop]
+        modification = parser.OFPMeterMod(datapath=datapath, meter_id=meter_id, bands=bands)
+        datapath.send_msg(modification)
+
+
     @set_ev_cls(ofp_event.EventOFPSwitchFeatures, CONFIG_DISPATCHER)
     def switch_features_handler(self, event):
         self.logger.info("METER: Handler = Switch Features: enter!")
@@ -37,6 +45,8 @@ class METER(app_manager.RyuApp):
         self.send_meter_stats_request(datapath)
         self.send_meter_config_stats_request(datapath)
         self.send_meter_features_stats_request(datapath)
+
+        self.meteradd(datapath, 2)
         self.logger.info("METER: Handler = Switch Features: leave!")
 
     @set_ev_cls(ofp_event.EventOFPMeterStatsReply, MAIN_DISPATCHER)

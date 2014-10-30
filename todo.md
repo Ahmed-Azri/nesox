@@ -75,6 +75,7 @@ controller plane
 8. to put code segments into the paper controller part!!!
 9. how to create meter
 
+
 reference
 ---------
 http://bashcookbook.com/bashinfo/source/bash-3.1/examples/scripts.noah/string.bash
