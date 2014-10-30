@@ -18,7 +18,7 @@ static int debug = 0;
 int usage(int print)
 {
 	if (print < 0) return 0;
-	fprintf(stdout, "usage: compute [output mode] [header]\n");
+	puts("usage: compute [output mode] [header]");
 	fprintf(stdout, "output mode: \n");
 	fprintf(stdout, "  0: one in all (default)\n");
 	fprintf(stdout, "  1: statistical data in one line\n");
