@@ -1,7 +1,6 @@
 source nesox.sh
 
-cd $home/stat
-
+cd $stat
 statdatafiles=*.data
 
 for statdatafile in $statdatafiles
@@ -11,6 +10,6 @@ do
 	for comparg in $(seq 0 3)
 	do
 		statname="compute-$comparg-$loadname"
-		compute < $statdatafile 2> $statname.stat
+		compute $comparg < $statdatafile 2> $statname.stat
 	done
 done
