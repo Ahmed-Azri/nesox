@@ -15,9 +15,32 @@ static flow flowinit(int index);
 
 static int debug = 0;
 
+int usage(int print)
+{
+	if (print < 0) return 0;
+	fprintf(stdout, "usage: compute [output mode] [header]\n");
+	fprintf(stdout, "output mode: \n");
+	fprintf(stdout, "  0: one in all (default)\n");
+	fprintf(stdout, "  1: statistical data in one line\n");
+	fprintf(stdout, "  2: average completion time\n");
+	fprintf(stdout, "  3: transfer span\n");
+	fprintf(stdout, "header: \n");
+	fprintf(stdout, "  0: no header (default)\n");
+	fprintf(stdout, "  1: print header\n");
+	fprintf(stdout, "note: \n");
+	fprintf(stdout, "  seperator is \':\' \n");
+	return 0;
+}
+
 int main(int argc, char *argv[])
 {
-	fprintf(stderr, "%s: Best Wishes!\n", argv[0]);
+	int outputmode = 0;
+	int headermode = 0;
+
+	if (!(argc - 2)) outputmode = atoi(argv[1]);
+	if (!(argc - 3)) headermode = atoi(argv[1]);
+
+	if (!outputmode) fprintf(stderr, "%s: Best Wishes!\n", argv[0]);
 
 	char *line = NULL;
 	size_t capacity = 0;
@@ -43,8 +66,8 @@ int main(int argc, char *argv[])
 
 	for (int i = 0; i < flistsize; i++) {
 		if ( flist[i].sindex == flist[i].dindex ) continue;
-		fprintf(stderr, "%02d/%02d-", i, flistsize);
-		printflow(flist[i]);
+		if (!outputmode) fprintf(stderr, "%02d/%02d-", i, flistsize);
+		if (!outputmode) printflow(flist[i]);
 	}
 
 	double firststart = DBL_MAX;
@@ -84,10 +107,20 @@ int main(int argc, char *argv[])
 	averagedatasize = totaldatasize / effectiveflownum;
 	transferspan = lastfinish - firststart;
 
-	fprintf(stderr, "\n[%0.8f:%0.8f:%0.8f][%ld:%ld:%ld:%0.8f][%0.8f:%0.8f:%0.8f:%0.8f]\n",
+
+	if (!outputmode) fprintf(stderr, "\n[%0.8f:%0.8f:%0.8f][%ld:%ld:%ld:%0.8f][%0.8f:%0.8f:%0.8f:%0.8f]\n",
 		firststart, lastfinish, transferspan,
 		mindatasize, maxdatasize, totaldatasize, averagedatasize,
 		shortstcompletiontime, longestcompletiontime, totalcompletiontime, averagecompletiontime);
+
+	if (!(outputmode - 1)) fprintf(stderr, "%0.8f:%0.8f:%0.8f%ld:%ld:%ld:%0.8f%0.8f:%0.8f:%0.8f:%0.8f\n",
+		firststart, lastfinish, transferspan,
+		mindatasize, maxdatasize, totaldatasize, averagedatasize,
+		shortstcompletiontime, longestcompletiontime, totalcompletiontime, averagecompletiontime);
+
+	if (!(outputmode - 2)) fprintf(stderr, "%0.8f", averagecompletiontime);
+	if (!(outputmode - 3)) fprintf(stderr, "%0.8f", transferspan);
+
 
 	return 0;
 }
