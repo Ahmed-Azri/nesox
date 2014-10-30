@@ -34,7 +34,7 @@ int usage(int print)
 
 int main(int argc, char *argv[])
 {
-	usage(!strcmp("help", argv[1]));
+	if (!(argc - 2)) usage(!strcmp("help", argv[1]));
 
 	int outputmode = 0;
 	int headermode = 0;
