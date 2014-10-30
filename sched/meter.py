@@ -30,12 +30,25 @@ class METER(app_manager.RyuApp):
         request = parser.OFPMeterStatsRequest(datapath, 0, protocol.OFPM_ALL)
         datapath.send_msg(request)
 
+    """
+    meteradd is used for testing purpose
+    """
     def meteradd(self, datapath, meter_id):
         protocol = datapath.ofproto
         parser = datapath.ofproto_parser
-        # bands = [parser.OFPMeterBandDrop()]
+        bands = [parser.OFPMeterBandDrop()]
         # bands = [parser.OFPMeterBandDscpRemark()]
-        bands = [parser.OFPMeterBandExperimenter()]
+        """
+        The following line is not OK!
+        """
+        # bands = [parser.OFPMeterBandExperimenter()]
+        modification = parser.OFPMeterMod(datapath=datapath, meter_id=meter_id, bands=bands)
+        datapath.send_msg(modification)
+
+    def insertdropmeter(self, datapath, meter_id, rate):
+        protocol = datapath.ofproto
+        parser = datapath.ofproto_parser
+        bands = [parser.OFPMeterBandDrop(rate=rate)]
         modification = parser.OFPMeterMod(datapath=datapath, meter_id=meter_id, bands=bands)
         datapath.send_msg(modification)
 
@@ -48,8 +61,10 @@ class METER(app_manager.RyuApp):
         self.send_meter_config_stats_request(datapath)
         self.send_meter_features_stats_request(datapath)
 
-        self.meteradd(datapath, 2)
+        self.meteradd(datapath, 1)
+        self.insertdropmeter(datapath, 2, 18888)
         self.logger.info("METER: Handler = Switch Features: leave!")
+
 
     @set_ev_cls(ofp_event.EventOFPMeterStatsReply, MAIN_DISPATCHER)
     def meter_stats_reply_handler(self, ev):
