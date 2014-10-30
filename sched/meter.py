@@ -51,6 +51,7 @@ class METER(app_manager.RyuApp):
 
     @set_ev_cls(ofp_event.EventOFPMeterStatsReply, MAIN_DISPATCHER)
     def meter_stats_reply_handler(self, ev):
+        datapath = ev.msg.datapath
         meters = []
         for stat in ev.msg.body:
             meters.append('meter_id=0x%08x len=%d flow_count=%d '
@@ -62,9 +63,11 @@ class METER(app_manager.RyuApp):
                            stat.duration_sec, stat.duration_nsec,
                            stat.band_stats))
         self.logger.info('MeterStats: %s', meters)
+        self.send_meter_stats_request(datapath)
 
     @set_ev_cls(ofp_event.EventOFPMeterConfigStatsReply, MAIN_DISPATCHER)
     def meter_config_stats_reply_handler(self, ev):
+        datapath = ev.msg.datapath
         configs = []
         for stat in ev.msg.body:
             configs.append('length=%d flags=0x%04x meter_id=0x%08x '
@@ -72,9 +75,11 @@ class METER(app_manager.RyuApp):
                            (stat.length, stat.flags, stat.meter_id,
                             stat.bands))
         self.logger.info('MeterConfigStats: %s', configs)
+        self.send_meter_config_stats_request(datapath)
 
     @set_ev_cls(ofp_event.EventOFPMeterFeaturesStatsReply, MAIN_DISPATCHER)
     def meter_features_stats_reply_handler(self, ev):
+        datapath = ev.msg.datapath
         features = []
         for stat in ev.msg.body:
             features.append('max_meter=%d band_types=0x%08x '
@@ -84,3 +89,4 @@ class METER(app_manager.RyuApp):
                              stat.capabilities, stat.max_band,
                              stat.max_color))
         self.logger.info('MeterFeaturesStats: %s', features)
+        self.send_meter_features_stats_request(datapath)
