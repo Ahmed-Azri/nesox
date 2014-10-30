@@ -45,32 +45,59 @@ class METER(app_manager.RyuApp):
         modification = parser.OFPMeterMod(datapath=datapath, meter_id=meter_id, bands=bands)
         datapath.send_msg(modification)
 
-    def insertdropmeter(self, datapath, meter_id, rate):
+    def insertdropmeterbps(self, datapath, meter_id, rate):
         protocol = datapath.ofproto
         parser = datapath.ofproto_parser
         bands = [parser.OFPMeterBandDrop(rate=rate)]
         modification = parser.OFPMeterMod(datapath=datapath, flags=protocol.OFPMF_KBPS, meter_id=meter_id, bands=bands)
         datapath.send_msg(modification)
 
-    def insertdropmeterpkt(self, datapath, meter_id, rate):
+    def insertdropmeterpps(self, datapath, meter_id, rate):
         protocol = datapath.ofproto
         parser = datapath.ofproto_parser
         bands = [parser.OFPMeterBandDrop(rate=rate)]
         modification = parser.OFPMeterMod(datapath=datapath, flags=protocol.OFPMF_PKTPS, meter_id=meter_id, bands=bands)
         datapath.send_msg(modification)
 
-    def insertmarkmeter(self, datapath, meter_id, rate):
+    def changedropmeter(self, datapath, meter_id, rate):
+        protocol = datapath.ofproto
+        parser = datapath.ofproto_parser
+        bands = [parser.OFPMeterBandDrop(rate=rate)]
+        modification = parser.OFPMeterMod(datapath=datapath, command=protocol.OFPMC_MODIFY, meter_id=meter_id, bands=bands)
+        datapath.send_msg(modification)
+
+    def deletedropmeter(self, datapath, meter_id):
+        protocol = datapath.ofproto
+        parser = datapath.ofproto_parser
+        modification = parser.OFPMeterMod(datapath=datapath, command=protocol.OFPMC_DELETE, meter_id=meter_id)
+        datapath.send_msg(modification)
+
+
+    def insertmarkmeterbps(self, datapath, meter_id, rate):
         protocol = datapath.ofproto
         parser = datapath.ofproto_parser
         bands = [parser.OFPMeterBandDscpRemark(rate=rate)]
         modification = parser.OFPMeterMod(datapath=datapath, flags=protocol.OFPMF_KBPS, meter_id=meter_id, bands=bands)
         datapath.send_msg(modification)
 
-    def insertmarkmeterpkt(self, datapath, meter_id, rate):
+    def insertmarkmeterpps(self, datapath, meter_id, rate):
         protocol = datapath.ofproto
         parser = datapath.ofproto_parser
         bands = [parser.OFPMeterBandDscpRemark(rate=rate)]
         modification = parser.OFPMeterMod(datapath=datapath, flags=protocol.OFPMF_PKTPS, meter_id=meter_id, bands=bands)
+        datapath.send_msg(modification)
+
+    def changedropmeter(self, datapath, meter_id, rate):
+        protocol = datapath.ofproto
+        parser = datapath.ofproto_parser
+        bands = [parser.OFPMeterBandDscpRemark(rate=rate)]
+        modification = parser.OFPMeterMod(datapath=datapath, command=protocol.OFPMC_MODIFY, meter_id=meter_id, bands=bands)
+        datapath.send_msg(modification)
+
+    def deletemarkmeter(self, datapath, meter_id):
+        protocol = datapath.ofproto
+        parser = datapath.ofproto_parser
+        modification = parser.OFPMeterMod(datapath=datapath, command=protocol.OFPMC_DELETE, meter_id=meter_id)
         datapath.send_msg(modification)
 
 
@@ -83,10 +110,16 @@ class METER(app_manager.RyuApp):
         self.send_meter_features_stats_request(datapath)
 
         self.meteradd(datapath, 1)
-        self.insertdropmeter(datapath, 2, 2)
-        self.insertdropmeterpkt(datapath, 3, 3)
-        self.insertmarkmeter(datapath, 4, 4)
-        self.insertmarkmeterpkt(datapath, 5, 5)
+        self.insertdropmeterbps(datapath, 2, 2)
+        self.insertdropmeterpps(datapath, 3, 3)
+        self.insertmarkmeterbps(datapath, 4, 4)
+        self.insertmarkmeterpps(datapath, 5, 5)
+
+        self.changedropmeter(datapath, 2, 22)
+        self.changemarkmeter(datapath, 5, 55)
+
+        self.deletedropmeter(datapath, 3)
+        self.deletemarkmeter(datapath, 4)
 
         self.logger.info("METER: Handler = Switch Features: leave!")
 
