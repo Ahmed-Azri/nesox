@@ -17,9 +17,9 @@ generateload.py $mean $variance $delay > $loadfile
 }
 
 
-# all-to-all communication: from 100 megabytes to 1000 megebytes
+# all-to-all communication: from 100 megabytes to 1600 megebytes
 #
-function a2a()
+function all2all()
 {
 for mean in $(seq -w 100 100 1600)
 do
@@ -38,5 +38,5 @@ do
 done
 }
 
-a2a
+all2all
 shuffle
