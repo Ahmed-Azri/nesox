@@ -5,13 +5,17 @@ makestat()
 
 statname="$1"
 
+f="0100"
+s="0100"
+l="1600"
+
 for comparg in $(seq 2 3)
 do
 	nameposfix="com$comparg"
 	outputname="$stat/$statname-$nameposfix.stat"
 
 	echo "$statname-$nameposfix" > $outputname
-	for mean in $(seq -w 100 100 1600)
+	for mean in $(seq -w $f $s $l)
 	do
 		if [ "$statname" = "all2all" ]; then variance="0000"; fi
 		if [ "$statname" = "shuffle" ]; then variance="$mean"; fi
