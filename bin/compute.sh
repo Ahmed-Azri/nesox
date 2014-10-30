@@ -10,7 +10,7 @@ do
 	loadname=`getloadnamefromdatafile $statdatafile`
 	for comparg in $(seq 0 3)
 	do
-		statname="compute-$comparg"
+		statname="compute-$comparg-$loadname"
 		compute < $statdatafile 2> $statname.stat
 	done
 done
