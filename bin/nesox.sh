@@ -127,4 +127,34 @@ function timestamp()
 	date +%s
 }
 
+function enableofnesox()
+{
+ssh manager@switch <<  EOI
+
+hp2920
+
+config
+openflow instance nesox enable
+exit
+exit
+exit
+y
+EOI
+}
+
+function disableofnesox()
+{
+ssh manager@switch <<  EOI
+
+hp2920
+
+config
+openflow instance nesox disable
+exit
+exit
+exit
+y
+EOI
+}
+
 source color

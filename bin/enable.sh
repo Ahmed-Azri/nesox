@@ -1,0 +1,4 @@
+source nesox.sh
+
+enableofnesox
+
