@@ -55,7 +55,7 @@ statfile = $loadname-$algorithm.stat
 
 e.g., norm-102400-100000.ld
 
-nesox architecture
+nesox architecture (done)
 ------------------
 layers: OS - base lib (logger, daemon, message, ...) - protocal - nesox framework (master, server, client, ... ) - service providers (reader, loader, writer ... ) - applications
 asides: ryu and nesox scheduler as ryu applications
