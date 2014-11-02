@@ -37,8 +37,10 @@ class RATEALLOCATOR(app_manager.RyuApp):
         protocol = datapath.ofproto
         parser = datapath.ofproto_parser
 
+
         match = parser.OFPMatch()
         self.insertgoto(datapath, 202, 1, match, 203)
+
 
         """
         This part involves meter table operation
