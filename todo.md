@@ -76,7 +76,7 @@ controller plane
 9. how to create meter (done)
 a. how to associate flow to meter (done)
 b. if the rate of the meter is 0, what happened? unlimited or drop everything?
-
+c. what is the TCP packet size?
 
 reference
 ---------
