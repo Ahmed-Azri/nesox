@@ -119,7 +119,7 @@ class MACLEARNER(app_manager.RyuApp):
         """
         todo: if ipv4.dst == 202.45.128.181: output port
         """
-        controlleraddress = ryu.lib.packet.ipv4(dst="202.45.128.181")
+        controlleraddress = packet.ipv4(dst="202.45.128.181")
         if ipv4.dst == controlleraddress.dst:
             out_port = 9
 
