@@ -13,6 +13,7 @@ class MACLEARNER(app_manager.RyuApp):
     def __init__(self, *args, **kwargs):
         super(MACLEARNER, self).__init__(*args, **kwargs)
         self.mac_to_port = {}
+        self.table_id = 200
 
     """
     todo: these basic flow operation could be moved to a `base` .py file
@@ -81,8 +82,8 @@ class MACLEARNER(app_manager.RyuApp):
         match = parser.OFPMatch()
         actions = [parser.OFPActionOutput(ofproto.OFPP_CONTROLLER, ofproto.OFPCML_NO_BUFFER)]
 
-        self.insertflow(datapath, 203, 0, match, actions)
-        self.insertflow(datapath, 203, 1, match, actions)
+        self.insertflow(datapath, self.table_id, 0, match, actions)
+        self.insertflow(datapath, self.table_id, 1, match, actions)
 
         self.logger.info("MACLEARNER: Handler = Switch Basic Features: leave!")
 
@@ -119,7 +120,7 @@ class MACLEARNER(app_manager.RyuApp):
 
         if out_port != protocol.OFPP_FLOOD:
             match = parser.OFPMatch(in_port=in_port, eth_dst=dst)
-            self.insertflow(datapath, 203, 2, match, actions)
+            self.insertflow(datapath, self.table_id, 2, match, actions)
 
         data = None
         if message.buffer_id == protocol.OFP_NO_BUFFER:

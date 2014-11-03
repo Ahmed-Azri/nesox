@@ -45,9 +45,10 @@ on d0: loadall.sh (loadall.sh 120 8: run in interactive mode for OF!!!)
 on d0: collectdata.sh
 on d0: aggregate.sh
 on d0: compute.sh
+on d0: generatestat.sh
 
+on mac: getdata.sh
 on mac: getstat.sh
-on mac: analysis.sh (todo)
 
 
 manually manage and archive statistical data in terms of algorithms
