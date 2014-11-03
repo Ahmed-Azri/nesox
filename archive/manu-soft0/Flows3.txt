@@ -1,0 +1,549 @@
+[root@debian0][141103215526][/root]
+[root@debian0][141103215528][/root]
+[root@debian0][141103215528][/root]
+[root@debian0][141103215528][/root]ssh manager@switch
+We'd like to keep you up to date about:
+  * Software feature updates
+  * New product announcements
+  * Special events
+Please register your products now at:  www.hp.com/networking/register
+
+
+manager@switch's password: 
+HP J9726A 2920-24G Switch
+Software revision WB.15.14.0007
+
+Copyright (C) 1991-2014 Hewlett-Packard Development Company, L.P.
+
+                   RESTRICTED RIGHTS LEGEND
+ Confidential computer software.  Valid license from HP required for possession,
+ use or copying. Consistent with FAR 12.211 and 12.212, Commercial Computer
+ Software, Computer Software Documentation, and Technical Data for Commercial
+ Items are licensed to the U.S. Government under vendor's standard commercial
+ license.
+                   HEWLETT-PACKARD DEVELOPMENT COMPANY, L.P. 
+                   20555 State Highway 249, Houston, TX 77070
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Press any key to continue
+Your previous successful login (as manager) was on 1990-02-11 21:42:54     
+ from 202.45.128.182
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+HP-2920-24G# 
+HP-2920-24G# 
+HP-2920-24G# 
+HP-2920-24G# 
+HP-2920-24G# 
+HP-2920-24G# show openflow instance nesox flows
+
+ OpenFlow Flow Table
+
+ Flow 1
+ Match
+  Incoming Port : Any                   Ethernet Type    : Any
+  Source MAC    : Any                   Destination MAC  : Any
+  VLAN ID       : Any                   VLAN priority    : Any
+  Source Protocol Address : Any
+  Target Protocol Address : Any
+  IP Protocol   : Any
+  IP ECN        : Any                   IP DSCP          : Any
+  Source Port   : Any                   Destination Port : Any
+ Attributes
+  Priority      : 0                     Duration         : 10354 seconds
+  Hard Timeout  : 0 seconds             Idle Timeout     : 0 seconds
+  Byte Count    : 0                     Packet Count     : NA
+  Flow Table ID : 0                     Controller ID    : NA
+  Activity Count: NA                    Cookie           : 0x0
+  Hardware Index     : NA
+ Instructions
+   Goto Table ID                 : 100
+
+ Flow 2
+ Match
+  Incoming Port : Any                   Ethernet Type    : Any
+  Source MAC    : Any                   Destination MAC  : Any
+  VLAN ID       : Any                   VLAN priority    : Any
+  Source Protocol Address : Any
+  Target Protocol Address : Any
+  IP Protocol   : Any
+  IP ECN        : Any                   IP DSCP          : Any
+  Source Port   : Any                   Destination Port : Any
+ Attributes
+  Priority      : 1                     Duration         : 10354 seconds
+  Hard Timeout  : 0 seconds             Idle Timeout     : 0 seconds
+  Byte Count    : NA                    Packet Count     : 45419
+  Flow Table ID : 100                   Controller ID    : 1
+  Activity Count: NA                    Cookie           : 0x0
+  Hardware Index     : 0
+ Instructions
+   Goto Table ID                 : 200
+
+ Flow 3
+ Match
+  Incoming Port : Any                   Ethernet Type    : Any
+  Source MAC    : Any                   Destination MAC  : Any
+  VLAN ID       : Any                   VLAN priority    : Any
+  Source Protocol Address : Any
+  Target Protocol Address : Any
+  IP Protocol   : Any
+  IP ECN        : Any                   IP DSCP          : Any
+  Source Port   : Any                   Destination Port : Any
+ Attributes
+  Priority      : 0                     Duration         : 10354 seconds
+  Hard Timeout  : 0 seconds             Idle Timeout     : 0 seconds
+  Byte Count    : NA                    Packet Count     : 0
+  Flow Table ID : 100                   Controller ID    : NA
+  Activity Count: NA                    Cookie           : 0x0
+  Hardware Index     : NA
+ Instructions
+    Drop
+
+ Flow 4
+ Match
+  Incoming Port : Any                   Ethernet Type    : Any
+  Source MAC    : Any                   Destination MAC  : Any
+  VLAN ID       : Any                   VLAN priority    : Any
+  Source Protocol Address : Any
+  Target Protocol Address : Any
+  IP Protocol   : Any
+  IP ECN        : Any                   IP DSCP          : Any
+  Source Port   : Any                   Destination Port : Any
+ Attributes
+  Priority      : 1                     Duration         : 10354 seconds
+  Hard Timeout  : 0 seconds             Idle Timeout     : 0 seconds
+  Byte Count    : 1879764               Packet Count     : 28604
+  Flow Table ID : 200                   Controller ID    : 1
+  Activity Count: NA                    Cookie           : 0x0
+  Hardware Index     : NA
+ Instructions
+   Apply Actions
+    Controller Port
+
+ Flow 5
+ Match
+  Incoming Port : Any                   Ethernet Type    : Any
+  Source MAC    : Any                   Destination MAC  : Any
+  VLAN ID       : Any                   VLAN priority    : Any
+  Source Protocol Address : Any
+  Target Protocol Address : Any
+  IP Protocol   : Any
+  IP ECN        : Any                   IP DSCP          : Any
+  Source Port   : Any                   Destination Port : Any
+ Attributes
+  Priority      : 0                     Duration         : 10354 seconds
+  Hard Timeout  : 0 seconds             Idle Timeout     : 0 seconds
+  Byte Count    : 0                     Packet Count     : 0
+  Flow Table ID : 200                   Controller ID    : 1
+  Activity Count: NA                    Cookie           : 0x0
+  Hardware Index     : NA
+ Instructions
+   Apply Actions
+    Controller Port
+
+ Flow 6
+ Match
+  Incoming Port : 7                     Ethernet Type    : Any
+  Source MAC    : Any                   Destination MAC  : 24be05-0c3ce4
+  VLAN ID       : Any                   VLAN priority    : Any
+  Source Protocol Address : Any
+  Target Protocol Address : Any
+  IP Protocol   : Any
+  IP ECN        : Any                   IP DSCP          : Any
+  Source Port   : Any                   Destination Port : Any
+ Attributes
+  Priority      : 2                     Duration         : 10350 seconds
+  Hard Timeout  : 0 seconds             Idle Timeout     : 0 seconds
+  Byte Count    : 1207874               Packet Count     : 1246
+  Flow Table ID : 200                   Controller ID    : 1
+  Activity Count: NA                    Cookie           : 0x0
+  Hardware Index     : NA
+ Instructions
+   Apply Actions
+     Output                      : 8
+
+ Flow 7
+ Match
+  Incoming Port : 8                     Ethernet Type    : Any
+  Source MAC    : Any                   Destination MAC  : 24be05-109f4d
+  VLAN ID       : Any                   VLAN priority    : Any
+  Source Protocol Address : Any
+  Target Protocol Address : Any
+  IP Protocol   : Any
+  IP ECN        : Any                   IP DSCP          : Any
+  Source Port   : Any                   Destination Port : Any
+ Attributes
+  Priority      : 2                     Duration         : 10351 seconds
+  Hard Timeout  : 0 seconds             Idle Timeout     : 0 seconds
+  Byte Count    : 1266522               Packet Count     : 1257
+  Flow Table ID : 200                   Controller ID    : 1
+  Activity Count: NA                    Cookie           : 0x0
+  Hardware Index     : NA
+ Instructions
+   Apply Actions
+     Output                      : 6
+
+ Flow 8
+ Match
+  Incoming Port : 6                     Ethernet Type    : Any
+  Source MAC    : Any                   Destination MAC  : 24be05-0c3ce4
+  VLAN ID       : Any                   VLAN priority    : Any
+  Source Protocol Address : Any
+  Target Protocol Address : Any
+  IP Protocol   : Any
+  IP ECN        : Any                   IP DSCP          : Any
+  Source Port   : Any                   Destination Port : Any
+ Attributes
+  Priority      : 2                     Duration         : 10351 seconds
+  Hard Timeout  : 0 seconds             Idle Timeout     : 0 seconds
+  Byte Count    : 1180816               Packet Count     : 1174
+  Flow Table ID : 200                   Controller ID    : 1
+  Activity Count: NA                    Cookie           : 0x0
+  Hardware Index     : NA
+ Instructions
+   Apply Actions
+     Output                      : 8
+
+ Flow 9
+ Match
+  Incoming Port : 6                     Ethernet Type    : Any
+  Source MAC    : Any                   Destination MAC  : 24be05-109e3d
+  VLAN ID       : Any                   VLAN priority    : Any
+  Source Protocol Address : Any
+  Target Protocol Address : Any
+  IP Protocol   : Any
+  IP ECN        : Any                   IP DSCP          : Any
+  Source Port   : Any                   Destination Port : Any
+ Attributes
+  Priority      : 2                     Duration         : 10351 seconds
+  Hard Timeout  : 0 seconds             Idle Timeout     : 0 seconds
+  Byte Count    : 1170918               Packet Count     : 1118
+  Flow Table ID : 200                   Controller ID    : 1
+  Activity Count: NA                    Cookie           : 0x0
+  Hardware Index     : NA
+ Instructions
+   Apply Actions
+     Output                      : 7
+
+ Flow 10
+ Match
+  Incoming Port : 6                     Ethernet Type    : Any
+  Source MAC    : Any                   Destination MAC  : 24be05-109f6e
+  VLAN ID       : Any                   VLAN priority    : Any
+  Source Protocol Address : Any
+  Target Protocol Address : Any
+  IP Protocol   : Any
+  IP ECN        : Any                   IP DSCP          : Any
+  Source Port   : Any                   Destination Port : Any
+ Attributes
+  Priority      : 2                     Duration         : 10352 seconds
+  Hard Timeout  : 0 seconds             Idle Timeout     : 0 seconds
+  Byte Count    : 1267578               Packet Count     : 1190
+  Flow Table ID : 200                   Controller ID    : 1
+  Activity Count: NA                    Cookie           : 0x0
+  Hardware Index     : NA
+ Instructions
+   Apply Actions
+     Output                      : 5
+
+ Flow 11
+ Match
+  Incoming Port : 7                     Ethernet Type    : Any
+  Source MAC    : Any                   Destination MAC  : 24be05-109f4d
+  VLAN ID       : Any                   VLAN priority    : Any
+  Source Protocol Address : Any
+  Target Protocol Address : Any
+  IP Protocol   : Any
+  IP ECN        : Any                   IP DSCP          : Any
+  Source Port   : Any                   Destination Port : Any
+ Attributes
+  Priority      : 2                     Duration         : 10351 seconds
+  Hard Timeout  : 0 seconds             Idle Timeout     : 0 seconds
+  Byte Count    : 1260448               Packet Count     : 1251
+  Flow Table ID : 200                   Controller ID    : 1
+  Activity Count: NA                    Cookie           : 0x0
+  Hardware Index     : NA
+ Instructions
+   Apply Actions
+     Output                      : 6
+
+ Flow 12
+ Match
+  Incoming Port : 8                     Ethernet Type    : Any
+  Source MAC    : Any                   Destination MAC  : 24be05-109e3d
+  VLAN ID       : Any                   VLAN priority    : Any
+  Source Protocol Address : Any
+  Target Protocol Address : Any
+  IP Protocol   : Any
+  IP ECN        : Any                   IP DSCP          : Any
+  Source Port   : Any                   Destination Port : Any
+ Attributes
+  Priority      : 2                     Duration         : 10350 seconds
+  Hard Timeout  : 0 seconds             Idle Timeout     : 0 seconds
+  Byte Count    : 1281988               Packet Count     : 1269
+  Flow Table ID : 200                   Controller ID    : 1
+  Activity Count: NA                    Cookie           : 0x0
+  Hardware Index     : NA
+ Instructions
+   Apply Actions
+     Output                      : 7
+
+ Flow 13
+ Match
+  Incoming Port : 5                     Ethernet Type    : Any
+  Source MAC    : Any                   Destination MAC  : 24be05-109f4d
+  VLAN ID       : Any                   VLAN priority    : Any
+  Source Protocol Address : Any
+  Target Protocol Address : Any
+  IP Protocol   : Any
+  IP ECN        : Any                   IP DSCP          : Any
+  Source Port   : Any                   Destination Port : Any
+ Attributes
+  Priority      : 2                     Duration         : 10352 seconds
+  Hard Timeout  : 0 seconds             Idle Timeout     : 0 seconds
+  Byte Count    : 1131306               Packet Count     : 1163
+  Flow Table ID : 200                   Controller ID    : 1
+  Activity Count: NA                    Cookie           : 0x0
+  Hardware Index     : NA
+ Instructions
+   Apply Actions
+     Output                      : 6
+
+ Flow 14
+ Match
+  Incoming Port : 7                     Ethernet Type    : Any
+  Source MAC    : Any                   Destination MAC  : 24be05-109f6e
+  VLAN ID       : Any                   VLAN priority    : Any
+  Source Protocol Address : Any
+  Target Protocol Address : Any
+  IP Protocol   : Any
+  IP ECN        : Any                   IP DSCP          : Any
+  Source Port   : Any                   Destination Port : Any
+ Attributes
+  Priority      : 2                     Duration         : 10352 seconds
+  Hard Timeout  : 0 seconds             Idle Timeout     : 0 seconds
+  Byte Count    : 1273076               Packet Count     : 1292
+  Flow Table ID : 200                   Controller ID    : 1
+  Activity Count: NA                    Cookie           : 0x0
+  Hardware Index     : NA
+ Instructions
+   Apply Actions
+     Output                      : 5
+
+ Flow 15
+ Match
+  Incoming Port : 8                     Ethernet Type    : Any
+  Source MAC    : Any                   Destination MAC  : 24be05-109f6e
+  VLAN ID       : Any                   VLAN priority    : Any
+  Source Protocol Address : Any
+  Target Protocol Address : Any
+  IP Protocol   : Any
+  IP ECN        : Any                   IP DSCP          : Any
+  Source Port   : Any                   Destination Port : Any
+ Attributes
+  Priority      : 2                     Duration         : 10352 seconds
+  Hard Timeout  : 0 seconds             Idle Timeout     : 0 seconds
+  Byte Count    : 1256640               Packet Count     : 1221
+  Flow Table ID : 200                   Controller ID    : 1
+  Activity Count: NA                    Cookie           : 0x0
+  Hardware Index     : NA
+ Instructions
+   Apply Actions
+     Output                      : 5
+
+ Flow 16
+ Match
+  Incoming Port : 5                     Ethernet Type    : Any
+  Source MAC    : Any                   Destination MAC  : 24be05-109e3d
+  VLAN ID       : Any                   VLAN priority    : Any
+  Source Protocol Address : Any
+  Target Protocol Address : Any
+  IP Protocol   : Any
+  IP ECN        : Any                   IP DSCP          : Any
+  Source Port   : Any                   Destination Port : Any
+ Attributes
+  Priority      : 2                     Duration         : 10352 seconds
+  Hard Timeout  : 0 seconds             Idle Timeout     : 0 seconds
+  Byte Count    : 1257954               Packet Count     : 1263
+  Flow Table ID : 200                   Controller ID    : 1
+  Activity Count: NA                    Cookie           : 0x0
+  Hardware Index     : NA
+ Instructions
+   Apply Actions
+     Output                      : 7
+
+ Flow 17
+ Match
+  Incoming Port : 5                     Ethernet Type    : Any
+  Source MAC    : Any                   Destination MAC  : 24be05-0c3ce4
+  VLAN ID       : Any                   VLAN priority    : Any
+  Source Protocol Address : Any
+  Target Protocol Address : Any
+  IP Protocol   : Any
+  IP ECN        : Any                   IP DSCP          : Any
+  Source Port   : Any                   Destination Port : Any
+ Attributes
+  Priority      : 2                     Duration         : 10352 seconds
+  Hard Timeout  : 0 seconds             Idle Timeout     : 0 seconds
+  Byte Count    : 1248192               Packet Count     : 1167
+  Flow Table ID : 200                   Controller ID    : 1
+  Activity Count: NA                    Cookie           : 0x0
+  Hardware Index     : NA
+ Instructions
+   Apply Actions
+     Output                      : 8
+
+ Flow 18
+ Match
+  Incoming Port : Any                   Ethernet Type    : Any
+  Source MAC    : Any                   Destination MAC  : Any
+  VLAN ID       : Any                   VLAN priority    : Any
+  Source Protocol Address : Any
+  Target Protocol Address : Any
+  IP Protocol   : Any
+  IP ECN        : Any                   IP DSCP          : Any
+  Source Port   : Any                   Destination Port : Any
+ Attributes
+  Priority      : 0                     Duration         : 10354 seconds
+  Hard Timeout  : 0 seconds             Idle Timeout     : 0 seconds
+  Byte Count    : 0                     Packet Count     : 0
+  Flow Table ID : 201                   Controller ID    : NA
+  Activity Count: NA                    Cookie           : 0x0
+  Hardware Index     : NA
+ Instructions
+    Drop
+
+ Flow 19
+ Match
+  Incoming Port : Any                   Ethernet Type    : Any
+  Source MAC    : Any                   Destination MAC  : Any
+  VLAN ID       : Any                   VLAN priority    : Any
+  Source Protocol Address : Any
+  Target Protocol Address : Any
+  IP Protocol   : Any
+  IP ECN        : Any                   IP DSCP          : Any
+  Source Port   : Any                   Destination Port : Any
+ Attributes
+  Priority      : 0                     Duration         : 10354 seconds
+  Hard Timeout  : 0 seconds             Idle Timeout     : 0 seconds
+  Byte Count    : 0                     Packet Count     : 0
+  Flow Table ID : 202                   Controller ID    : NA
+  Activity Count: NA                    Cookie           : 0x0
+  Hardware Index     : NA
+ Instructions
+    Drop
+
+ Flow 20
+ Match
+  Incoming Port : Any                   Ethernet Type    : Any
+  Source MAC    : Any                   Destination MAC  : Any
+  VLAN ID       : Any                   VLAN priority    : Any
+  Source Protocol Address : Any
+  Target Protocol Address : Any
+  IP Protocol   : Any
+  IP ECN        : Any                   IP DSCP          : Any
+  Source Port   : Any                   Destination Port : Any
+ Attributes
+  Priority      : 0                     Duration         : 10354 seconds
+  Hard Timeout  : 0 seconds             Idle Timeout     : 0 seconds
+  Byte Count    : 0                     Packet Count     : 0
+  Flow Table ID : 203                   Controller ID    : NA
+  Activity Count: NA                    Cookie           : 0x0
+  Hardware Index     : NA
+ Instructions
+    Drop
+
+HP-2920-24G#    

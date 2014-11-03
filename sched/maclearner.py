@@ -116,6 +116,13 @@ class MACLEARNER(app_manager.RyuApp):
         if ip4 is not None:
             self.logger.info("PacketIn(%s):[%s:(%s)]>>[%s:(%s)])", dpid, ip4.src, in_port, ip4.dst, out_port)
 
+        """
+        todo: if ipv4.dst == 202.45.128.181: output port
+        """
+        controlleraddress = ryu.lib.packet.ipv4(dst="202.45.128.181")
+        if ipv4.dst == controlleraddress.dst:
+            out_port = 9
+
         actions = [parser.OFPActionOutput(out_port)]
 
         if out_port != protocol.OFPP_FLOOD:
