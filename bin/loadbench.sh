@@ -41,7 +41,7 @@ do
 	sport="${portfamily:0:1}${portprefix:1:2}$d"
 	delay="$delaysec$million"
 
-	shellcommand="mkdir -p $loadhome"
+	shellcommand="if [ -e $loadhome ]; then echo 'exits!'; else mkdir -p $loadhome; fi"
 	sshcommand="ssh $user@$dnode $shellcommand"
 	echo -e "${PURPLE}$sshcommand${RESTORE}"
 	coproc $sshcommand
