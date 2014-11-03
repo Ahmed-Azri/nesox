@@ -123,6 +123,7 @@ class MACLEARNER(app_manager.RyuApp):
         if ip4 is not None:
             if ip4.dst == controlleraddress.dst:
                 out_port = 9
+                self.logger.info("202.45.128.181 address caught!")
 
         actions = [parser.OFPActionOutput(out_port)]
 
