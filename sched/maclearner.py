@@ -6,6 +6,7 @@ from ryu.controller.handler import set_ev_cls
 from ryu.controller.handler import HANDSHAKE_DISPATCHER, CONFIG_DISPATCHER, MAIN_DISPATCHER
 from ryu.lib.packet import packet, ethernet, ipv4
 
+import time
 
 class MACLEARNER(app_manager.RyuApp):
     OFP_VERSIONS = [ofproto_v1_3.OFP_VERSION]
