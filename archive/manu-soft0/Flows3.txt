@@ -9,7 +9,7 @@ We'd like to keep you up to date about:
 Please register your products now at:  www.hp.com/networking/register
 
 
-manager@switch's password: 
+manager@switch's password:
 HP J9726A 2920-24G Switch
 Software revision WB.15.14.0007
 
@@ -21,7 +21,7 @@ Copyright (C) 1991-2014 Hewlett-Packard Development Company, L.P.
  Software, Computer Software Documentation, and Technical Data for Commercial
  Items are licensed to the U.S. Government under vendor's standard commercial
  license.
-                   HEWLETT-PACKARD DEVELOPMENT COMPANY, L.P. 
+                   HEWLETT-PACKARD DEVELOPMENT COMPANY, L.P.
                    20555 State Highway 249, Houston, TX 77070
 
 
@@ -61,7 +61,7 @@ Copyright (C) 1991-2014 Hewlett-Packard Development Company, L.P.
 
 
 Press any key to continue
-Your previous successful login (as manager) was on 1990-02-11 21:42:54     
+Your previous successful login (as manager) was on 1990-02-11 21:42:54
  from 202.45.128.182
 
 
@@ -123,11 +123,11 @@ Your previous successful login (as manager) was on 1990-02-11 21:42:54
 
 
 
-HP-2920-24G# 
-HP-2920-24G# 
-HP-2920-24G# 
-HP-2920-24G# 
-HP-2920-24G# 
+HP-2920-24G#
+HP-2920-24G#
+HP-2920-24G#
+HP-2920-24G#
+HP-2920-24G#
 HP-2920-24G# show openflow instance nesox flows
 
  OpenFlow Flow Table
@@ -546,4 +546,4 @@ HP-2920-24G# show openflow instance nesox flows
  Instructions
     Drop
 
-HP-2920-24G#    
+HP-2920-24G#

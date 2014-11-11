@@ -78,6 +78,17 @@ a. how to associate flow to meter (done)
 b. if the rate of the meter is 0, what happened? unlimited or drop everything?
 c. what is the TCP packet size?
 
+final report
+------------
+1. draw a diagram illustrating the experiments (done)
+2. add the back-pipeline learning algorithm description (done)
+
+final presentation:
+-------------------
+1. fix the date (communicate with program office)
+2. prepare the presentation slides (comments added in each slide)
+
+
 reference
 ---------
 http://bashcookbook.com/bashinfo/source/bash-3.1/examples/scripts.noah/string.bash
