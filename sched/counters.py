@@ -35,6 +35,7 @@ class COUNTERS(app_manager.RyuApp):
 
     @set_ev_cls(ofp_event.EventOFPFlowStatsReply, MAIN_DISPATCHER)
     def flow_stats_reply_handler(self, ev):
+        datapath = ev.msg.datapath
         flows = []
         for stat in ev.msg.body:
             flows.append('table_id=%s '
@@ -50,3 +51,5 @@ class COUNTERS(app_manager.RyuApp):
                           stat.cookie, stat.packet_count, stat.byte_count,
                           stat.match, stat.instructions))
         self.logger.info('FlowStats: %s', flows)
+        time.sleep(2)
+        self.send_flow_stats_request(datapath)
