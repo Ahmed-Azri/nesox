@@ -51,5 +51,5 @@ class COUNTERS(app_manager.RyuApp):
                           stat.cookie, stat.packet_count, stat.byte_count,
                           stat.match, stat.instructions))
         self.logger.info('FlowStats: %s', flows)
-        time.sleep(2)
+        time.sleep(10)
         self.send_flow_stats_request(datapath)
