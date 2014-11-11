@@ -145,6 +145,7 @@ class MACLEARNER(app_manager.RyuApp):
             # self.logger.info("matches: %s", match)
 
         for m in self.matchlist:
+            self.logger.info("matches: %s", match)
             self.send_flow_stats_request(datapath, m)
 
         data = None
