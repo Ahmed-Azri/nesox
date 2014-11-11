@@ -173,4 +173,6 @@ class MACLEARNER(app_manager.RyuApp):
         time.sleep(10)
         for match in self.matchlist:
             self.send_flow_stats_request(datapath, match)
+            break
+
 
