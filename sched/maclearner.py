@@ -144,6 +144,9 @@ class MACLEARNER(app_manager.RyuApp):
             self.insertflow(datapath, self.table_id, 2, match, actions)
             # self.logger.info("matches: %s", match)
 
+        for m in self.matchlist:
+            self.send_flow_stats_request(datapath, m)
+
         data = None
         if message.buffer_id == protocol.OFP_NO_BUFFER:
             data = message.data
@@ -170,9 +173,9 @@ class MACLEARNER(app_manager.RyuApp):
                           stat.cookie, stat.packet_count, stat.byte_count,
                           stat.match, stat.instructions))
         self.logger.info('FlowStats: %s', flows)
-        time.sleep(10)
-        for match in self.matchlist:
-            self.send_flow_stats_request(datapath, match)
-            break
+        # time.sleep(10)
+        # for match in self.matchlist:
+        #     self.send_flow_stats_request(datapath, match)
+        #     break
 
 
