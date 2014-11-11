@@ -18,7 +18,7 @@ class COUNTERS(app_manager.RyuApp):
         ofp = datapath.ofproto
         ofp_parser = datapath.ofproto_parser
         cookie = cookie_mask = 0
-        match = ofp_parser.OFPMatch(in_port=1)
+        match = ofp_parser.OFPMatch()
         req = ofp_parser.OFPFlowStatsRequest(datapath, 0, ofp.OFPTT_ALL, ofp.OFPP_ANY, ofp.OFPG_ANY, cookie, cookie_mask, match)
         datapath.send_msg(req)
 
