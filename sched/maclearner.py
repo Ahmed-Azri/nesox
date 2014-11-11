@@ -14,6 +14,7 @@ class MACLEARNER(app_manager.RyuApp):
         super(MACLEARNER, self).__init__(*args, **kwargs)
         self.mac_to_port = {}
         self.table_id = 200
+        self.matchlist = []
 
     """
     todo: these basic flow operation could be moved to a `base` .py file
@@ -41,6 +42,13 @@ class MACLEARNER(app_manager.RyuApp):
         modification = parser.OFPFlowMod(datapath=datapath,
             table_id=table_id, command=protocol.OFPFC_ADD, match=match, instructions=instruction)
         datapath.send_msg(modification)
+
+    def send_flow_stats_request(self, datapath, match):
+        ofp = datapath.ofproto
+        ofp_parser = datapath.ofproto_parser
+        cookie = cookie_mask = 0
+        req = ofp_parser.OFPFlowStatsRequest(datapath, 0, ofp.OFPTT_ALL, ofp.OFPP_ANY, ofp.OFPG_ANY, cookie, cookie_mask, match)
+        datapath.send_msg(req)
 
 
     @set_ev_cls(ofp_event.EventOFPSwitchFeatures, CONFIG_DISPATCHER)
@@ -129,7 +137,9 @@ class MACLEARNER(app_manager.RyuApp):
 
         if out_port != protocol.OFPP_FLOOD:
             match = parser.OFPMatch(in_port=in_port, eth_dst=dst)
+            self.matchlist.append(match)
             self.insertflow(datapath, self.table_id, 2, match, actions)
+            self.logger.info("matches: %s", match)
 
         data = None
         if message.buffer_id == protocol.OFP_NO_BUFFER:
