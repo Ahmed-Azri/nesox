@@ -13,6 +13,12 @@ class RATEALLOCATOR(app_manager.RyuApp):
     def __init__(self, *args, **kwargs):
         super(RATEALLOCATOR, self).__init__(*args, **kwargs)
 
+    def gettransferset(self):
+        self.logger.info("get transfer set!")
+
+    def gettransfer(self):
+
+
     def insertflow(self, datapath, table_id, priority, match, actions):
         protocol = datapath.ofproto
         parser = datapath.ofproto_parser
