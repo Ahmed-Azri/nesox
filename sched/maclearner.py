@@ -93,6 +93,8 @@ class MACLEARNER(app_manager.RyuApp):
         self.insertflow(datapath, self.table_id, 0, match, actions)
         self.insertflow(datapath, self.table_id, 1, match, actions)
 
+        self.send_flow_stats_request(datapath, match)
+
         self.logger.info("MACLEARNER: Handler = Switch Basic Features: leave!")
 
     @set_ev_cls(ofp_event.EventOFPPacketIn, MAIN_DISPATCHER)
@@ -139,7 +141,7 @@ class MACLEARNER(app_manager.RyuApp):
             match = parser.OFPMatch(in_port=in_port, eth_dst=dst)
             self.matchlist.append(match)
             self.insertflow(datapath, self.table_id, 2, match, actions)
-            self.logger.info("matches: %s", match)
+            # self.logger.info("matches: %s", match)
 
         data = None
         if message.buffer_id == protocol.OFP_NO_BUFFER:
@@ -149,4 +151,25 @@ class MACLEARNER(app_manager.RyuApp):
             buffer_id=message.buffer_id, in_port=in_port, actions=actions, data=data)
         datapath.send_msg(packetout)
 
+    @set_ev_cls(ofp_event.EventOFPFlowStatsReply, MAIN_DISPATCHER)
+    def flow_stats_reply_handler(self, ev):
+        datapath = ev.msg.datapath
+        flows = []
+        for stat in ev.msg.body:
+            flows.append('table_id=%s '
+                         'duration_sec=%d duration_nsec=%d '
+                         'priority=%d '
+                         'idle_timeout=%d hard_timeout=%d flags=0x%04x '
+                         'cookie=%d packet_count=%d byte_count=%d '
+                         'match=%s instructions=%s' %
+                         (stat.table_id,
+                          stat.duration_sec, stat.duration_nsec,
+                          stat.priority,
+                          stat.idle_timeout, stat.hard_timeout, stat.flags,
+                          stat.cookie, stat.packet_count, stat.byte_count,
+                          stat.match, stat.instructions))
+        self.logger.info('FlowStats: %s', flows)
+        time.sleep(10)
+        for match in self.matchlist:
+            self.send_flow_stats_request(datapath, match)
 
