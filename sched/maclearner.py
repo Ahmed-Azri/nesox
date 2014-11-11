@@ -174,9 +174,5 @@ class MACLEARNER(app_manager.RyuApp):
                           stat.cookie, stat.packet_count, stat.byte_count,
                           stat.match, stat.instructions))
         self.logger.info('FlowStats: %s', flows)
-        # time.sleep(10)
-        # for match in self.matchlist:
-        #     self.send_flow_stats_request(datapath, match)
-        #     break
-
-
+        if not flows:
+            self.logger.info('flows is empty!')
