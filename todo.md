@@ -76,7 +76,7 @@ controller plane
 9. how to create meter (done)
 a. how to associate flow to meter (done)
 b. if the rate of the meter is 0, what happened? unlimited or drop everything?
-c. what is the TCP packet size?
+c. what is the TCP/IP/Ethernet packet size?
 
 final report
 ------------
@@ -88,8 +88,22 @@ final presentation:
 1. fix the date (communicate with program office)
 2. prepare the presentation slides (comments added in each slide)
 
-
 reference
 ---------
 http://bashcookbook.com/bashinfo/source/bash-3.1/examples/scripts.noah/string.bash
 http://www.enderunix.org/docs/eng/daemon.php
+https://h10145.www1.hp.com/downloads/SoftwareReleases.aspx?ProductNumber=J9726A&lang=&cc=&prodSeriesId=&SoftwareReleaseUId=11185&SerialNumber=&PurchaseDate=
+
+
+
+
+final experiment:
+1. meter effectiveness
+2. shuffle samples show algorithmic effectiveness
+
+
+
+
+
+
+

@@ -23,7 +23,6 @@ class COUNTERS(app_manager.RyuApp):
         datapath.send_msg(req)
 
 
-
     @set_ev_cls(ofp_event.EventOFPSwitchFeatures, CONFIG_DISPATCHER)
     def switch_features_handler(self, event):
         self.logger.info("COUNTERS: Handler = Switch Features: enter!")

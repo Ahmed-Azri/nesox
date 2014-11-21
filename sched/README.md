@@ -3,9 +3,6 @@ Nesox Scheduling Module
 
 **Nesox scheduling module is actually a set of Ryu application implemented scheduling algorithms.**
 
-For each functions, develop an app, then in the paper, for each app, there can be a paragraph.
-But the precondition is that multiple apps can work cooperately in ryu-manager app-list.
-
 It is OK to run 2 applications at the same time!!!
 
 
@@ -26,4 +23,7 @@ and_count=0,packet_band_count=0)]', 'meter_id=0x00000002 len=56 flow_count=0 pac
 MeterConfigStats: ['length=24 flags=0x0001 meter_id=0x00000005 bands=[OFPMeterBandDscpRemark(burst_size=0,len=16,prec_level
 =0,rate=55,type=2)]', 'length=24 flags=0x0001 meter_id=0x00000001 bands=[OFPMeterBandDrop(burst_size=0,len=16,rate=0,type=1
 )]', 'length=24 flags=0x0001 meter_id=0x00000002 bands=[OFPMeterBandDrop(burst_size=0,len=16,rate=22,type=1)]']
+
+
+
 
