@@ -15,11 +15,11 @@ if [ "$2" != "" ]; then beaternode="$2"; fi
 serverhost="$nodeprefix$servernode"
 beaterhost="$nodeprefix$beaternode"
 
-frequency=4
+frequency=5
 if [ "$3" != "" ]; then frequency="$3"; fi
 
-size=104857600
 size=1048576
+size=104857600
 
 scommand="nesox -g background -d $beat -r server -f $file $serverhost $beaterport"
 bcommand="nesox -g background -d $beat -r beater -s $size $serverhost $beaterport $frequency"
@@ -35,4 +35,5 @@ echo -e "${YELLOW}start heart beating beater on $beaterhost ${RESTORE}"
 echo $sshbcommand
 coproc $sshbcommand
 wait $!
+
 
