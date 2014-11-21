@@ -18,9 +18,7 @@ class RATEALLOCATOR(app_manager.RyuApp):
 
     def gettransferset(self):
         self.logger.info("get transfer set!")
-        """
-        todo: get the transfer info
-        """
+
     def gettransfer(self):
         self.logger.info("get transfer!")
         """

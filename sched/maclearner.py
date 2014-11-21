@@ -177,8 +177,3 @@ class MACLEARNER(app_manager.RyuApp):
         if not flows:
             self.logger.info('flows is empty!')
 
-
-
-
-
-

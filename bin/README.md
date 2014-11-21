@@ -38,7 +38,7 @@ on mac: execute buildload.sh
 
 32 randomized workload is going to be constant!!! (naming: norm-variance-mean-timeinstant)
 
-manunally configurated should be named in (manu-num.ld) (for num in `seq -1 01 - 10`)
+manually configuration should be named in (manu-num.ld) (for num in `seq -1 01 - 10`)
 
 
 on d0: loadall.sh (loadall.sh 120 8: run in interactive mode for OF!!!)
