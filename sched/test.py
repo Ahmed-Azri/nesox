@@ -17,5 +17,5 @@ class TEST100(app_manager.RyuApp):
     def switch_features_handler(self, event):
         self.logger.info("TEST100: Handler = Switch Features: enter!")
 
-        self.logger.info("TEST100: Handler = Switch Features: enter!")
+        self.logger.info("TEST100: Handler = Switch Features: leave!")
 
