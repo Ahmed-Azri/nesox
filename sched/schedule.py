@@ -9,6 +9,7 @@ from ryu.lib.packet import packet, ethernet, ipv4
 from os import listdir
 from nesox import flow
 from nesox import transdir
+import nesox
 
 class SCHEDULE(app_manager.RyuApp):
     OFP_VERSIONS = [ofproto_v1_3.OFP_VERSION]
@@ -25,7 +26,7 @@ class SCHEDULE(app_manager.RyuApp):
         transfers = listdir(transdir)
 
         for tran in transfers: transfile = open(transdir + tran)
-        for line in transfile: flows.append(flow(int(line[0]), int(line[2]), int(line[6:].rstrip()), int(line[4])))
+        for line in transfile: flows.append(nesox.flow(int(line[0]), int(line[2]), int(line[6:].rstrip()), int(line[4])))
         for flow in flows: transfermap[(flow.source, flow.destination)] = flow
 
         transfermap[(1,2)].show(1)
