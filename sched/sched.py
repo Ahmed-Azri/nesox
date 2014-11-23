@@ -10,15 +10,15 @@ from os import listdir
 from nesox import flow
 from nesox import transdir
 
-class SCHED(app_manager.RyuApp):
+class SCHED100(app_manager.RyuApp):
     OFP_VERSIONS = [ofproto_v1_3.OFP_VERSION]
 
     def __init__(self, *args, **kwargs):
-        super(SCHED, self).__init__(*args, **kwargs)
+        super(SCHED100, self).__init__(*args, **kwargs)
 
     @set_ev_cls(ofp_event.EventOFPSwitchFeatures, CONFIG_DISPATCHER)
     def switch_features_handler(self, event):
-        self.logger.info("SCHED: Handler = Switch Features: enter!")
+        self.logger.info("SCHED100: Handler = Switch Features: enter!")
 
         flows = []
         transfermap = {}
@@ -30,4 +30,4 @@ class SCHED(app_manager.RyuApp):
 
         transfermap[(1,2)].show(1)
 
-        self.logger.info("SCHED: Handler = Switch Features: leave!")
+        self.logger.info("SCHED100: Handler = Switch Features: leave!")
