@@ -7,13 +7,15 @@ from ryu.controller.handler import HANDSHAKE_DISPATCHER, CONFIG_DISPATCHER, MAIN
 from ryu.lib.packet import packet, ethernet, ipv4
 
 
-class TEST(app_manager.RyuApp):
+class TEST200(app_manager.RyuApp):
     OFP_VERSIONS = [ofproto_v1_3.OFP_VERSION]
 
     def __init__(self, *args, **kwargs):
-        super(TEST, self).__init__(*args, **kwargs)
+        super(TEST200, self).__init__(*args, **kwargs)
 
     @set_ev_cls(ofp_event.EventOFPSwitchFeatures, CONFIG_DISPATCHER)
     def switch_features_handler(self, event):
-        self.logger.info("TEST: Handler = Switch Features: enter!")
+        self.logger.info("TEST2: Handler = Switch Features: enter!")
+
+        self.logger.info("TEST2: Handler = Switch Features: leave!")
 
