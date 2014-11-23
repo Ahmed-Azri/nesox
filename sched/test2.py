@@ -15,7 +15,7 @@ class TEST200(app_manager.RyuApp):
 
     @set_ev_cls(ofp_event.EventOFPSwitchFeatures, CONFIG_DISPATCHER)
     def switch_features_handler(self, event):
-        self.logger.info("TEST2: Handler = Switch Features: enter!")
+        self.logger.info("TEST200: Handler = Switch Features: enter!")
 
-        self.logger.info("TEST2: Handler = Switch Features: leave!")
+        self.logger.info("TEST200: Handler = Switch Features: leave!")
 
