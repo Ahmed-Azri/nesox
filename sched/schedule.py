@@ -161,6 +161,7 @@ class SCHEDULE(app_manager.RyuApp):
             t = gototid
         self.insert_controller(datapath, t, m, p)
 
+
         """
         create flows (service dispatching)
         priority = 2
@@ -265,6 +266,7 @@ class SCHEDULE(app_manager.RyuApp):
 
         if self.debug: self.logger.info("meter configs: %s", meterstats)
 
+        sleep(self.monitor_frequency)
         if self.monitor_on: self.request_meterstats(datapath)
         self.logger.info("SCHEDULE [Handler = Meter Stats]: leave!")
 
