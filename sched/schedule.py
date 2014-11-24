@@ -19,7 +19,7 @@ class SCHEDULE(app_manager.RyuApp):
     def __init__(self, *args, **kwargs):
         super(SCHEDULE, self).__init__(*args, **kwargs)
         self.debug = 1
-        self.trace = 1
+        self.trace = 0
         self.table_start = 100
         self.table_terminate = 203
         self.hard_table_id = 100
