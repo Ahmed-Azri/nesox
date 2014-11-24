@@ -233,6 +233,8 @@ class SCHEDULE(app_manager.RyuApp):
         if self.debug: self.logger.info("counters: %s", counters)
         if counters[0][3] != 0: self.packet_size = (counters[0][4] - self.byte_count) / (counters[0][3] - self.packet_count)
         if self.debug: self.logger.info("packet size: %s", self.packet_size)
+        self.byte_count = counters[0][4]
+        self.packet_count = counters[0][3]
 
         tid = self.table_terminate
         m = parser.OFPMatch()
