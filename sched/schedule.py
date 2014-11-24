@@ -88,7 +88,7 @@ class SCHEDULE(app_manager.RyuApp):
     def request_meterconfig(self, datapath):
         protocol = datapath.ofproto
         parser = datapath.ofproto_parser
-        request = ofp_parser.OFPMeterConfigStatsRequest(datapath, 0, protocol.OFPM_ALL)
+        request = parser.OFPMeterConfigStatsRequest(datapath, 0, protocol.OFPM_ALL)
         datapath.send_msg(request)
 
     def request_meterstats(self, datapath):
