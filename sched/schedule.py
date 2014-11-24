@@ -97,7 +97,8 @@ class SCHEDULE(app_manager.RyuApp):
 
     @set_ev_cls(ofp_event.EventOFPPacketIn, MAIN_DISPATCHER)
     def packet_in_handler(self, event):
-        self.logger.info("SCHEDULE [Handler = Packet In]: enter! [%s]", self.packetin_counter += 1)
+        self.logger.info("SCHEDULE [Handler = Packet In]: enter! [%s]", self.packetin_counter)
+        self.packetin_counter += 1
 
         self.logger.info("SCHEDULE [Handler = Packet In]: leave!")
 
