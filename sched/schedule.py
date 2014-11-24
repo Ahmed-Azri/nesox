@@ -63,7 +63,7 @@ class SCHEDULE(app_manager.RyuApp):
 
     @set_ev_cls(ofp_event.EventOFPSwitchFeatures, CONFIG_DISPATCHER)
     def switch_features_handler(self, event):
-        self.logger.info("SCHEDULE: Handler = Switch Features: enter!")
+        self.logger.info("SCHEDULE [Handler = Switch Features]: enter !")
 
         """
         initialize datapath
@@ -81,7 +81,8 @@ class SCHEDULE(app_manager.RyuApp):
         if (self.debug): self.logger.info("tramsfermap: %s", self.transfermap)
 
         """
-        initialize pipeline: priority = 1
+        priority = 1
+        initialize pipeline: packet pass through the pipeline to controller
         """
         tid = self.table_start
         m = parser.OFPMatch()
@@ -91,6 +92,11 @@ class SCHEDULE(app_manager.RyuApp):
             tid = gototid
         self.insert_controller(datapath, tid, m, p)
 
-        self.logger.info("SCHEDULE: Handler = Switch Features: leave!")
+        self.logger.info("SCHEDULE [Handler = Switch Features]: leave !")
 
+    @set_ev_cls(ofp_event.EventOFPPacketIn, MAIN_DISPATCHER)
+    def packet_in_handler(self, event):
+        self.logger.info("SCHEDULE [Handler = Packet In]: enter !")
+
+        self.logger.info("SCHEDULE [Handler = Packet In]: leave !")
 
