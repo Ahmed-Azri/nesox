@@ -107,7 +107,7 @@ class SCHEDULE(app_manager.RyuApp):
             tid = gototid
         self.insert_controller(datapath, tid, m, p)
 
-        request_flowstats(datapath, tid, m)
+        self.request_flowstats(datapath, tid, m)
 
         self.logger.info("SCHEDULE [Handler = Switch Features]: leave!")
 
@@ -132,7 +132,7 @@ class SCHEDULE(app_manager.RyuApp):
             counters.append((stat.table_id, stat.priority, stat.match, stat.byte_count))
         if (self.debug): self.logger.info("counters: %s", counters)
 
-        request_flowstats(datapath, tid, m)
+        self.request_flowstats(datapath, tid, m)
         sleep(1)
 
         self.logger.info("SCHEDULE [Handler = Flow Stats]: leave!")
