@@ -178,10 +178,9 @@ class SCHEDULE(app_manager.RyuApp):
         """
         create meters (static)
         """
-        rates = [0, 20*1000, 40*1000, 80*1000, 100*1000]
+        rates = [20*1000, 40*1000, 80*1000, 100*1000, 0]
         for mid in range(0, len(rates)):
-            self.insert_meter(datapath, mid, rates[mid])
-        self.insert_meter(datapath, 5, 0)
+            self.insert_meter(datapath, mid+1, rates[mid])
 
 
         """
