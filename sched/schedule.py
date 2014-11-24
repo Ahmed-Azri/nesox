@@ -7,6 +7,7 @@ from ryu.controller.handler import HANDSHAKE_DISPATCHER, CONFIG_DISPATCHER, MAIN
 from ryu.lib.packet import packet, ethernet, ipv4
 
 from os import listdir
+from time import sleep
 
 import nesox
 from nesox import flow
@@ -30,6 +31,7 @@ class SCHEDULE(app_manager.RyuApp):
         self.transfers = listdir(transdir)
         self.datapath = None
         self.packetin_counter = 0
+
 
     def insert_actions(self, datapath, tid, match, pri, actions):
         protocol = datapath.ofproto
@@ -61,17 +63,29 @@ class SCHEDULE(app_manager.RyuApp):
         modification = parser.OFPFlowMod(datapath=datapath, table_id=tid, match=match, priority=pri, instructions=instructions)
         datapath.send_msg(modification)
 
+    def request_flowstats(self, datapath, tid, match):
+        protocol = datapath.ofproto
+        parser = datapath.ofproto_parser
+        cookie = cookie_mask = 0
+        request = parser.OFPFlowStatsRequest(datapath, 0, tid, protocol.OFPP_ANY, protocol.OFPG_ANY, 0, 0, match)
+        datapath.send_msg(req)
 
     @set_ev_cls(ofp_event.EventOFPSwitchFeatures, CONFIG_DISPATCHER)
-    def switch_features_handler(self, event):
+    def handler_switch_features(self, event):
         self.logger.info("SCHEDULE [Handler = Switch Features]: enter!")
+
+        """
+        initialize packetin counter
+        """
+        self.packetin_counter = 0
 
         """
         initialize datapath
         """
         datapath = event.msg.datapath
-        self.datapath = datapath
         parser = datapath.ofproto_parser
+
+        self.datapath = datapath
 
         """
         read `transfer` requirement into a `list` and a `dictionary`
@@ -83,7 +97,7 @@ class SCHEDULE(app_manager.RyuApp):
 
         """
         priority = 1
-        initialize pipeline: packet pass through the pipeline to controller
+        initialize pipeline: (ANY) packet pass through the pipeline to controller
         """
         tid = self.table_start
         m = parser.OFPMatch()
@@ -93,12 +107,33 @@ class SCHEDULE(app_manager.RyuApp):
             tid = gototid
         self.insert_controller(datapath, tid, m, p)
 
+        request_flowstats(datapath, tid, m)
+
         self.logger.info("SCHEDULE [Handler = Switch Features]: leave!")
 
     @set_ev_cls(ofp_event.EventOFPPacketIn, MAIN_DISPATCHER)
-    def packet_in_handler(self, event):
+    def handler_packetin(self, event):
         self.logger.info("SCHEDULE [Handler = Packet In]: enter! [%s]", self.packetin_counter)
         self.packetin_counter += 1
 
         self.logger.info("SCHEDULE [Handler = Packet In]: leave!")
+
+    @set_ev_cls(ofp_event.EventOFPFlowStatsReply, MAIN_DISPATCHER)
+    def handler_flowstats(self, event):
+        self.logger.info("SCHEDULE [Handler = Flow Stats]: enter!")
+        """
+        initialize datapath
+        """
+        datapath = event.msg.datapath
+        flowstat = event.msg.body
+
+        counters = []
+        for stat in flowstat:
+            counters.append((stat.table_id, stat.priority, stat.match, stat.byte_count))
+        if (self.debug): self.logger.info("counters: %s", counters)
+
+        request_flowstats(datapath, tid, m)
+        sleep(1)
+
+        self.logger.info("SCHEDULE [Handler = Flow Stats]: leave!")
 
