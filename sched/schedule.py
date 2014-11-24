@@ -195,7 +195,7 @@ class SCHEDULE(app_manager.RyuApp):
 
         meterfeatures = []
         for feature in features:
-            meterfeatures.append((feature.max_meter, feature.band_type, feature.max_band, feature.capacities))
+            meterfeatures.append((feature.max_meter, feature.band_types, feature.max_band, feature.capacities))
         if self.debug: self.logger.info("meter features: %s", meterfeatures)
 
         self.logger.info("SCHEDULE [Handler = Meter Features]: leave!")
