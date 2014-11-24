@@ -33,6 +33,7 @@ class SCHEDULE(app_manager.RyuApp):
         self.packetin_counter = 0
         self.monitor_on = True
         self.monitor_frequency = 1
+        self.table_id = 203
 
 
     def insert_actions(self, datapath, tid, match, pri, actions):
@@ -77,6 +78,23 @@ class SCHEDULE(app_manager.RyuApp):
         parser = datapath.ofproto_parser
         cookie = cookie_mask = 0
         request = parser.OFPFlowStatsRequest(datapath, 0, protocol.OFPTT_ALL, protocol.OFPP_ANY, protocol.OFPG_ANY, 0, 0, match)
+        datapath.send_msg(request)
+
+    def request_meterfeature(self, datapath):
+        parser = datapath.ofproto_parser
+        request = parser.OFPMeterFeaturesStatsRequest(datapath, 0)
+        datapath.send_msg(request)
+
+    def request_meterconfig(self, datapath):
+        protocol = datapath.ofproto
+        parser = datapath.ofproto_parser
+        request = ofp_parser.OFPMeterConfigStatsRequest(datapath, 0, protocol.OFPM_ALL)
+        datapath.send_msg(request)
+
+    def request_meterstats(self, datapath):
+        protocol = datapath.ofproto
+        parser = datapath.ofproto_parser
+        request = parser.OFPMeterStatsRequest(datapath, 0, protocol.OFPM_ALL)
         datapath.send_msg(request)
 
 
@@ -127,6 +145,15 @@ class SCHEDULE(app_manager.RyuApp):
         """
         if self.monitor_on: self.request_flowstats(datapath, tid, m)
 
+
+        """
+        monitor meters
+        """
+        if self.monitor_on: self.request_meterfeature(datapath)
+        if self.monitor_on: self.request_meterconfig(datapath)
+        if self.monitor_on: self.request_metertats(datapath)
+
+
         self.logger.info("SCHEDULE [Handler = Switch Features]: leave!")
 
 
@@ -137,12 +164,10 @@ class SCHEDULE(app_manager.RyuApp):
 
         self.logger.info("SCHEDULE [Handler = Packet In]: leave!")
 
+
     @set_ev_cls(ofp_event.EventOFPFlowStatsReply, MAIN_DISPATCHER)
     def handler_flowstats(self, event):
         self.logger.info("SCHEDULE [Handler = Flow Stats]: enter!")
-        """
-        initialize datapath
-        """
         datapath = event.msg.datapath
         flowstat = event.msg.body
         parser = datapath.ofproto_parser
@@ -154,10 +179,53 @@ class SCHEDULE(app_manager.RyuApp):
         if self.debug: self.logger.info("counters: %s", counters)
 
         if not self.monitor_on: return
-        tid = 203
+        tid = self.table_id
         m = parser.OFPMatch()
         sleep(self.monitor_frequency)
         self.request_flowstats(datapath, tid, m)
 
         self.logger.info("SCHEDULE [Handler = Flow Stats]: leave!")
+
+
+    @set_ev_cls(ofp_event.EventOFPMeterFeaturesStatsReply, MAIN_DISPATCHER)
+    def handler_meterfeature(self, event):
+        self.logger.info("SCHEDULE [Handler = Meter Features]: enter!")
+        datapath = event.msg.datapath
+        features = event.msg.body
+
+        meterfeatures = []
+        for feature in features:
+            meterfeatures.append((feature.max_meter, feature.band_type, feature.max_band, feature.capacities))
+        if self.debug: self.logger.info("meter features: %s", meterfeatures)
+
+        self.logger.info("SCHEDULE [Handler = Meter Features]: leave!")
+
+    @set_ev_cls(ofp_event.EventOFPMeterConfigStatsReply, MAIN_DISPATCHER)
+    def handler_meterconfig(self, event):
+        self.logger.info("SCHEDULE [Handler = Meter Configurations]: enter!")
+        datapath = event.msg.datapath
+        configs = event.msg.body
+
+        meterconfigs = []
+        for config in configs:
+            meterconfigs.append((config.meter_id, config.bands, config.flags, config.length))
+        if self.debug: self.logger.info("meter configs: %s", meterconfigs)
+
+        self.logger.info("SCHEDULE [Handler = Meter Configurations]: leave!")
+
+
+    @set_ev_cls(ofp_event.EventOFPMeterStatsReply, MAIN_DISPATCHER)
+    def handler_meterstats(self, event):
+        self.logger.info("SCHEDULE [Handler = Meter Configurations]: enter!")
+        datapath = event.msg.datapath
+        stats = event.msg.body
+
+        meterstats = []
+        for stat in stats:
+            meterstats.append((stat.meter_id, stat.flow_count, stat.packet_in_count, stat.byte_in_count, stat.band_stats))
+
+        if self.debug: self.logger.info("meter configs: %s", meterconfigs)
+        self.logger.info("SCHEDULE [Handler = Meter Configurations]: leave!")
+
+
 
