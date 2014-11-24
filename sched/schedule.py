@@ -225,7 +225,8 @@ class SCHEDULE(app_manager.RyuApp):
             meterstats.append((stat.meter_id, stat.flow_count, stat.packet_in_count, stat.byte_in_count, stat.band_stats))
 
         if self.debug: self.logger.info("meter configs: %s", meterstats)
-        self.logger.info("SCHEDULE [Handler = Meter Configurations]: leave!")
 
+        if self.monitor_on: self.request_meterstats(datapath)
+        self.logger.info("SCHEDULE [Handler = Meter Configurations]: leave!")
 
 
