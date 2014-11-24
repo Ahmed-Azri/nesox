@@ -20,6 +20,7 @@ class SCHEDULE(app_manager.RyuApp):
         super(SCHEDULE, self).__init__(*args, **kwargs)
         self.debug = 1
         self.table_start = 100
+        self.table_terminate = 203
         self.hard_table_id = 100
         self.hard_table_no = 1
         self.hard_tables = [100]
@@ -33,7 +34,7 @@ class SCHEDULE(app_manager.RyuApp):
         self.packetin_counter = 0
         self.monitor_on = True
         self.monitor_frequency = 1
-        self.table_id = 203
+        self.pipeline_mode = True
 
 
     def insert_actions(self, datapath, tid, match, pri, actions):
@@ -97,6 +98,26 @@ class SCHEDULE(app_manager.RyuApp):
         request = parser.OFPMeterStatsRequest(datapath, 0, protocol.OFPM_ALL)
         datapath.send_msg(request)
 
+    def insert_meter(self, datapath, mid, rate):
+        protocol = datapath.ofproto
+        parser = datapath.ofproto_parser
+        bands = [parser.OFPMeterBandDrop(rate=rate)]
+        modification = parser.OFPMeterMod(datapath=datapath, flags=protocol.OFPMF_KBPS, meter_id=mid, bands=bands)
+        datapath.send_msg(modification)
+
+    def change_meter(self, datapath, mid, rate):
+        protocol = datapath.ofproto
+        parser = datapath.ofproto_parser
+        bands = [parser.OFPMeterBandDrop(rate=rate)]
+        modification = parser.OFPMeterMod(datapath=datapath, command=protocol.OFPMC_MODIFY, meter_id=mid, bands=bands)
+        datapath.send_msg(modification)
+
+    def delete_meter(self, datapath, mid):
+        protocol = datapath.ofproto
+        parser = datapath.ofproto_parser
+        modification = parser.OFPMeterMod(datapath=datapath, command=protocol.OFPMC_DELETE, meter_id=mid)
+        datapath.send_msg(modification)
+
 
     @set_ev_cls(ofp_event.EventOFPSwitchFeatures, CONFIG_DISPATCHER)
     def handler_switch_features(self, event):
@@ -140,6 +161,12 @@ class SCHEDULE(app_manager.RyuApp):
             tid = gototid
         self.insert_controller(datapath, tid, m, p)
 
+
+        """
+        create meters
+        """
+
+
         """
         monitor flows
         """
@@ -179,7 +206,7 @@ class SCHEDULE(app_manager.RyuApp):
         if self.debug: self.logger.info("counters: %s", counters)
 
         if not self.monitor_on: return
-        tid = self.table_id
+        tid = self.table_terminate
         m = parser.OFPMatch()
         sleep(self.monitor_frequency)
         self.request_flowstats(datapath, tid, m)
@@ -200,6 +227,7 @@ class SCHEDULE(app_manager.RyuApp):
 
         self.logger.info("SCHEDULE [Handler = Meter Features]: leave!")
 
+
     @set_ev_cls(ofp_event.EventOFPMeterConfigStatsReply, MAIN_DISPATCHER)
     def handler_meterconfig(self, event):
         self.logger.info("SCHEDULE [Handler = Meter Configurations]: enter!")
@@ -216,7 +244,7 @@ class SCHEDULE(app_manager.RyuApp):
 
     @set_ev_cls(ofp_event.EventOFPMeterStatsReply, MAIN_DISPATCHER)
     def handler_meterstats(self, event):
-        self.logger.info("SCHEDULE [Handler = Meter Configurations]: enter!")
+        self.logger.info("SCHEDULE [Handler = Meter Stats]: enter!")
         datapath = event.msg.datapath
         stats = event.msg.body
 
@@ -227,6 +255,5 @@ class SCHEDULE(app_manager.RyuApp):
         if self.debug: self.logger.info("meter configs: %s", meterstats)
 
         if self.monitor_on: self.request_meterstats(datapath)
-        self.logger.info("SCHEDULE [Handler = Meter Configurations]: leave!")
-
+        self.logger.info("SCHEDULE [Handler = Meter Stats]: leave!")
 
