@@ -31,6 +31,7 @@ class SCHEDULE(app_manager.RyuApp):
         self.transfers = listdir(transdir)
         self.datapath = None
         self.packetin_counter = 0
+        self.monitor_frequency = 1
 
 
     def insert_actions(self, datapath, tid, match, pri, actions):
@@ -70,6 +71,14 @@ class SCHEDULE(app_manager.RyuApp):
         request = parser.OFPFlowStatsRequest(datapath, 0, tid, protocol.OFPP_ANY, protocol.OFPG_ANY, 0, 0, match)
         datapath.send_msg(request)
 
+    def request_flowstatsall(self, datapath, match):
+        protocol = datapath.ofproto
+        parser = datapath.ofproto_parser
+        cookie = cookie_mask = 0
+        request = parser.OFPFlowStatsRequest(datapath, 0, protocol.OFPTT_ALL, protocol.OFPP_ANY, protocol.OFPG_ANY, 0, 0, match)
+        datapath.send_msg(request)
+
+
     @set_ev_cls(ofp_event.EventOFPSwitchFeatures, CONFIG_DISPATCHER)
     def handler_switch_features(self, event):
         self.logger.info("SCHEDULE [Handler = Switch Features]: enter!")
@@ -93,9 +102,14 @@ class SCHEDULE(app_manager.RyuApp):
         for tran in self.transfers: transfile = open(transdir + tran)
         for line in transfile: self.flows.append(nesox.flow(int(line[0]), int(line[2]), int(line[6:].rstrip()), int(line[4])))
         for flow in self.flows: self.transfermap[(flow.source, flow.destination)] = flow
-        if (self.debug): self.logger.info("tramsfermap: %s", self.transfermap)
+        if self.debug: self.logger.info("tramsfermap: %s", self.transfermap)
 
         """
+        !!! Note: flow is defined by a match and a priority !!!
+        """
+
+        """
+        create flows (default)
         priority = 1
         initialize pipeline: (ANY) packet pass through the pipeline to controller
         """
@@ -107,6 +121,10 @@ class SCHEDULE(app_manager.RyuApp):
             tid = gototid
         self.insert_controller(datapath, tid, m, p)
 
+        """
+        monitor flows
+
+        """
         self.request_flowstats(datapath, tid, m)
 
         self.logger.info("SCHEDULE [Handler = Switch Features]: leave!")
@@ -131,13 +149,13 @@ class SCHEDULE(app_manager.RyuApp):
         counters = []
         for stat in flowstat:
             if stat.priority == 1:
-                counters.append((stat.table_id, stat.priority, stat.match, stat.byte_count, stat.packet_count))
-        if (self.debug): self.logger.info("counters: %s", counters)
+                counters.append((stat.table_id, stat.match, stat.priority, stat.packet_count, stat.byte_count))
+        if self.debug: self.logger.info("counters: %s", counters)
 
         tid = 203
         m = parser.OFPMatch()
+        sleep(self.monitor_frequency)
         self.request_flowstats(datapath, tid, m)
-        sleep(1)
 
         self.logger.info("SCHEDULE [Handler = Flow Stats]: leave!")
 
