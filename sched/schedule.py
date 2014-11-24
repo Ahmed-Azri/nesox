@@ -181,7 +181,7 @@ class SCHEDULE(app_manager.RyuApp):
         """
         monitor flows
         """
-        if self.monitor_on: self.request_flowstats(datapath, tid, m)
+        if self.monitor_on: self.request_flowstats(datapath, self.table_terminate, m)
 
 
         """
