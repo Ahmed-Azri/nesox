@@ -31,6 +31,7 @@ class SCHEDULE(app_manager.RyuApp):
         self.transfers = listdir(transdir)
         self.datapath = None
         self.packetin_counter = 0
+        self.monitor_on = True
         self.monitor_frequency = 1
 
 
@@ -152,6 +153,7 @@ class SCHEDULE(app_manager.RyuApp):
                 counters.append((stat.table_id, stat.match, stat.priority, stat.packet_count, stat.byte_count))
         if self.debug: self.logger.info("counters: %s", counters)
 
+        if !self.monitor_on : return
         tid = 203
         m = parser.OFPMatch()
         sleep(self.monitor_frequency)
