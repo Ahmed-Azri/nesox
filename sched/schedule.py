@@ -36,6 +36,9 @@ class SCHEDULE(app_manager.RyuApp):
         self.monitor_on = True
         self.monitor_frequency = 1
         self.pipeline_mode = True
+        self.packet_count = 0
+        self.byte_count = 0
+        self.packet_size = 0
 
 
     def insert_actions(self, datapath, tid, match, pri, actions):
@@ -177,6 +180,11 @@ class SCHEDULE(app_manager.RyuApp):
 
 
         """
+        The Ethernet MTU is 1500 bytes! (from google)
+        It means the largest IP packet (or some other payload) an Ethernet frame can contain is 1500 bytes.
+        """
+
+        """
         create meters (static)
         """
         rates = [20*1000, 40*1000, 80*1000, 100*1000, 0]
@@ -197,6 +205,7 @@ class SCHEDULE(app_manager.RyuApp):
         if self.monitor_on: self.request_meterfeature(datapath)
         if self.monitor_on: self.request_meterconfig(datapath)
         if self.monitor_on: self.request_meterstats(datapath)
+
 
 
         if self.trace: self.logger.info("SCHEDULE [Handler = Switch Features]: leave!")
@@ -222,6 +231,9 @@ class SCHEDULE(app_manager.RyuApp):
             if stat.priority == 1:
                 counters.append((stat.table_id, stat.match, stat.priority, stat.packet_count, stat.byte_count))
         if self.debug: self.logger.info("counters: %s", counters)
+        self.packet_size = (counters[0][4] - self.byte_count) / (counters[0][3] - self.packet_count)
+        if self.debug: self.logger.info("counters: %s", counters)
+        if self.debug: self.logger.info("packet size: %s", self.packet_size)
 
         tid = self.table_terminate
         m = parser.OFPMatch()
