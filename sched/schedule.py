@@ -29,7 +29,7 @@ class SCHEDULE(app_manager.RyuApp):
         self.transfers = listdir(transdir)
         self.datapath = None
 
-    def insert_output(self, datapath=self.datapath, tid, match, pri, port):
+    def insert_output(self, datapath, tid, match, pri, port):
         protocol = datapath.ofproto
         parser = datapath.ofproto_parser
         actions = [parser.OFPActionOutput(port)]
@@ -37,7 +37,7 @@ class SCHEDULE(app_manager.RyuApp):
         modification = parser.OFPFlowMod(datapath=datapath, table_id=tid, match=match, priority=pri, instructions=instructions)
         datapath.send_msg(modification)
 
-    def insert_goto(self, datapath=self.datapath, tid, match, pri, gototid):
+    def insert_goto(self, datapath, tid, match, pri, gototid):
         protocol = datapath.ofproto
         parser = datapath.ofproto_parser
         instructions = [parser.OFPInstructionGotoTable(gotoid)]
@@ -66,7 +66,6 @@ class SCHEDULE(app_manager.RyuApp):
         """
         initialize pipeline
         """
-
         tid = 100
         for gototid in self.soft_tables:
             m = parser.OFPMatch()
@@ -75,5 +74,6 @@ class SCHEDULE(app_manager.RyuApp):
             tid = gototid
 
         self.logger.info("SCHEDULE: Handler = Switch Features: leave!")
+
 
 
