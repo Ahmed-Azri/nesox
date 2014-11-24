@@ -166,6 +166,7 @@ class SCHEDULE(app_manager.RyuApp):
         create flows (service dispatching)
         priority = 2
         for data transfer service port family 8***
+        (still does NOT work!)
         """
         P = 2
         m = parser.OFPMatch(eth_type=0x0800, tcp_dst=8478)
@@ -175,9 +176,11 @@ class SCHEDULE(app_manager.RyuApp):
 
 
         """
-        create meters
+        create meters (static)
         """
-
+        rates = [0, 20*1000, 40*1000, 80*1000, 100*1000]
+        for mid in range(0, len(rates)):
+            self.insert_meter(datapath, mid, rates[mid])
 
         """
         monitor flows
