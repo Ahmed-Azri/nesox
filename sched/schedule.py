@@ -168,7 +168,7 @@ class SCHEDULE(app_manager.RyuApp):
         for data transfer service port family 8***
         """
         P = 2
-        m = parser.OFPMatch(eth_type = 0x800, tcp_src=8478)
+        m = parser.OFPMatch(eth_type=0x0800, tcp_src=8478)
         t = self.soft_table_id
         gototid = self.table_terminate
         self.insert_goto(datapath, t, m, p, gototid)
