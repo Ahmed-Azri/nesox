@@ -124,11 +124,11 @@ class SCHEDULE(app_manager.RyuApp):
 
         """
         monitor flows
-
         """
-        self.request_flowstats(datapath, tid, m)
+        if self.monitor_on: self.request_flowstats(datapath, tid, m)
 
         self.logger.info("SCHEDULE [Handler = Switch Features]: leave!")
+
 
     @set_ev_cls(ofp_event.EventOFPPacketIn, MAIN_DISPATCHER)
     def handler_packetin(self, event):
@@ -153,7 +153,7 @@ class SCHEDULE(app_manager.RyuApp):
                 counters.append((stat.table_id, stat.match, stat.priority, stat.packet_count, stat.byte_count))
         if self.debug: self.logger.info("counters: %s", counters)
 
-        if !self.monitor_on : return
+        if not self.monitor_on: return
         tid = 203
         m = parser.OFPMatch()
         sleep(self.monitor_frequency)
