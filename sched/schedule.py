@@ -31,5 +31,7 @@ class SCHEDULE(app_manager.RyuApp):
 
         transfermap[(1,2)].show(1)
 
+        for flow in flows: flow.show()
+
         self.logger.info("SCHEDULE: Handler = Switch Features: leave!")
 
