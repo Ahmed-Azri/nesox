@@ -19,6 +19,7 @@ class SCHEDULE(app_manager.RyuApp):
     def __init__(self, *args, **kwargs):
         super(SCHEDULE, self).__init__(*args, **kwargs)
         self.debug = 1
+        self.trace = 1
         self.table_start = 100
         self.table_terminate = 203
         self.hard_table_id = 100
@@ -121,7 +122,7 @@ class SCHEDULE(app_manager.RyuApp):
 
     @set_ev_cls(ofp_event.EventOFPSwitchFeatures, CONFIG_DISPATCHER)
     def handler_switch_features(self, event):
-        self.logger.info("SCHEDULE [Handler = Switch Features]: enter!")
+        if self.trace: self.logger.info("SCHEDULE [Handler = Switch Features]: enter!")
 
         """
         initialize packetin counter
@@ -198,20 +199,20 @@ class SCHEDULE(app_manager.RyuApp):
         if self.monitor_on: self.request_meterstats(datapath)
 
 
-        self.logger.info("SCHEDULE [Handler = Switch Features]: leave!")
+        if self.trace: self.logger.info("SCHEDULE [Handler = Switch Features]: leave!")
 
 
     @set_ev_cls(ofp_event.EventOFPPacketIn, MAIN_DISPATCHER)
     def handler_packetin(self, event):
-        self.logger.info("SCHEDULE [Handler = Packet In]: enter! [%s]", self.packetin_counter)
+        if self.trace: self.logger.info("SCHEDULE [Handler = Packet In]: enter! [%s]", self.packetin_counter)
         self.packetin_counter += 1
 
-        self.logger.info("SCHEDULE [Handler = Packet In]: leave!")
+        if self.trace: self.logger.info("SCHEDULE [Handler = Packet In]: leave!")
 
 
     @set_ev_cls(ofp_event.EventOFPFlowStatsReply, MAIN_DISPATCHER)
     def handler_flowstats(self, event):
-        self.logger.info("SCHEDULE [Handler = Flow Stats]: enter!")
+        if self.trace: self.logger.info("SCHEDULE [Handler = Flow Stats]: enter!")
         datapath = event.msg.datapath
         flowstat = event.msg.body
         parser = datapath.ofproto_parser
@@ -222,18 +223,17 @@ class SCHEDULE(app_manager.RyuApp):
                 counters.append((stat.table_id, stat.match, stat.priority, stat.packet_count, stat.byte_count))
         if self.debug: self.logger.info("counters: %s", counters)
 
-        if not self.monitor_on: return
         tid = self.table_terminate
         m = parser.OFPMatch()
         sleep(self.monitor_frequency)
-        self.request_flowstats(datapath, tid, m)
+        if self.monitor_on: self.request_flowstats(datapath, tid, m)
 
-        self.logger.info("SCHEDULE [Handler = Flow Stats]: leave!")
+        if self.trace: self.logger.info("SCHEDULE [Handler = Flow Stats]: leave!")
 
 
     @set_ev_cls(ofp_event.EventOFPMeterFeaturesStatsReply, MAIN_DISPATCHER)
     def handler_meterfeature(self, event):
-        self.logger.info("SCHEDULE [Handler = Meter Features]: enter!")
+        if self.trace: self.logger.info("SCHEDULE [Handler = Meter Features]: enter!")
         datapath = event.msg.datapath
         features = event.msg.body
 
@@ -242,12 +242,12 @@ class SCHEDULE(app_manager.RyuApp):
             meterfeatures.append((feature.max_meter, feature.band_types, feature.max_band, feature.capabilities))
         if self.debug: self.logger.info("meter features: %s", meterfeatures)
 
-        self.logger.info("SCHEDULE [Handler = Meter Features]: leave!")
+        if self.trace: self.logger.info("SCHEDULE [Handler = Meter Features]: leave!")
 
 
     @set_ev_cls(ofp_event.EventOFPMeterConfigStatsReply, MAIN_DISPATCHER)
     def handler_meterconfig(self, event):
-        self.logger.info("SCHEDULE [Handler = Meter Configurations]: enter!")
+        if self.trace: self.logger.info("SCHEDULE [Handler = Meter Configurations]: enter!")
         datapath = event.msg.datapath
         configs = event.msg.body
 
@@ -256,12 +256,12 @@ class SCHEDULE(app_manager.RyuApp):
             meterconfigs.append((config.meter_id, config.bands, config.flags, config.length))
         if self.debug: self.logger.info("meter configs: %s", meterconfigs)
 
-        self.logger.info("SCHEDULE [Handler = Meter Configurations]: leave!")
+        if self.trace: self.logger.info("SCHEDULE [Handler = Meter Configurations]: leave!")
 
 
     @set_ev_cls(ofp_event.EventOFPMeterStatsReply, MAIN_DISPATCHER)
     def handler_meterstats(self, event):
-        self.logger.info("SCHEDULE [Handler = Meter Stats]: enter!")
+        if self.trace: self.logger.info("SCHEDULE [Handler = Meter Stats]: enter!")
         datapath = event.msg.datapath
         stats = event.msg.body
 
@@ -269,9 +269,9 @@ class SCHEDULE(app_manager.RyuApp):
         for stat in stats:
             meterstats.append((stat.meter_id, stat.flow_count, stat.packet_in_count, stat.byte_in_count, stat.band_stats))
 
-        if self.debug: self.logger.info("meter configs: %s", meterstats)
+        if self.debug: self.logger.info("meters: %s", meterstats)
 
         sleep(self.monitor_frequency)
         if self.monitor_on: self.request_meterstats(datapath)
-        self.logger.info("SCHEDULE [Handler = Meter Stats]: leave!")
+        if self.trace: self.logger.info("SCHEDULE [Handler = Meter Stats]: leave!")
 
