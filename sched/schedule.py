@@ -169,7 +169,7 @@ class SCHEDULE(app_manager.RyuApp):
         """
         P = 2
         m = parser.OFPMatch(eth_type = 0x800, tcp_src=8478)
-        t = self.table_start + 1
+        t = self.soft_table_id
         gototid = self.table_terminate
         self.insert_goto(datapath, t, m, p, gototid)
 
@@ -182,6 +182,7 @@ class SCHEDULE(app_manager.RyuApp):
         """
         monitor flows
         """
+        m = parser.OFPMatch()
         if self.monitor_on: self.request_flowstats(datapath, self.table_terminate, m)
 
 
