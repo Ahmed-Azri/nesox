@@ -48,7 +48,7 @@ class SCHEDULE(app_manager.RyuApp):
     def insert_controller(self, datapath, tid, match, pri):
         protocol = datapath.ofproto
         parser = datapath.ofproto_parser
-        actions = [parser.OFPActionOutput(ofproto.OFPP_CONTROLLER, ofproto.OFPCML_NO_BUFFER)]
+        actions = [parser.OFPActionOutput(protocol.OFPP_CONTROLLER, protocol.OFPCML_NO_BUFFER)]
         instructions = [parser.OFPInstructionActions(protocol.OFPIT_APPLY_ACTIONS, actions)]
         modification = parser.OFPFlowMod(datapath=datapath, table_id=tid, match=match, priority=pri, instructions=instructions)
         datapath.send_msg(modification)
