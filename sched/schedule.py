@@ -130,7 +130,8 @@ class SCHEDULE(app_manager.RyuApp):
 
         counters = []
         for stat in flowstat:
-            counters.append((stat.table_id, stat.priority, stat.match, stat.byte_count))
+            if stat.priority == 1:
+                counters.append((stat.table_id, stat.priority, stat.match, stat.byte_count, stat.packet_count))
         if (self.debug): self.logger.info("counters: %s", counters)
 
         tid = 203
