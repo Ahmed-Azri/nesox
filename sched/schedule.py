@@ -126,6 +126,7 @@ class SCHEDULE(app_manager.RyuApp):
         """
         datapath = event.msg.datapath
         flowstat = event.msg.body
+        parser = datapath.ofproto_parser
 
         counters = []
         for stat in flowstat:
