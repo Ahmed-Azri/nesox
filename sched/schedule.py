@@ -40,7 +40,7 @@ class SCHEDULE(app_manager.RyuApp):
     def insert_goto(self, datapath, tid, match, pri, gototid):
         protocol = datapath.ofproto
         parser = datapath.ofproto_parser
-        instructions = [parser.OFPInstructionGotoTable(gotoid)]
+        instructions = [parser.OFPInstructionGotoTable(gototid)]
         modification = parser.OFPFlowMod(datapath=datapath, table_id=tid, match=match, priority=pri, instructions=instructions)
         datapath.send_msg(modification)
 
