@@ -18,6 +18,7 @@ class SCHEDULE(app_manager.RyuApp):
     def __init__(self, *args, **kwargs):
         super(SCHEDULE, self).__init__(*args, **kwargs)
         self.debug = 1
+        self.table_start = 100
         self.hard_table_id = 100
         self.hard_table_no = 1
         self.hard_tables = [100]
@@ -29,11 +30,26 @@ class SCHEDULE(app_manager.RyuApp):
         self.transfers = listdir(transdir)
         self.datapath = None
 
+    def insert_actions(self, datapath, tid, match, pri, actions):
+        protocol = datapath.ofproto
+        parser = datapath.ofproto_parser
+        instructions = [parser.OFPInstructionActions(protocol.OFPIT_APPLY_ACTIONS, actions)]
+        modification = parser.OFPFlowMod(datapath=datapath, table_id=tid, match=match, priority=pri, instructions=instructions)
+        datapath.send_msg(modification)
+
     def insert_output(self, datapath, tid, match, pri, port):
         protocol = datapath.ofproto
         parser = datapath.ofproto_parser
         actions = [parser.OFPActionOutput(port)]
-        instructions = [parser.OFPInstructionActions(protocol.OFPIT_APPLY_ACTIONS, action)]
+        instructions = [parser.OFPInstructionActions(protocol.OFPIT_APPLY_ACTIONS, actions)]
+        modification = parser.OFPFlowMod(datapath=datapath, table_id=tid, match=match, priority=pri, instructions=instructions)
+        datapath.send_msg(modification)
+
+    def insert_controller(self, datapath, tid, match, pri):
+        protocol = datapath.ofproto
+        parser = datapath.ofproto_parser
+        actions = [parser.OFPActionOutput(ofproto.OFPP_CONTROLLER, ofproto.OFPCML_NO_BUFFER)]
+        instructions = [parser.OFPInstructionActions(protocol.OFPIT_APPLY_ACTIONS, actions)]
         modification = parser.OFPFlowMod(datapath=datapath, table_id=tid, match=match, priority=pri, instructions=instructions)
         datapath.send_msg(modification)
 
@@ -65,16 +81,16 @@ class SCHEDULE(app_manager.RyuApp):
         if (self.debug): self.logger.info("tramsfermap: %s", self.transfermap)
 
         """
-        initialize pipeline
+        initialize pipeline: priority = 1
         """
-        tid = 100
+        tid = self.table_start
+        m = parser.OFPMatch()
+        p = 1
         for gototid in self.soft_tables:
-            m = parser.OFPMatch()
-            p = 4
             self.insert_goto(datapath, tid, m, p, gototid)
             tid = gototid
+        self.insert_controller(datapath, tid, m, p)
 
         self.logger.info("SCHEDULE: Handler = Switch Features: leave!")
-
 
 
