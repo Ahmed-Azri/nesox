@@ -132,6 +132,8 @@ class SCHEDULE(app_manager.RyuApp):
             counters.append((stat.table_id, stat.priority, stat.match, stat.byte_count))
         if (self.debug): self.logger.info("counters: %s", counters)
 
+        tip = 203
+        m = parser.OFPMatch()
         self.request_flowstats(datapath, tid, m)
         sleep(1)
 
