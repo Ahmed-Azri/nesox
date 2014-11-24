@@ -68,7 +68,7 @@ class SCHEDULE(app_manager.RyuApp):
         parser = datapath.ofproto_parser
         cookie = cookie_mask = 0
         request = parser.OFPFlowStatsRequest(datapath, 0, tid, protocol.OFPP_ANY, protocol.OFPG_ANY, 0, 0, match)
-        datapath.send_msg(req)
+        datapath.send_msg(request)
 
     @set_ev_cls(ofp_event.EventOFPSwitchFeatures, CONFIG_DISPATCHER)
     def handler_switch_features(self, event):
