@@ -54,6 +54,7 @@ class SCHEDULE(app_manager.RyuApp):
         """
         datapath = event.msg.datapath
         self.datapath = datapath
+        parser = datapath.ofproto_parser
 
         """
         read `transfer` requirement into a `list` and a `dictionary`
