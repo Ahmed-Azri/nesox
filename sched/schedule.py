@@ -153,13 +153,24 @@ class SCHEDULE(app_manager.RyuApp):
         priority = 1
         initialize pipeline: (ANY) packet pass through the pipeline to controller
         """
-        tid = self.table_start
-        m = parser.OFPMatch()
         p = 1
+        m = parser.OFPMatch()
+        t = self.table_start
         for gototid in self.soft_tables:
-            self.insert_goto(datapath, tid, m, p, gototid)
-            tid = gototid
-        self.insert_controller(datapath, tid, m, p)
+            self.insert_goto(datapath, t, m, p, gototid)
+            t = gototid
+        self.insert_controller(datapath, t, m, p)
+
+        """
+        create flows (service dispatching)
+        priority = 2
+        for data transfer service port family 8***
+        """
+        P = 2
+        m = parser.OFPMatch(eth_type = 0x800, tcp_src=8478)
+        t = self.table_start + 1
+        gototid = self.table_terminate
+        self.insert_goto(datapath, t, m, p, gototid)
 
 
         """
