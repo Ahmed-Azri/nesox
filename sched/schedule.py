@@ -151,7 +151,7 @@ class SCHEDULE(app_manager.RyuApp):
         """
         if self.monitor_on: self.request_meterfeature(datapath)
         if self.monitor_on: self.request_meterconfig(datapath)
-        if self.monitor_on: self.request_metertats(datapath)
+        if self.monitor_on: self.request_meterstats(datapath)
 
 
         self.logger.info("SCHEDULE [Handler = Switch Features]: leave!")
