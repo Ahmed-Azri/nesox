@@ -301,7 +301,7 @@ class SCHEDULE(app_manager.RyuApp):
         counters = []
         for stat in flowstat:
             if stat.priority > 0:
-                counters.append((stat.table_id, stat.match, stat.priority, stat.packet_count, stat.byte_count))
+                counters.append((stat.table_id, stat.match, stat.instructions, stat.priority, stat.packet_count, stat.byte_count))
         if self.debug: self.logger.info("counters: %s", counters)
 
         """
