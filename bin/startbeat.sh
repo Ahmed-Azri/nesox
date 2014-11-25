@@ -23,8 +23,8 @@ size=1048576
 size=10240
 size=16384
 
-scommand="nesox -l trace -g background -d $beat -r server -f $file $serverhost $beaterport"
-bcommand="nesox -l trace -g background -d $beat -r beater -s $size $serverhost $beaterport $frequency"
+scommand="nesox -l stats -g background -d $beat -r server -f $file $serverhost $beaterport"
+bcommand="nesox -l stats -g background -d $beat -r beater -s $size $serverhost $beaterport $frequency"
 
 sshscommand="ssh $user@$serverhost $scommand"
 sshbcommand="ssh $user@$beaterhost $bcommand"

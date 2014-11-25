@@ -259,7 +259,7 @@ int server(int background, char *host, short port, char *filename)
 			timepoint etransfer; timepin(&etransfer);
 			logtrace("data transfer time cost: %0.8f second(s)", timeint(stransfer, etransfer));
 
-			logstats("(%s:%hu)>>(%s:%hu):%c:%c:%ld:%0.8f:%0.8f:%0.8f",
+			logstats("[%04d](%s:%hu)>>(%s:%hu):%c:%c:%ld:%0.8f:%0.8f:%0.8f", counter,
 				host, port, counterparthost, counterpartport, gethostindex(host), gethostindex(counterparthost), numtransfer,
 				timeinstant(stransfer), timeinstant(etransfer), timeint(stransfer, etransfer));
 
