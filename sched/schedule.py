@@ -30,7 +30,7 @@ class SCHEDULE(app_manager.RyuApp):
         self.soft_table_id = 200
         self.soft_table_no = 4
         self.soft_tables = [200, 201, 202, 203]
-        self.table_learning = 201
+        self.table_learning = 200
 
         self.flows = []
         self.transfermap = {}
@@ -170,6 +170,8 @@ class SCHEDULE(app_manager.RyuApp):
             self.insert_goto(datapath, t, m, p, gototid)
             t = gototid
         self.insert_controller(datapath, t, m, p)
+        self.insert_controller(datapath, self.table_learning, m, p)
+
 
 
         """
