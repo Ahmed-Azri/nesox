@@ -37,6 +37,7 @@ class SCHEDULE(app_manager.RyuApp):
         self.datapath = None
         self.packetin_counter = 0
         self.monitor_on = True
+        self.monitor_priority = 1
         self.monitor_frequency = 1
         self.pipeline_mode = True
         self.packet_count = 0
@@ -300,14 +301,15 @@ class SCHEDULE(app_manager.RyuApp):
         """
         counters = []
         for stat in flowstat:
-            if stat.priority > 0:
+            if stat.priority > self.monitor_priority:
                 counters.append((stat.table_id, stat.match, stat.instructions, stat.priority, stat.packet_count, stat.byte_count))
         if self.debug: self.logger.info("counters: %s", counters)
+
 
         """
         caculate packet size
         """
-        if counters[0][3] != self.packet_count:
+        if (not counters) and (counters[-1][3] != self.packet_count):
             self.packet_size = (counters[0][4] - self.byte_count) / (counters[0][3] - self.packet_count)
         if self.debug: self.logger.info("packet size: %s", self.packet_size)
         self.byte_count = counters[0][4]
