@@ -45,6 +45,7 @@ class SCHEDULE(app_manager.RyuApp):
         self.byte_count = 0
         self.packet_size = 0
         self.addressportmap = {}
+        self.addresslearninglayer = 3
 
 
     def insert_actions(self, datapath, tid, match, pri, actions):
@@ -257,21 +258,42 @@ class SCHEDULE(app_manager.RyuApp):
         dethernet = inlayer2.dst
 
         """
+        IP (layer3) addresses (source, destination)
+        """
+        if inlayer3 is not None:
+            sip = inlayer3.src
+            dip = inlayer3.dst
+            if self.debug: self.logger.info("packetin:(%s) >> (%s)", sip, dip)
+
+        """
         initialize `addressportmap` using `datapathid` as primary key
         """
         datapathid = datapath.id
-        self.addressportmap.setdefault(datapathid, {})
+        self.addressportmap.setdefault((datapathid, 2), {})
+        self.addressportmap.setdefault((datapathid, 3), {})
 
         """
         learn the `packet in` mapping of address and port
         """
-        self.addressportmap[datapathid][sethernet] = inport
+        self.addressportmap[(datapathid, 2)][sethernet] = inport
+        if inlayer3 is not None: self.addressportmap[(datapathid, 3)][sip] = inport
 
         """
         look up the learned dictionary for destination port (otherwise, flood the packet)
         """
-        if dethernet in self.addressportmap[datapathid]:
-            outport = self.addressportmap[datapathid][dethernet]
+        if (inlayer3 is not None) and (dip in self.addressportmap[(datapathid, 3)]):
+            outport = self.addressportmap[(datapathid, 3)][dip]
+            t = self.table_learning
+            m = parser.OFPMatch(eth_type = 0x0800, ipv4.dst = dip)
+            p = 3
+            mid = 1
+            actions = [parser.OFPActionOutput(outport)]
+            instructions = [parser.OFPInstructionActions(protocol.OFPIT_APPLY_ACTIONS, actions),parser.OFPInstructionMeter(meter_id=mid)]
+            modification = parser.OFPFlowMod(datapath=datapath, table_id=t, match=m, priority=p, instructions=instructions)
+            datapath.send_msg(modification)
+
+        if dethernet in self.addressportmap[(datapathid, 2)]:
+            outport = self.addressportmap[(datapathid, 2)][dethernet]
             t = self.table_learning
             # m = parser.OFPMatch(in_port = inport, eth_dst = dethernet)
             m = parser.OFPMatch(eth_type = 0x0800, eth_dst = dethernet)
@@ -293,15 +315,6 @@ class SCHEDULE(app_manager.RyuApp):
         actions = [parser.OFPActionOutput(outport)]
         packetout = parser.OFPPacketOut(datapath=datapath, buffer_id=message.buffer_id, in_port=inport, actions=actions, data=data)
         datapath.send_msg(packetout)
-
-
-        """
-        IP (layer3) addresses (source, destination)
-        """
-        if inlayer3 is not None:
-            sip = inlayer3.src
-            dip = inlayer3.dst
-            if self.debug: self.logger.info("packetin:(%s) >> (%s)", sip, dip)
 
 
         if self.trace: self.logger.info("SCHEDULE [Handler = Packet In]: leave!")
