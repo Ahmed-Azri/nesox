@@ -201,7 +201,7 @@ class SCHEDULE(app_manager.RyuApp):
         monitor flows
         """
         m = parser.OFPMatch()
-        if self.monitor_on: self.request_flowstats(datapath, self.table_terminate, m)
+        if self.monitor_on: self.request_flowstats(datapath, self.table_learning, m)
 
 
         """
@@ -318,7 +318,7 @@ class SCHEDULE(app_manager.RyuApp):
         """
         request `reading counter`
         """
-        tid = self.table_terminate
+        tid = self.table_learning
         m = parser.OFPMatch()
         sleep(self.monitor_frequency)
         if self.monitor_on: self.request_flowstats(datapath, tid, m)
