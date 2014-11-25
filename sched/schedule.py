@@ -277,6 +277,7 @@ class SCHEDULE(app_manager.RyuApp):
             p = 2
             t = self.table_learning
             self.insert_output(datapath, t, m, p, outport)
+            sleep(2)
             self.attach_meter(datapath, t, m, p, 1)
         else: outport = protocol.OFPP_FLOOD
 
