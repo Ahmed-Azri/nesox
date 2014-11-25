@@ -21,8 +21,8 @@ if [ "$3" != "" ]; then frequency="$3"; fi
 size=104857600
 size=1048576
 
-scommand="nesox -g background -d $beat -r server -f $file $serverhost $beaterport"
-bcommand="nesox -g background -d $beat -r beater -s $size $serverhost $beaterport $frequency"
+scommand="nesox -l trace -g background -d $beat -r server -f $file $serverhost $beaterport"
+bcommand="nesox -l trace -g background -d $beat -r beater -s $size $serverhost $beaterport $frequency"
 
 sshscommand="ssh $user@$serverhost $scommand"
 sshbcommand="ssh $user@$beaterhost $bcommand"
