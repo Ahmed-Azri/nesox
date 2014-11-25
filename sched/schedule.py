@@ -293,7 +293,7 @@ class SCHEDULE(app_manager.RyuApp):
             t = self.table_learning
             m = parser.OFPMatch(eth_type = 0x0800, ipv4_dst = dip)
             p = 3
-            mid = 5
+            mid = 4
             actions = [parser.OFPActionOutput(outport)]
             instructions = [parser.OFPInstructionActions(protocol.OFPIT_APPLY_ACTIONS, actions),parser.OFPInstructionMeter(meter_id=mid)]
             modification = parser.OFPFlowMod(datapath=datapath, table_id=t, match=m, priority=p, instructions=instructions)
