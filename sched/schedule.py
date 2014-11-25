@@ -20,6 +20,7 @@ class SCHEDULE(app_manager.RyuApp):
         super(SCHEDULE, self).__init__(*args, **kwargs)
         self.debug = 1
         self.trace = 0
+
         self.table_start = 100
         self.table_terminate = 203
         self.hard_table_id = 100
@@ -28,6 +29,8 @@ class SCHEDULE(app_manager.RyuApp):
         self.soft_table_id = 200
         self.soft_table_no = 4
         self.soft_tables = [200, 201, 202, 203]
+        self.table_learning = 203
+
         self.flows = []
         self.transfermap = {}
         self.transfers = listdir(transdir)
@@ -39,6 +42,7 @@ class SCHEDULE(app_manager.RyuApp):
         self.packet_count = 0
         self.byte_count = 0
         self.packet_size = 0
+        self.addressportmap = {}
 
 
     def insert_actions(self, datapath, tid, match, pri, actions):
@@ -214,8 +218,73 @@ class SCHEDULE(app_manager.RyuApp):
     @set_ev_cls(ofp_event.EventOFPPacketIn, MAIN_DISPATCHER)
     def handler_packetin(self, event):
         if self.trace: self.logger.info("SCHEDULE [Handler = Packet In]: enter! [%s]", self.packetin_counter)
+        """
+        increment `packet in` counter
+        """
         self.packetin_counter += 1
 
+        """
+        initialize ryu event driven class hierarchy
+        """
+        message = event.msg
+        datapath = message.datapath
+        protocol = datapath.ofproto
+        parser = datapath.ofproto_parser
+        data = message.data
+        inport = message.match['in_port']
+
+        """
+        parse `packet in` data using Ethernet/IP stack
+        """
+        inpacket = packet.Packet(data)
+        inlayer2 = inpacket.get_protocols(ethernet.ethernet)[0]
+        inlayer3 = inpacket.get_protocol(ipv4.ipv4)
+
+        """
+        Ethernet (layer2) addresses (source, destination)
+        """
+        sethernet = inlayer2.src
+        dethernet = inlayer2.dst
+
+        """
+        IP (layer3) addresses (source, destination)
+        """
+        if inlayer3 is not None:
+            sip = inlayer3.src
+            dip = inlayer3.dst
+
+        """
+        initialize `addressportmap` using `datapathid` as primary key
+        """
+        datapathid = datapath.id
+        self.addressportmap.setdefault(datapathid, {})
+
+        """
+        learn the `packet in` mapping of address and port
+        """
+        self.addressportmap[datapathid][sethernet] = inport
+
+        """
+        look up the learned dictionary for destination port (otherwise, flood the packet)
+        """
+        if dethernet in self.addressportmap[datapathid]:
+            outport = self.addressportmap[datapathid][dethernet]
+            m = parser.OFPMatch(in_port = inport, eth_dst = dethernet)
+            p = 2
+            t = self.table_learning
+            self.insert_output(datapath, t, m, p, outport)
+        else: outport = protocol.OFPP_FLOOD
+
+        """
+        send the packet out from controller to its destination port
+        """
+        if message.buffer_id == protocol.OFP_NO_BUFFER: data = message.data
+        actions = [parser.OFPActionOutput(outport)]
+        packetout = parser.OFPPacketOut(datapath=datapath, buffer_id=message.buffer_id, in_port=inport, actions=actions, data=data)
+        datapath.send_msg(packetout)
+
+
+        if self.debug: self.logger.info("packetin:(%s) >> (%s)", sip, dip)
         if self.trace: self.logger.info("SCHEDULE [Handler = Packet In]: leave!")
 
 
