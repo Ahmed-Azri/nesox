@@ -18,8 +18,8 @@ class SCHEDULE(app_manager.RyuApp):
 
     def __init__(self, *args, **kwargs):
         super(SCHEDULE, self).__init__(*args, **kwargs)
-        self.point = 1
-        self.debug = 0
+        self.point = 0
+        self.debug = 1
         self.trace = 0
 
         self.table_start = 100
@@ -77,6 +77,13 @@ class SCHEDULE(app_manager.RyuApp):
         modification = parser.OFPFlowMod(datapath=datapath, table_id=tid, match=match, priority=pri, instructions=instructions)
         datapath.send_msg(modification)
 
+    def attach_meter(self, datapath, tid, match, pri, mid):
+        protocol = datapath.ofproto
+        parser = datapath.ofproto_parser
+        instructions = [parser.OFPInstructionMeter(meter_id=mid)]
+        modification = parser.OFPFlowMod(datapath=datapath, table_id=tid, command=protocol.OFPFC_MODIFY, match=match, instructions=instructions)
+        datapath.send_msg(modification)
+
     def request_flowstats(self, datapath, tid, match):
         protocol = datapath.ofproto
         parser = datapath.ofproto_parser
@@ -127,7 +134,6 @@ class SCHEDULE(app_manager.RyuApp):
         parser = datapath.ofproto_parser
         modification = parser.OFPMeterMod(datapath=datapath, command=protocol.OFPMC_DELETE, meter_id=mid)
         datapath.send_msg(modification)
-
 
     @set_ev_cls(ofp_event.EventOFPSwitchFeatures, CONFIG_DISPATCHER)
     def handler_switch_features(self, event):
@@ -194,6 +200,7 @@ class SCHEDULE(app_manager.RyuApp):
 
         """
         create meters (static)
+        meter id: 1 - 5
         """
         rates = [20*1000, 40*1000, 80*1000, 100*1000, 0]
         for mid in range(0, len(rates)):
@@ -270,6 +277,7 @@ class SCHEDULE(app_manager.RyuApp):
             p = 2
             t = self.table_learning
             self.insert_output(datapath, t, m, p, outport)
+            self.attach_meter(datapath, t, m, p, 1)
         else: outport = protocol.OFPP_FLOOD
 
         """
@@ -288,6 +296,7 @@ class SCHEDULE(app_manager.RyuApp):
             sip = inlayer3.src
             dip = inlayer3.dst
             if self.debug: self.logger.info("packetin:(%s) >> (%s)", sip, dip)
+
 
         if self.trace: self.logger.info("SCHEDULE [Handler = Packet In]: leave!")
 

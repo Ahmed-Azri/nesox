@@ -2372,7 +2372,7 @@ class OFPFlowMod(MsgBase):
             inst = [ofp_parser.OFPInstructionActions(ofp.OFPIT_APPLY_ACTIONS,
                                                      actions)]
             req = ofp_parser.OFPFlowMod(datapath, cookie, cookie_mask,
-                                        table_id, ofp.OFPFC_ADD,
+                                        table_id, ofp.OFPFC_ADD,`
                                         idle_timeout, hard_timeout,
                                         priority, buffer_id,
                                         ofp.OFPP_ANY, ofp.OFPG_ANY,
