@@ -295,17 +295,27 @@ class SCHEDULE(app_manager.RyuApp):
         flowstat = event.msg.body
         parser = datapath.ofproto_parser
 
+        """
+        book monitored counters into `counters`
+        """
         counters = []
         for stat in flowstat:
-            if stat.priority == 1:
+            if stat.priority > 0:
                 counters.append((stat.table_id, stat.match, stat.priority, stat.packet_count, stat.byte_count))
         if self.debug: self.logger.info("counters: %s", counters)
+
+        """
+        caculate packet size
+        """
         if counters[0][3] != self.packet_count:
             self.packet_size = (counters[0][4] - self.byte_count) / (counters[0][3] - self.packet_count)
         if self.debug: self.logger.info("packet size: %s", self.packet_size)
         self.byte_count = counters[0][4]
         self.packet_count = counters[0][3]
 
+        """
+        request `reading counter`
+        """
         tid = self.table_terminate
         m = parser.OFPMatch()
         sleep(self.monitor_frequency)
