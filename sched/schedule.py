@@ -312,10 +312,11 @@ class SCHEDULE(app_manager.RyuApp):
         caculate packet size
         """
         if (counters) and (counters[-1][4] != self.packet_count):
-            self.packet_size = (counters[0][5] - self.byte_count) / (counters[0][4] - self.packet_count)
+            self.packet_size = (counters[-1][5] - self.byte_count) / (counters[-1][4] - self.packet_count)
         if self.debug: self.logger.info("packet size: %s", self.packet_size)
-        self.byte_count = counters[0][5]
-        self.packet_count = counters[0][4]
+        if counters:
+            self.byte_count = counters[-1][5]
+            self.packet_count = counters[-1][4]
 
         """
         request `reading counter`
