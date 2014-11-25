@@ -30,7 +30,7 @@ class SCHEDULE(app_manager.RyuApp):
         self.soft_table_id = 200
         self.soft_table_no = 4
         self.soft_tables = [200, 201, 202, 203]
-        self.table_learning = 203
+        self.table_learning = 201
 
         self.flows = []
         self.transfermap = {}
