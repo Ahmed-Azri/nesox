@@ -274,7 +274,7 @@ class SCHEDULE(app_manager.RyuApp):
             outport = self.addressportmap[datapathid][dethernet]
             t = self.table_learning
             # m = parser.OFPMatch(in_port = inport, eth_dst = dethernet)
-            m = parser.OFPMatch(eth_dst = dethernet)
+            m = parser.OFPMatch(eth_type = 0x0800, eth_dst = dethernet)
             p = 2
             mid = 1
             # self.insert_output(datapath, t, m, p, outport)
