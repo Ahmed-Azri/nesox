@@ -247,13 +247,6 @@ class SCHEDULE(app_manager.RyuApp):
         dethernet = inlayer2.dst
 
         """
-        IP (layer3) addresses (source, destination)
-        """
-        if inlayer3 is not None:
-            sip = inlayer3.src
-            dip = inlayer3.dst
-
-        """
         initialize `addressportmap` using `datapathid` as primary key
         """
         datapathid = datapath.id
@@ -284,7 +277,14 @@ class SCHEDULE(app_manager.RyuApp):
         datapath.send_msg(packetout)
 
 
-        if self.debug: self.logger.info("packetin:(%s) >> (%s)", sip, dip)
+        """
+        IP (layer3) addresses (source, destination)
+        """
+        if inlayer3 is not None:
+            sip = inlayer3.src
+            dip = inlayer3.dst
+            if self.debug: self.logger.info("packetin:(%s) >> (%s)", sip, dip)
+
         if self.trace: self.logger.info("SCHEDULE [Handler = Packet In]: leave!")
 
 
