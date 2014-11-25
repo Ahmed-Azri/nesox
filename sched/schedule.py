@@ -18,7 +18,8 @@ class SCHEDULE(app_manager.RyuApp):
 
     def __init__(self, *args, **kwargs):
         super(SCHEDULE, self).__init__(*args, **kwargs)
-        self.debug = 1
+        self.point = 1
+        self.debug = 0
         self.trace = 0
 
         self.table_start = 100
@@ -304,16 +305,17 @@ class SCHEDULE(app_manager.RyuApp):
             if stat.priority > self.monitor_priority:
                 counters.append((stat.table_id, stat.match, stat.instructions, stat.priority, stat.packet_count, stat.byte_count))
         if self.debug: self.logger.info("counters: %s", counters)
+        if self.point: self.logger.info("counters: %s", counters)
 
 
         """
         caculate packet size
         """
-        if (not counters) and (counters[-1][3] != self.packet_count):
-            self.packet_size = (counters[0][4] - self.byte_count) / (counters[0][3] - self.packet_count)
+        if (not counters) and (counters[-1][4] != self.packet_count):
+            self.packet_size = (counters[0][5] - self.byte_count) / (counters[0][4] - self.packet_count)
         if self.debug: self.logger.info("packet size: %s", self.packet_size)
-        self.byte_count = counters[0][4]
-        self.packet_count = counters[0][3]
+        self.byte_count = counters[0][5]
+        self.packet_count = counters[0][4]
 
         """
         request `reading counter`
