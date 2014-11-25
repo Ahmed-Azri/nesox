@@ -20,6 +20,8 @@ if [ "$3" != "" ]; then frequency="$3"; fi
 
 size=104857600
 size=1048576
+size=10240
+size=16384
 
 scommand="nesox -l trace -g background -d $beat -r server -f $file $serverhost $beaterport"
 bcommand="nesox -l trace -g background -d $beat -r beater -s $size $serverhost $beaterport $frequency"
