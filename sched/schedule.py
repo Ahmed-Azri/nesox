@@ -300,7 +300,8 @@ class SCHEDULE(app_manager.RyuApp):
             if stat.priority == 1:
                 counters.append((stat.table_id, stat.match, stat.priority, stat.packet_count, stat.byte_count))
         if self.debug: self.logger.info("counters: %s", counters)
-        if counters[0][3] != 0: self.packet_size = (counters[0][4] - self.byte_count) / (counters[0][3] - self.packet_count)
+        if counters[0][3] != self.packet_count:
+            self.packet_size = (counters[0][4] - self.byte_count) / (counters[0][3] - self.packet_count)
         if self.debug: self.logger.info("packet size: %s", self.packet_size)
         self.byte_count = counters[0][4]
         self.packet_count = counters[0][3]
