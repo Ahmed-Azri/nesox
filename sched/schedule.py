@@ -116,11 +116,18 @@ class SCHEDULE(app_manager.RyuApp):
         request = parser.OFPMeterStatsRequest(datapath, 0, protocol.OFPM_ALL)
         datapath.send_msg(request)
 
-    def insert_meter(self, datapath, mid, rate):
+    def insert_bytemeter(self, datapath, mid, rate):
         protocol = datapath.ofproto
         parser = datapath.ofproto_parser
         bands = [parser.OFPMeterBandDrop(rate=rate)]
         modification = parser.OFPMeterMod(datapath=datapath, flags=protocol.OFPMF_KBPS, meter_id=mid, bands=bands)
+        datapath.send_msg(modification)
+
+    def insert_packetmeter(self, datapath, mid, rate):
+        protocol = datapath.ofproto
+        parser = datapath.ofproto_parser
+        bands = [parser.OFPMeterBandDrop(rate=rate)]
+        modification = parser.OFPMeterMod(datapath=datapath, flags=protocol.OFPMF_PKTPS, meter_id=mid, bands=bands)
         datapath.send_msg(modification)
 
     def change_meter(self, datapath, mid, rate):
@@ -202,9 +209,9 @@ class SCHEDULE(app_manager.RyuApp):
         create meters (static)
         meter id: 1 - 5
         """
-        rates = [20*1000, 40*1000, 80*1000, 100*1000, 0]
+        rates = [1000, 100, 10, 1, 0]
         for mid in range(0, len(rates)):
-            self.insert_meter(datapath, mid+1, rates[mid])
+            self.insert_bytemeter(datapath, mid+1, rates[mid])
 
 
         """
@@ -295,17 +302,11 @@ class SCHEDULE(app_manager.RyuApp):
         if dethernet in self.addressportmap[(datapathid, 2)]:
             outport = self.addressportmap[(datapathid, 2)][dethernet]
             t = self.table_learning
-            # m = parser.OFPMatch(in_port = inport, eth_dst = dethernet)
             m = parser.OFPMatch(eth_type = 0x0800, eth_dst = dethernet)
             p = 2
             mid = 1
-            # self.insert_output(datapath, t, m, p, outport)
-            # self.attach_meter(datapath, t, m, p, mid)
-            actions = [parser.OFPActionOutput(outport)]
-            # instructions = [parser.OFPInstructionActions(protocol.OFPIT_APPLY_ACTIONS, actions),parser.OFPInstructionMeter(meter_id=mid)]
-            instructions = [parser.OFPInstructionActions(protocol.OFPIT_APPLY_ACTIONS, actions)]
-            modification = parser.OFPFlowMod(datapath=datapath, table_id=t, match=m, priority=p, instructions=instructions)
-            datapath.send_msg(modification)
+            self.insert_output(datapath, t, m, p, outport)
+            self.attach_meter(datapath, t, m, p, mid)
         else: outport = protocol.OFPP_FLOOD
 
         """
