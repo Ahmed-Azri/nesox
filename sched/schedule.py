@@ -18,8 +18,8 @@ class SCHEDULE(app_manager.RyuApp):
 
     def __init__(self, *args, **kwargs):
         super(SCHEDULE, self).__init__(*args, **kwargs)
-        self.point = 0
-        self.debug = 1
+        self.point = 1
+        self.debug = 0
         self.trace = 0
 
         self.table_start = 100
@@ -209,9 +209,9 @@ class SCHEDULE(app_manager.RyuApp):
         create meters (static)
         meter id: 1 - 5
         """
-        rates = [1000, 100, 10, 1, 0]
+        rates = [100, 50, 10, 1, 0]
         for mid in range(0, len(rates)):
-            self.insert_bytemeter(datapath, mid+1, rates[mid])
+            self.insert_packetmeter(datapath, mid+1, rates[mid])
 
 
         """
