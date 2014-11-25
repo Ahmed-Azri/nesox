@@ -30,7 +30,7 @@ class SCHEDULE(app_manager.RyuApp):
         self.soft_table_id = 200
         self.soft_table_no = 4
         self.soft_tables = [200, 201, 202, 203]
-        self.table_learning = 200
+        self.table_learning = 100
 
         self.flows = []
         self.transfermap = {}
@@ -179,7 +179,6 @@ class SCHEDULE(app_manager.RyuApp):
         self.insert_controller(datapath, self.table_learning, m, p)
 
 
-
         """
         create flows (service dispatching)
         priority = 2
@@ -284,7 +283,6 @@ class SCHEDULE(app_manager.RyuApp):
             # instructions = [parser.OFPInstructionActions(protocol.OFPIT_APPLY_ACTIONS, actions)]
             modification = parser.OFPFlowMod(datapath=datapath, table_id=t, match=m, priority=p, instructions=instructions)
             datapath.send_msg(modification)
-
         else: outport = protocol.OFPP_FLOOD
 
         """
