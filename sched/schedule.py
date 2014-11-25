@@ -209,7 +209,7 @@ class SCHEDULE(app_manager.RyuApp):
         create meters (static)
         meter id: 1 - 5
         """
-        rates = [5, 2, 1, 0.1, 0]
+        rates = [4, 3, 2, 1, 0]
         for mid in range(0, len(rates)):
             self.insert_packetmeter(datapath, mid+1, rates[mid])
 
@@ -293,7 +293,7 @@ class SCHEDULE(app_manager.RyuApp):
             t = self.table_learning
             m = parser.OFPMatch(eth_type = 0x0800, ipv4_dst = dip)
             p = 3
-            mid = 2
+            mid = 5
             actions = [parser.OFPActionOutput(outport)]
             instructions = [parser.OFPInstructionActions(protocol.OFPIT_APPLY_ACTIONS, actions),parser.OFPInstructionMeter(meter_id=mid)]
             modification = parser.OFPFlowMod(datapath=datapath, table_id=t, match=m, priority=p, instructions=instructions)
