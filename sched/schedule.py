@@ -273,12 +273,17 @@ class SCHEDULE(app_manager.RyuApp):
         """
         if dethernet in self.addressportmap[datapathid]:
             outport = self.addressportmap[datapathid][dethernet]
+            t = self.table_learning
             m = parser.OFPMatch(in_port = inport, eth_dst = dethernet)
             p = 2
-            t = self.table_learning
-            self.insert_output(datapath, t, m, p, outport)
-            sleep(2)
-            self.attach_meter(datapath, t, m, p, 1)
+            mid = 1
+            # self.insert_output(datapath, t, m, p, outport)
+            # self.attach_meter(datapath, t, m, p, mid)
+            actions = [parser.OFPActionOutput(outport)]
+            instructions = [parser.OFPInstructionActions(protocol.OFPIT_APPLY_ACTIONS, actions),parser.OFPInstructionMeter(meter_id=mid)]
+            modification = parser.OFPFlowMod(datapath=datapath, table_id=t, match=m, priority=p, instructions=instructions)
+            datapath.send_msg(modification)
+
         else: outport = protocol.OFPP_FLOOD
 
         """
