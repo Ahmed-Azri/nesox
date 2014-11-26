@@ -219,9 +219,10 @@ class SCHEDULE(app_manager.RyuApp):
         create meters (static)
         meter id: 1 - 5
         """
-        # rates = [4, 3, 2, 1, 0]
-        # for mid in range(0, len(rates)):
-        #     self.insert_packetmeter(datapath, mid+1, rates[mid])
+        rates = [4, 3, 2, 1, 0]
+        for mid in range(0, len(rates)):
+            self.insert_packetmeter(datapath, mid+1, rates[mid])
+            self.meter_id = mid
 
 
         """
