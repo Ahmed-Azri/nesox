@@ -364,8 +364,8 @@ class SCHEDULE(app_manager.RyuApp):
             if (match.__contains__('eth_type')) and (match.get(key='eth_type') == 0x0800):
                 if self.debug: self.logger.info("Yes ......!!!")
                 if self.debug: self.logger.info("counter: %s", counter)
-                if (match.__contains__('ipv4_src')): s = match.get(key=ipv4_src)[-1]
-                if (match.__contains__('ipv4_dst')): d = match.get(key=ipv4_dst)[-1]
+                if (match.__contains__('ipv4_src')): s = match.get(key='ipv4_src')[-1]
+                if (match.__contains__('ipv4_dst')): d = match.get(key='ipv4_dst')[-1]
         if self.debug: self.logger.info("flow: (%s)>>(%s)", s, d)
 
 
