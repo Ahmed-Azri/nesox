@@ -395,7 +395,7 @@ class SCHEDULE(app_manager.RyuApp):
                 if (f.source, f.destination) in self.matches:
                     match = self.matches[(f.source, f.destination)]
                     if (self.table_learning, match, 3) in self.meters:
-                        mid = self.meters[]
+                        mid = self.meters[(self.table_learning, match, 3)]
                         if self.debug: self.logger.info("[%s]: %s [%s]", f, rate, mid)
                 # self.change_meter(datapath, mid, rate)
 
