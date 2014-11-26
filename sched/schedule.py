@@ -379,7 +379,7 @@ class SCHEDULE(app_manager.RyuApp):
                 s = int(sip[-1])
                 d = int(dip[-1])
                 self.matches[(s,d)] = match
-                f = self.transfermap((s,d))
+                f = self.transfermap[(s,d)]
                 f.remaining -= bytecount * self.adapter
         for f in self.flows: remaining += f.remaining
         if self.debug: self.logger.info("%s", self.flows)
