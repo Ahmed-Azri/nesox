@@ -357,10 +357,9 @@ class SCHEDULE(app_manager.RyuApp):
         """
         for counter in counters:
             match = counter[1]
-            if (match.eth_type) and (match.eth_type == 0x0800) and (match.ipv4_src) and (match.ipv4_dst):
+            if (hasattr(match, 'eth_type')) and (match.eth_type == 0x0800) and (match.ipv4_src) and (match.ipv4_dst):
                 s = match.ipv4_src[-1]
                 d = match.ipv4_dst[-1]
-
 
 
         """
