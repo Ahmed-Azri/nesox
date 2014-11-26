@@ -393,7 +393,7 @@ class SCHEDULE(app_manager.RyuApp):
             for f in self.flows:
                 f.ratio = f.remaining / float(remaining)
                 rate = f.ratio * self.throughput
-                if self.debug: self.logger.info("!!!rate: %s!!!", rate)
+                if self.debug: self.logger.info("!!!(%s,%s) - rate: %s!!!", f.source, f.destination, rate)
                 if (f.source, f.destination) in self.matches:
                     match = self.matches[(f.source, f.destination)]
                     if (self.table_learning, match, 3) in self.meters:
