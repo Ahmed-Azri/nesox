@@ -384,6 +384,7 @@ class SCHEDULE(app_manager.RyuApp):
                 if f.remaining < 0: f.remaining = 0
         for f in self.flows: remaining += f.remaining
         if self.debug: self.logger.info("%s", self.flows)
+        if self.debug: self.logger.info("remaining: %s", remaining)
 
         """
         caculate `rates` to assign to `flows`
