@@ -166,10 +166,10 @@ class SCHEDULE(app_manager.RyuApp):
         parser = datapath.ofproto_parser
 
         self.datapath = datapath
-
         """
         read `transfer` requirement into a `list` and a `dictionary`
         """
+        self.flows = []
         for tran in self.transfers: transfile = open(transdir + tran)
         for line in transfile: self.flows.append(nesox.flow(int(line[0]), int(line[2]), int(line[6:].rstrip()), int(line[4])))
         for flow in self.flows: self.transfermap[(flow.source, flow.destination)] = flow
