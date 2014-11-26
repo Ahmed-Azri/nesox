@@ -12,6 +12,7 @@ class flow:
 		self.source = source
 		self.destination = destination
 		self.datasize = datasize
+		self.remaining = datasize
 		self.stime = stime
 		self.etime = etime
 		self.interval = interval

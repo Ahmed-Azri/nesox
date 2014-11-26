@@ -18,8 +18,8 @@ class SCHEDULE(app_manager.RyuApp):
 
     def __init__(self, *args, **kwargs):
         super(SCHEDULE, self).__init__(*args, **kwargs)
-        self.point = 1
-        self.debug = 0
+        self.point = 0
+        self.debug = 1
         self.trace = 0
 
         self.table_start = 100
@@ -35,6 +35,7 @@ class SCHEDULE(app_manager.RyuApp):
         self.flows = []
         self.transfermap = {}
         self.transfers = listdir(transdir)
+
         self.datapath = None
         self.packetin_counter = 0
         self.monitor_on = False
@@ -291,7 +292,7 @@ class SCHEDULE(app_manager.RyuApp):
         if (inlayer3 is not None) and (dip in self.addressportmap[(datapathid, 3)]):
             outport = self.addressportmap[(datapathid, 3)][dip]
             t = self.table_learning
-            m = parser.OFPMatch(eth_type = 0x0800, ipv4_dst = dip)
+            m = parser.OFPMatch(eth_type = 0x0800, ipv4_src = sip, ipv4_dst = dip)
             p = 3
             mid = 4
             actions = [parser.OFPActionOutput(outport)]
@@ -348,6 +349,19 @@ class SCHEDULE(app_manager.RyuApp):
         if counters:
             self.byte_count = counters[-1][5]
             self.packet_count = counters[-1][4]
+
+        """
+        caculate remaining bytes to transfer
+        """
+
+
+        """
+        caculate `rates` to assign to `flows`
+        """
+
+        """
+        attatch `meters` (rates) on flows
+        """
 
         """
         request `reading counter`
