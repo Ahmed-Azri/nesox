@@ -38,6 +38,9 @@ class SCHEDULE(app_manager.RyuApp):
         self.OFflows = []
         self.meters = {}
         self.matches = {}
+        self.meter_id = 1
+        self.packet_meter_rate = 100
+        self.byte_meter_rate = 60000
 
         self.throughput = 1000000
         self.adapter = 1
@@ -216,9 +219,9 @@ class SCHEDULE(app_manager.RyuApp):
         create meters (static)
         meter id: 1 - 5
         """
-        rates = [4, 3, 2, 1, 0]
-        for mid in range(0, len(rates)):
-            self.insert_packetmeter(datapath, mid+1, rates[mid])
+        # rates = [4, 3, 2, 1, 0]
+        # for mid in range(0, len(rates)):
+        #     self.insert_packetmeter(datapath, mid+1, rates[mid])
 
 
         """
@@ -301,7 +304,9 @@ class SCHEDULE(app_manager.RyuApp):
             # m = parser.OFPMatch(eth_type = 0x0800, ipv4_dst = dip)
             m = parser.OFPMatch(eth_type = 0x0800, ipv4_src = sip, ipv4_dst = dip)
             p = 3
-            mid = 1
+            mid = self.meter_id
+            self.meter_id += 1
+            self.insert_packetmeter(datapath, mid, self.packet_meter_rate)
             actions = [parser.OFPActionOutput(outport)]
             instructions = [parser.OFPInstructionActions(protocol.OFPIT_APPLY_ACTIONS, actions),parser.OFPInstructionMeter(meter_id=mid)]
             modification = parser.OFPFlowMod(datapath=datapath, table_id=t, match=m, priority=p, instructions=instructions)
@@ -315,7 +320,9 @@ class SCHEDULE(app_manager.RyuApp):
             t = self.table_learning
             m = parser.OFPMatch(eth_type = 0x0800, eth_dst = dethernet)
             p = 2
-            mid = 1
+            mid = self.meter_id
+            self.meter_id += 1
+            self.insert_bytemeter(datapath, mid, self.byte_meter_rate)
             self.insert_output(datapath, t, m, p, outport)
             self.attach_meter(datapath, t, m, p, mid)
             f = (t,m,p)
