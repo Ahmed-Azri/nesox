@@ -380,7 +380,8 @@ class SCHEDULE(app_manager.RyuApp):
                 d = int(dip[-1])
                 self.matches[(s,d)] = match
                 f = self.transfermap[(s,d)]
-                f.remaining -= bytecount * self.adapter
+                if f.remaining > 0: f.remaining -= bytecount * self.adapter
+                if f.remaining < 0: f.remaining = 0
         for f in self.flows: remaining += f.remaining
         if self.debug: self.logger.info("%s", self.flows)
 
@@ -392,6 +393,7 @@ class SCHEDULE(app_manager.RyuApp):
             for f in self.flows:
                 f.ratio = f.remaining / float(remaining)
                 rate = f.ratio * self.throughput
+                if self.debug: self.logger.info("!!!rate: %s!!!", rate)
                 if (f.source, f.destination) in self.matches:
                     match = self.matches[(f.source, f.destination)]
                     if (self.table_learning, match, 3) in self.meters:
