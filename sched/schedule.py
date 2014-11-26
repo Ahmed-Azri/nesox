@@ -383,7 +383,6 @@ class SCHEDULE(app_manager.RyuApp):
                 if f.remaining > 0: f.remaining -= bytecount * self.adapter
                 if f.remaining < 0: f.remaining = 0
         for f in self.flows: remaining += f.remaining
-        if self.debug: self.logger.info("%s", self.flows)
         if self.debug: self.logger.info("remaining: %s", remaining)
 
         """
@@ -400,7 +399,7 @@ class SCHEDULE(app_manager.RyuApp):
                     if (self.table_learning, match, 3) in self.meters:
                         mid = self.meters[(self.table_learning, match, 3)]
                         if self.debug: self.logger.info("[%s]: %s [%s]", f, rate, mid)
-                # self.change_meter(datapath, mid, rate)
+                        self.change_meter(datapath, mid, rate)
 
         """
         request `reading counter`
