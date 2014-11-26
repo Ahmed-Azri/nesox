@@ -35,7 +35,12 @@ class SCHEDULE(app_manager.RyuApp):
         self.flows = []
         self.transfermap = {}
         self.transfers = listdir(transdir)
+        self.OFflows = []
+        self.meters = {}
+        self.matches = {}
 
+        self.throughput = 1000000
+        self.adapter = 1
         self.datapath = None
         self.packetin_counter = 0
         self.monitor_on = False
@@ -301,6 +306,9 @@ class SCHEDULE(app_manager.RyuApp):
             instructions = [parser.OFPInstructionActions(protocol.OFPIT_APPLY_ACTIONS, actions),parser.OFPInstructionMeter(meter_id=mid)]
             modification = parser.OFPFlowMod(datapath=datapath, table_id=t, match=m, priority=p, instructions=instructions)
             datapath.send_msg(modification)
+            f = (t,m,p)
+            self.OFflows.append(f)
+            self.meters[f] = mid
 
         if dethernet in self.addressportmap[(datapathid, 2)]:
             outport = self.addressportmap[(datapathid, 2)][dethernet]
@@ -310,6 +318,9 @@ class SCHEDULE(app_manager.RyuApp):
             mid = 1
             self.insert_output(datapath, t, m, p, outport)
             self.attach_meter(datapath, t, m, p, mid)
+            f = (t,m,p)
+            self.OFflows.append(f)
+            self.meters[f] = mid
         else: outport = protocol.OFPP_FLOOD
 
         """
@@ -355,27 +366,34 @@ class SCHEDULE(app_manager.RyuApp):
         """
         caculate remaining bytes to transfer
         """
-        s = '0'
-        d = '0'
+        remaining = 0
+
         for counter in counters:
-            if self.debug: self.logger.info("counter: %s", counter)
             match = counter[1]
-            if self.debug: self.logger.info("match: %s", match)
+            packetcount = counter[4]
+            bytecount = counter[5]
             if (match.__contains__('eth_type')) and (match.get(key='eth_type') == 0x0800):
-                if self.debug: self.logger.info("counter: %s", counter)
                 if (match.__contains__('ipv4_src')): sip = match.get(key='ipv4_src')
                 if (match.__contains__('ipv4_dst')): dip = match.get(key='ipv4_dst')
                 if self.debug: self.logger.info("(%s)>>(%s)", sip, dip)
-
-
+                s = int(sip[-1])
+                d = int(dip[-1])
+                self.matches[(s,d)] = match
+                f = self.transfermap((s,d))
+                f.remaining -= bytecount * self.adapter
+        for f in self.flows: remaining += f.remaining
 
         """
         caculate `rates` to assign to `flows`
-        """
-
-        """
         attatch `meters` (rates) on flows
         """
+        if remaining != 0:
+            for f in self.flows:
+                f.ratio = f.remaining / float(remaining)
+                rate = f.ratio * self.throughput
+                mid = self.meters[(self.table_learning, self.matches[(f.source, f.destination)], 3)]
+                if self.debug: self.logger.info("[%s]: %s [%s]", f, rate, mid)
+                # self.change_meter(datapath, mid, rate)
 
         """
         request `reading counter`

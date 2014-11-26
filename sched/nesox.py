@@ -13,6 +13,7 @@ class flow:
 		self.destination = destination
 		self.datasize = datasize
 		self.remaining = datasize
+		self.ratio = 0
 		self.stime = stime
 		self.etime = etime
 		self.interval = interval
