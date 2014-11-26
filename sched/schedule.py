@@ -293,7 +293,8 @@ class SCHEDULE(app_manager.RyuApp):
         if (inlayer3 is not None) and (dip in self.addressportmap[(datapathid, 3)]):
             outport = self.addressportmap[(datapathid, 3)][dip]
             t = self.table_learning
-            m = parser.OFPMatch(eth_type = 0x0800, ipv4_src = sip, ipv4_dst = dip)
+            # m = parser.OFPMatch(eth_type = 0x0800, ipv4_src = sip, ipv4_dst = dip)
+            m = parser.OFPMatch(eth_type = 0x0800, ipv4_dst = dip)
             p = 3
             mid = 1
             actions = [parser.OFPActionOutput(outport)]
