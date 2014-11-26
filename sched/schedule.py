@@ -391,7 +391,8 @@ class SCHEDULE(app_manager.RyuApp):
             for f in self.flows:
                 f.ratio = f.remaining / float(remaining)
                 rate = f.ratio * self.throughput
-                mid = self.meters[(self.table_learning, self.matches[(f.source, f.destination)], 3)]
+                match = self.matches[(f.source, f.destination)]
+                mid = self.meters[(self.table_learning, match, 3)]
                 if self.debug: self.logger.info("[%s]: %s [%s]", f, rate, mid)
                 # self.change_meter(datapath, mid, rate)
 
