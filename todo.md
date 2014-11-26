@@ -98,8 +98,8 @@ https://h10145.www1.hp.com/downloads/SoftwareReleases.aspx?ProductNumber=J9726A&
 
 
 final experiment:
-1. meter effectiveness
-2. shuffle samples show algorithmic effectiveness
+1. meter effectiveness (done)
+2. shuffle samples show algorithmic effectiveness (to do static)
 
 
 
