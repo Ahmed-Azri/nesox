@@ -362,7 +362,7 @@ class SCHEDULE(app_manager.RyuApp):
             if (hasattr(match, 'eth_type')) and (match.eth_type == 0x0800):
                 if (hasattr(match, 'ipv4_src')): s = match.ipv4_src[-1]
                 if (hasattr(match, 'ipv4_dst')): d = match.ipv4_dst[-1]
-        if self.debug: self.logger.info("flow: (s)>>(d)", s, d)
+        if self.debug: self.logger.info("flow: (%s)>>(%s)", s, d)
 
 
         """
