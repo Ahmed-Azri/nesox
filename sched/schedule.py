@@ -46,8 +46,8 @@ class SCHEDULE(app_manager.RyuApp):
         self.adapter = 1
         self.datapath = None
         self.packetin_counter = 0
-        self.monitor_on = False
         self.monitor_on = True
+        self.monitor_on = False
         self.monitor_priority = 0
         self.monitor_frequency = 1
         self.pipeline_mode = True
