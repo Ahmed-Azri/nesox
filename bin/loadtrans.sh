@@ -23,7 +23,7 @@ do
 	snode="$nodeprefix$s"
 	dnode="$nodeprefix$d"
 	sport="${portfamily:0:1}${portprefix:1:2}$d"
-	delay="$delaysec$million"
+	delay="$delaysec0$million"
 
 	shellcommand="if [ -e $loadhome ]; then echo 'exits!'; else mkdir -p $loadhome; fi"
 	sshcommand="ssh $user@$dnode $shellcommand"
