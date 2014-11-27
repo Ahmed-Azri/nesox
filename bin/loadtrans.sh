@@ -19,11 +19,11 @@ do
 	d="${line:2:1}"
 	datasize="${line:6}"
 	delaysec="${line:4:1}"
-	printf "%s->%d:%s:%s\n" $s $d $datasize $delaysec
+	printf "%s->%d:%s:%s\n" $s $d $datasize "$delaysec""0"
 	snode="$nodeprefix$s"
 	dnode="$nodeprefix$d"
 	sport="${portfamily:0:1}${portprefix:1:2}$d"
-	delay="$delaysec0$million"
+	delay="$delaysec""0""$million"
 
 	shellcommand="if [ -e $loadhome ]; then echo 'exits!'; else mkdir -p $loadhome; fi"
 	sshcommand="ssh $user@$dnode $shellcommand"
